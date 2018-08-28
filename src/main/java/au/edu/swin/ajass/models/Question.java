@@ -22,9 +22,10 @@ public abstract class Question {
     private String prompt;
     protected boolean correct;
 
-    public Question(QuestionType type, Difficulty difficulty) {
+    public Question(QuestionType type, Difficulty difficulty, String prompt) {
         this.type = type;
         this.difficulty = difficulty;
+        this.prompt = prompt;
 
         // By default, a new Question is non-issued and not marked.
         this.issued = false;
