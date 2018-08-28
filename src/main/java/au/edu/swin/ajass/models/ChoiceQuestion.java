@@ -7,12 +7,14 @@ import java.util.Set;
 
 public abstract class ChoiceQuestion extends Question {
 
-    private String[] answers; // Correct Choices
+    private final String[] answers; // Correct Choices
     private String[] answer; // Student's answers
-    private String[] choices; // Question choices
+    private final String[] choices; // Question choices
 
-    public ChoiceQuestion(QuestionType type, Difficulty difficulty, String prompt) {
+    public ChoiceQuestion(QuestionType type, Difficulty difficulty, String prompt, String[] answers, String[] choices) {
         super(type, difficulty, prompt);
+        this.answers = answers;
+        this.choices = choices;
     }
 
     @Override
@@ -44,6 +46,19 @@ public abstract class ChoiceQuestion extends Question {
      */
     public void answer(Set<String> answers) {
         // .toArray only requires an empty array
-        this.answers = answers.toArray(new String[0]);
+        this.answer = answers.toArray(new String[0]);
     }
+
+    public String[] getAnswer() {
+        return answer;
+    }
+
+    public String[] getChoices() {
+        return choices;
+    }
+
+    public String[] getAnswers() {
+        return answers;
+    }
+
 }

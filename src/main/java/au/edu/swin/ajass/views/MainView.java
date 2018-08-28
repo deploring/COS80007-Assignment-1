@@ -1,6 +1,5 @@
 package au.edu.swin.ajass.views;
 
-import au.edu.swin.ajass.models.ExamState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +16,6 @@ import java.awt.*;
  */
 public class MainView extends JFrame {
 
-    private final ExamState state;
     private final TCView terms;
 
     public MainView() {
@@ -28,6 +26,5 @@ public class MainView extends JFrame {
 
         add(terms, BorderLayout.CENTER);
 
-        state = new ExamState(15 * 60);
     }
 }
