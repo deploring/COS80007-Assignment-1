@@ -19,7 +19,8 @@ public abstract class Question {
     private final Difficulty difficulty;
 
     private boolean issued;
-    private boolean correct;
+    private String prompt;
+    protected boolean correct;
 
     public Question(QuestionType type, Difficulty difficulty) {
         this.type = type;
@@ -39,12 +40,6 @@ public abstract class Question {
     public abstract void checkAnswer();
 
     /**
-     * This method is called when the Question is
-     * presented to the user on the screen.
-     */
-    public abstract void onPresent();
-
-    /**
      * @return The test category of this question.
      */
     public QuestionType getType() {
@@ -56,6 +51,13 @@ public abstract class Question {
      */
     public Difficulty getDifficulty() {
         return difficulty;
+    }
+
+    /**
+     * @return Question prompt. Every question has a prompt.
+     */
+    public String getPrompt() {
+        return prompt;
     }
 
     /**

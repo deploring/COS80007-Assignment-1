@@ -1,6 +1,6 @@
 package au.edu.swin.ajass.views;
 
-import au.edu.swin.ajass.controllers.ExamState;
+import au.edu.swin.ajass.models.ExamState;
 
 import javax.swing.*;
 import java.awt.*;
