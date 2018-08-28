@@ -18,7 +18,7 @@ public abstract class Question {
     private final QuestionType type;
     private final Difficulty difficulty;
 
-    private boolean issued;
+    private boolean answered;
     private String prompt;
     protected boolean correct;
 
@@ -27,8 +27,8 @@ public abstract class Question {
         this.difficulty = difficulty;
         this.prompt = prompt;
 
-        // By default, a new Question is non-issued and not marked.
-        this.issued = false;
+        // By default, a new Question is not answered and not marked.
+        this.answered = false;
         this.correct = false;
     }
 
@@ -69,9 +69,29 @@ public abstract class Question {
     }
 
     /**
-     * @return Whether this Question has been taken out of the Question Bank.
+     * This method should be overridden in the case that
+     * a question's marks can be modified, such as when a
+     * SpellingQuestion offers a hint to the user.
+     *
+     * @return Amount of marks this question is worth.
+     * @see SpellingQuestion
      */
-    public boolean isIssued(){
-        return issued;
+    public double getMarksEarnt() {
+        return difficulty.getMarks();
+    }
+
+    /**
+     * Marks that this question has been answered, finalised, and marked.
+     */
+    public void setAnswered() {
+        if (answered) throw new IllegalStateException("Cannot re-finalise question");
+        this.answered = true;
+    }
+
+    /**
+     * @return Whether this has had its answer checked.
+     */
+    public boolean isAnswered() {
+        return answered;
     }
 }

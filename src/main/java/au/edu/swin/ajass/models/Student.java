@@ -1,16 +1,20 @@
 package au.edu.swin.ajass.models;
 
 /**
- *  @author Bradley Chick, Joshua Skinner
+ * Represents the user, or a student, in the assignment specification.
+ * Their information is contained within this Model, as is the login
+ * information to access the software.
+ *
+ * @author Bradley Chick, Joshua Skinner
  * @version 1
  * @since 0.1
  */
 
-public class Student {
+public final class Student {
 
-    public String studentID, schoolName;
-    public String loginPIN;
-    public Long timeCreated;
+    private String studentID, schoolName;
+    private String loginPIN;
+    private Long timeCreated;
 
     public Student(String studentID, String schoolName) {
         this.studentID = studentID;
@@ -24,11 +28,11 @@ public class Student {
      * @return random loginPIN generated
      */
     private String generatePin() {
-        String PIN = "";
+        StringBuilder PIN = new StringBuilder();
         for (int i = 0; i < 4; i++) {
-            PIN += (int)(Math.random() * 10) + "";
+            PIN.append((int) (Math.random() * 10));
         }
-        return PIN;
+        return PIN.toString();
     }
 
     /**

@@ -1,6 +1,7 @@
 package au.edu.swin.ajass.models;
 
-import java.io.File;
+import au.edu.swin.ajass.enums.Difficulty;
+import au.edu.swin.ajass.enums.QuestionType;
 
 /**
  * QuestionBank holds instances of QuestionCache and
@@ -11,10 +12,9 @@ import java.io.File;
  *
  * @author Joshua Skinner, Bradley Chick
  * @version 1
- * @since 0.1
- *
  * @see QuestionCache
  * @see QuestionFactory
+ * @since 0.1
  */
 public class QuestionBank {
 
@@ -24,8 +24,8 @@ public class QuestionBank {
     /**
      * Set instances of QuestionCache and QuestionFactory
      */
-    public QuestionBank(File file) {
-        cache = new QuestionCache(file);
+    public QuestionBank(String config) {
+        cache = new QuestionCache(config);
         factory = new QuestionFactory();
     }
 
@@ -35,7 +35,17 @@ public class QuestionBank {
      * it asks QuestionFactory, else, other questions (Maths,
      * Listening, Image) are retrieved from QuestionCache
      */
-    public Question retrieve() {
-        return null;
+    public Question retrieveQuestion(QuestionType category, Difficulty difficulty) {
+        switch (category) {
+            case WRITING:
+            case SPELLING:
+                return factory.retrieveQuestion(category, difficulty);
+            case MATHS:
+            case LISTENING:
+            case IMAGE:
+                return cache.retrieveQuestion(category, difficulty);
+            default:
+                throw new IllegalArgumentException("Invalid category supplied");
+        }
     }
 }
