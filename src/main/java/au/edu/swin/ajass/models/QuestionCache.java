@@ -9,13 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Question Cache gives access to sorted questions through a file.
- * Questions are in a random order and returned differently
- * each test.
+ * Question Cache gives access to questions through a JAR resource file.
+ * Questions are in a random order and returned differently each time.
  *
  * Questions addressed by the QuestionCache have finite, predefined
- * answers. These questions can be loaded from an external file
- * and retrieved and answered when they are needed.
+ * answers. These questions can be loaded from an internal file, then
+ * retrieved and answered when they are needed.
  *
  * @author Joshua Skinner, Bradley Chick
  * @version 1
@@ -23,22 +22,20 @@ import java.util.Map;
  */
 public class QuestionCache {
 
-    /**
-     * A Map which maps QuestionType(s) and Difficulty(s) to a List of Questions
-     */
+    // Map which maps QuestionType(s) and Difficulty(s) to a specific List.
     private final Map<QuestionType, Map<Difficulty, List<Question>>> questionMap;
 
-    public QuestionCache(File file) {
+    public QuestionCache(String config) {
         questionMap = new HashMap<>();
 
         //TODO: load in questions
     }
 
-    private void load(File file) {
+    private void load(String config) {
 
     }
 
-    public Question retrieveQuestion(QuestionType type, Difficulty diff) {
+    public Question retrieveQuestion(QuestionType category, Difficulty diff) {
 
         return null;
     }

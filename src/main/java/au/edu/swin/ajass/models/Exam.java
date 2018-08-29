@@ -10,22 +10,32 @@ import java.util.LinkedList;
  * overall, since it is a collection of multiple
  * test categories under an overall time limit.
  *
- * @author Joshua Skinner,
+ * @author Joshua Skinner
  * @version 1
  * @since 0.1
  */
 public class Exam {
 
     private volatile int timeRemaining;
-    private LinkedList<Test> tests;
-    private Thread timer;
+    private final LinkedList<Test> tests;
+    private final Thread timer;
+
+    private Student student;
+    private double possibleMarks;
+    private double totalMarks;
 
     public Exam(int totalTime) {
         this.tests = new LinkedList<>();
-        this.timeRemaining = timeRemaining;
+        this.timeRemaining = totalTime;
 
-        // TODO: Call this when the first test is commenced.
-        //new Thread(new ExamTimer()).run();
+        timer = new Thread(new ExamTimer());
+    }
+
+    /**
+     * Call this when the user enters their login and starts the exam.
+     */
+    public void start() {
+        if (timer.isAlive() || timer.isInterrupted()) throw new IllegalStateException("Exam has already been started");
     }
 
     /**
@@ -58,6 +68,31 @@ public class Exam {
     }
 
     /**
+     * Adds accrued marks onto the exam total.
+     *
+     * @param total Total possible marks earnt.
+     * @param earnt Actual marks earnt.
+     */
+    public void accrueMarks(double total, double earnt) {
+        this.totalMarks += total;
+        this.possibleMarks += earnt;
+    }
+
+    /**
+     * @return The total amount of marks that are possible to get so far.
+     */
+    public double getPossibleMarks() {
+        return possibleMarks;
+    }
+
+    /**
+     * @return The total amount of marks that have been earnt so far.
+     */
+    public double getTotalMarks() {
+        return totalMarks;
+    }
+
+    /**
      * This timer decrements the amount of
      * time remaining for the whole exam.
      *
@@ -74,12 +109,10 @@ public class Exam {
                 synchronized ((Integer) timeRemaining) {
                     timeRemaining--;
                 }
-            } catch (InterruptedException e) {
-                // This will never happen in normal operation.
-            } finally {
                 // Continue running this thread until instructed to stop.
-                //TODO: Will infinitely call itself. It should terminate the exam when time reaches zero.
                 run();
+            } catch (InterruptedException e) {
+                // The thread should stop once it is interrupted.
             }
         }
     }

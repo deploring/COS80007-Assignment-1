@@ -8,18 +8,33 @@ import java.util.LinkedList;
 /**
  * This class can represent any type of test based on
  * what question type is given to it at instantiation.
+ * Tests are responsible for keeping track of questions,
+ * time, difficulty, and category.
  */
-public class Test {
+public final class Test {
 
-    private LinkedList<Question> questions;
-    private QuestionType category;
+    private final LinkedList<Question> questions;
+    private final QuestionType category;
     private Difficulty currentDifficulty;
     private volatile int elapsed;
-    private Thread timer;
+    private final Thread timer;
 
     public Test(QuestionType category) {
         this.category = category;
+        questions = new LinkedList<>();
         currentDifficulty = Difficulty.MEDIUM;
+        timer = new Thread(new TestTimer());
+    }
+
+    /**
+     * A test is active if there are questions remaining
+     * or if the final question has not been answered.
+     *
+     * @return Whether test is active.
+     */
+    public boolean isActive() {
+        if (questions.size() < getMaxQuestions()) return false;
+        return !questions.getLast().isAnswered();
     }
 
     /**
@@ -42,6 +57,20 @@ public class Test {
      */
     public Difficulty getCurrentDifficulty() {
         return currentDifficulty;
+    }
+
+    /**
+     * @return The most recently issued/unanswered (current) question.
+     */
+    public Question getCurrentQuestion() {
+        return questions.getLast();
+    }
+
+    /**
+     * @return Number of questions this test receives before terminating.
+     */
+    public int getMaxQuestions() {
+        return category.getMaxQuestions();
     }
 
     /**
@@ -72,11 +101,10 @@ public class Test {
                 synchronized ((Integer) elapsed) {
                     elapsed++;
                 }
-            } catch (InterruptedException e) {
-                // This will never happen in normal operation.
-            } finally {
-                // Continue running this thread until instructed to stop.
+                // Continue running this thread until interrupted.
                 run();
+            } catch (InterruptedException e) {
+                // The thread should be interrupted once the test is no longer active.
             }
         }
     }

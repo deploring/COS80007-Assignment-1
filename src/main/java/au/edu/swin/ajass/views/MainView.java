@@ -27,12 +27,5 @@ public class MainView extends JFrame {
 
         add(terms, BorderLayout.CENTER);
 
-
-    }
-
-    public class Runn implements Runnable {
-        public void run(){
-            System.out.println("hello");
-        }
     }
 }
