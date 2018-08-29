@@ -16,10 +16,9 @@ import java.util.LinkedList;
  */
 public class Exam {
 
-    private volatile int timeRemaining;
     private final LinkedList<Test> tests;
     private final Thread timer;
-
+    private volatile int timeRemaining;
     private Student student;
     private double possibleMarks;
     private double totalMarks;

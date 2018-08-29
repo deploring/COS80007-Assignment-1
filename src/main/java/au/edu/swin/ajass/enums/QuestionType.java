@@ -25,7 +25,7 @@ public enum QuestionType {
     /**
      * @return Maximum amount of questions that can be issued for this type of test category.
      */
-    public int getMaxQuestions(){
+    public int getMaxQuestions() {
         return maxQuestions;
     }
 }

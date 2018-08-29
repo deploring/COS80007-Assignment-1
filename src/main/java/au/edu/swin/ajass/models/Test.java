@@ -15,9 +15,9 @@ public final class Test {
 
     private final LinkedList<Question> questions;
     private final QuestionType category;
+    private final Thread timer;
     private Difficulty currentDifficulty;
     private volatile int elapsed;
-    private final Thread timer;
 
     public Test(QuestionType category) {
         this.category = category;

@@ -11,8 +11,8 @@ import java.awt.*;
  * T&C View, Login View, and the Exam View.
  *
  * @author Joshua Skinner
- * @since 0.1
  * @version 1
+ * @since 0.1
  */
 public class MainView extends JFrame {
 

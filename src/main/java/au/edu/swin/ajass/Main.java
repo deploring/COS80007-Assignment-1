@@ -7,10 +7,10 @@ import javax.swing.*;
 /**
  * Serves the express purpose of instantiating the Main View.
  *
- * @see MainView
  * @author Joshua Skinner
- * @since 0.1
  * @version 1
+ * @see MainView
+ * @since 0.1
  */
 public class Main {
 

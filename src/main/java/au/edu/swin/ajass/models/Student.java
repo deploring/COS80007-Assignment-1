@@ -25,6 +25,7 @@ public final class Student {
 
     /**
      * Generate a random PIN for the user to access the test
+     *
      * @return random loginPIN generated
      */
     private String generatePin() {

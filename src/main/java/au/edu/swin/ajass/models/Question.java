@@ -17,10 +17,9 @@ public abstract class Question {
 
     private final QuestionType type;
     private final Difficulty difficulty;
-
+    protected boolean correct;
     private boolean answered;
     private String prompt;
-    protected boolean correct;
 
     public Question(QuestionType type, Difficulty difficulty, String prompt) {
         this.type = type;

@@ -25,11 +25,10 @@ import java.util.Set;
  */
 public class ImageQuestion extends Question {
 
+    private static int CORRECT_RANGE = 20; // Range, in pixels, around the required region that will be considered correct.
     private final Point2D[] answers; // Required clickable regions
     private final Set<Point2D> answer; // User clicked regions
-
     private final String imageFileLoc;
-    private static int CORRECT_RANGE = 20; // Range, in pixels, around the required region that will be considered correct.
 
     /**
      * Image-Question specific parameters.

@@ -21,12 +21,13 @@ import java.util.Set;
 public class ChoiceQuestion extends Question {
 
     private final String[] answers; // Required answers
-    private String[] answer; // User answers
     private final String[] choices; // Question choices (not all are correct)
+    private String[] answer; // User answers
 
     /**
      * Choice-Question specific parameters.
      * Refer to Question superclass for other param descriptions.
+     *
      * @param answers Required answers that the user must have.
      * @param choices Choices for this question. Not all are correct.
      * @see Question
