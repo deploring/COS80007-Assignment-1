@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class QuestionCache {
             load(config);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new IllegalStateException(String.format("Unable to load questions into cache due to  %s: %s", e.getClass().getTypeName(), e.getMessage()));
+            throw new IllegalStateException(String.format("Unable to load questions into cache due to %s: %s", e.getClass().getTypeName(), e.getMessage()));
         }
     }
 
@@ -51,21 +52,20 @@ public class QuestionCache {
      */
     private void load(String config) throws IOException {
         JSONParser parser = new JSONParser();
-        JSONObject object;
+        JSONObject root;
         try {
-            object = (JSONObject) parser.parse(new InputStreamReader(this.getClass().getResourceAsStream(config), "UTF-8"));
+            root = (JSONObject) parser.parse(new InputStreamReader(QuestionCache.class.getResourceAsStream(String.format("%s%s", File.separator, config)), "UTF-8"));
         } catch (IOException | ParseException e) {
             throw new IOException(String.format("Unable to load properties from %s", config));
         }
 
-        for (Object key : object.keySet()) {
-            if (!(key instanceof String))
-                throw new IOException(String.format("Expected String, got %s", key.getClass().getTypeName()));
-            QuestionType category = QuestionType.valueOf((String) key);
-            JSONArray array = (JSONArray) object.get(key);
+        for (Object element : root.keySet()) {
+            if (!(element instanceof String))
+                throw new IOException(String.format("Expected String, got %s", element.getClass().getTypeName()));
+            QuestionType category = QuestionType.valueOf((String) element);
 
             // Parse each individual question, then place it into the correct mapped List.
-            for (Object question : array)
+            for (Object question : (JSONArray) root.get(element))
                 placeQuestion(parseQuestion(category, (JSONObject) question));
 
         }
@@ -84,7 +84,7 @@ public class QuestionCache {
         switch (category) {
             case MATHS:
                 String prompt = (String) question.get("prompt");
-                Difficulty difficulty = Difficulty.valueOf((String) question.get("prompt"));
+                Difficulty difficulty = Difficulty.valueOf((String) question.get("difficulty"));
                 String[] options = convertJSONArrayToStringArray((JSONArray) question.get("options"));
                 String[] answers = convertJSONArrayToStringArray((JSONArray) question.get("answer"));
                 result = new ChoiceQuestion(category, difficulty, prompt, options, answers);
