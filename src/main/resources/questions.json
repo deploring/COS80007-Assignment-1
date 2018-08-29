@@ -1,0 +1,52 @@
+{
+  "MATHS": [
+    {
+      "prompt": "Find the sum of the digits of 10^11 - 1.",
+      "difficulty": "EASY",
+      "options": [
+        "81",
+        "108",
+        "99",
+        "90"
+      ],
+      "answer": "99"
+    },
+    {
+      "prompt": "F = (x-a)(x-b)(x-c)(x-d)...(x-y)(x-z). Find F.",
+      "difficulty": "EASY",
+      "options": [
+        "Infinitely Big",
+        "Infinitely Small",
+        "Zero",
+        "Insufficient Information"
+      ],
+      "answer": "Zero"
+    },
+    {
+      "prompt": "What is 111% of a number, if 132 is 11% of that number?",
+      "difficulty": "MEDIUM",
+      "options": [
+        "1234",
+        "1432",
+        "1332",
+        "1412"
+      ],
+      "answer": "1332"
+    },
+    {
+      "prompt": "How many times larger than 10^5 is 10^10?",
+      "difficulty": "MEDIUM",
+      "options": [
+        "100,000x",
+        "10,000x",
+        "1,000x",
+        "100x"
+      ],
+      "answer": "100x"
+    },
+  ],
+  "LISTENING": [
+  ],
+  "IMAGE": [
+  ]
+}
