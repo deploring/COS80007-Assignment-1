@@ -1,6 +1,8 @@
 package au.edu.swin.ajass.views;
 
 
+import au.edu.swin.ajass.controllers.ExamController;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -19,6 +21,8 @@ public class MainView extends JFrame {
     //private final ExamState state;
     private final TCView terms;
 
+    private final ExamController test;
+
     public MainView() {
         super("Advanced Java Assignment One - Adaptive Test");
         setLayout(new BorderLayout());
@@ -26,6 +30,7 @@ public class MainView extends JFrame {
         terms = new TCView();
 
         add(terms, BorderLayout.CENTER);
+        test = new ExamController();
 
     }
 }

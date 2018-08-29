@@ -37,6 +37,7 @@ public class QuestionCache {
         try {
             load(config);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new IllegalStateException(String.format("Unable to load questions into cache due to  %s: %s", e.getClass().getTypeName(), e.getMessage()));
         }
     }

@@ -17,6 +17,16 @@
         <finalName>${project.name}</finalName>
         <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
         <testSourceDirectory>${basedir}/src/test/</testSourceDirectory>
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>${basedir}/</directory>
+                <includes>
+                    <include>questions.json</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <!-- Compile the code using Java SE 1.8 -->
@@ -39,6 +49,27 @@
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <!-- Shade plugin: Used to include JSON library in the JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>com.googlecode.json-simple:json-simple</include>
+                                </includes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
