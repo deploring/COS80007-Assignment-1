@@ -24,6 +24,7 @@ public final class ExamController {
 
     private static String QUESTION_CONFIG_NAME = "questions.json";
     private static int EXAM_TIME = 15 /*minutes*/ * 60 /*seconds*/;
+
     private final Exam exam;
     private final QuestionBank questionBank;
 
@@ -38,7 +39,7 @@ public final class ExamController {
      * @param category Category of the test.
      */
     public void beginTest(QuestionType category) {
-        Test result = exam.newTest(category);
+        exam.newTest(category);
         // Give it a question!
         nextQuestion();
     }

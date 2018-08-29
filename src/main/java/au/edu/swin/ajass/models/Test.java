@@ -33,8 +33,7 @@ public final class Test {
      * @return Whether test is active.
      */
     public boolean isActive() {
-        if (questions.size() < getMaxQuestions()) return false;
-        return !questions.getLast().isAnswered();
+        return questions.size() < getMaxQuestions() || !questions.getLast().isAnswered();
     }
 
     /**

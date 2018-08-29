@@ -18,10 +18,11 @@ import java.awt.*;
  */
 public class MainView extends JFrame {
 
-    //private final ExamState state;
-    private final TCView terms;
 
-    private final ExamController test;
+    private final TCView terms;
+    private final PINCreationView pinCreation;
+    private final LoginView login;
+    private final ExamView exam;
 
     public MainView() {
         super("Advanced Java Assignment One - Adaptive Test");
@@ -30,7 +31,5 @@ public class MainView extends JFrame {
         terms = new TCView();
 
         add(terms, BorderLayout.CENTER);
-        test = new ExamController();
-
     }
 }
