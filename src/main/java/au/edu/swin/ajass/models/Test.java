@@ -10,6 +10,12 @@ import java.util.LinkedList;
  * what question type is given to it at instantiation.
  * Tests are responsible for keeping track of questions,
  * time, difficulty, and category.
+ *
+ * @author Joshua Skinner
+ * @author Bradley Chick
+ * @version 1
+ * @see Question
+ * @since 0.1
  */
 public final class Test {
 
@@ -18,22 +24,25 @@ public final class Test {
     private final Thread timer;
     private Difficulty currentDifficulty;
     private volatile int elapsed;
+    private boolean finishedEarly;
 
     public Test(QuestionType category) {
         this.category = category;
         questions = new LinkedList<>();
         currentDifficulty = Difficulty.MEDIUM;
         timer = new Thread(new TestTimer());
+        finishedEarly = false;
     }
 
     /**
      * A test is active if there are questions remaining
      * or if the final question has not been answered.
+     * It is always inactive if the user exited the test early.
      *
      * @return Whether test is active.
      */
     public boolean isActive() {
-        return questions.size() < getMaxQuestions() || !questions.getLast().isAnswered();
+        return finishedEarly || (questions.size() < getMaxQuestions() || !questions.getLast().isAnswered());
     }
 
     /**
@@ -41,7 +50,7 @@ public final class Test {
      * Synchronized guarantees thread-safety.
      */
     public synchronized int getTimeElapsed() {
-        return elapsed;
+            return elapsed;
     }
 
     /**

@@ -5,16 +5,16 @@ package au.edu.swin.ajass.models;
  * Their information is contained within this Model, as is the login
  * information to access the software.
  *
- * @author Bradley Chick, Joshua Skinner
+ * @author Bradley Chick
  * @version 1
  * @since 0.1
  */
 
 public final class Student {
 
-    private String studentID, schoolName;
-    private String loginPIN;
-    private Long timeCreated;
+    private final String studentID, schoolName;
+    private final String loginPIN;
+    private final Long timeCreated;
 
     public Student(String studentID, String schoolName) {
         this.studentID = studentID;
@@ -37,6 +37,13 @@ public final class Student {
     }
 
     /**
+     * @return studentID entered by user
+     */
+    public String getStudentID() {
+        return studentID;
+    }
+
+    /**
      * @return schoolName entered by user
      */
     public String getSchoolName() {
@@ -51,7 +58,7 @@ public final class Student {
     }
 
     /**
-     * @return timeCreated , system time  was generated
+     * @return timeCreated, system time was generated
      */
     public Long getTimeCreated() {
         return timeCreated;

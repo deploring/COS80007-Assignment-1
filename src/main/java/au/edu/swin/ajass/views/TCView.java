@@ -1,5 +1,7 @@
 package au.edu.swin.ajass.views;
 
+import au.edu.swin.ajass.enums.UIState;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,20 +10,27 @@ import java.awt.*;
  * open the program. It is a list of terms and conditions
  * that the user must agree to before using the software.
  *
- * @author Joshua Skinner (Design, Implementation) Bradley Chick (Implementation)
+ * @author Joshua Skinner, Bradley Chick
  */
-public class TCView extends JPanel {
+public class TCView extends JPanel implements IView {
 
+    // Reference back to JFrame, other Views
+    private final MainView main;
+
+    // Hard-coded T&C text.
     private final String termsText;
 
+    // View Elements.
     private final JTextArea terms;
     private final JScrollPane termsScroll;
     private final JCheckBox agreed;
     private final JLabel display;
-    private final JLabel title;
     private final JButton submit;
 
-    public TCView() {
+    public TCView(MainView main) {
+        // Reference back to MainView (JFrame)
+        this.main = main;
+
         /*  -- SOURCED CODE AND/OR TEXT --
             Source: http://simpleeulas.weebly.com/fair-eulas.html
             We take absolutely no responsibility for the writing of this EULA.
@@ -32,7 +41,6 @@ public class TCView extends JPanel {
         setLayout(new GridLayout(2, 3));
 
         // Elements
-        title = new JLabel("Terms and Conditions");
         terms = new JTextArea(termsText);
         terms.setLineWrap(true);
         terms.setWrapStyleWord(true);
@@ -40,12 +48,12 @@ public class TCView extends JPanel {
         terms.setEditable(false);
         terms.setOpaque(true);
         termsScroll = new JScrollPane(terms, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        termsScroll.setViewportBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         display = new JLabel("To continue, agree to the T&C.");
         display.setForeground(new Color(234, 98, 98));
         agreed = new JCheckBox("I agree to the T&C.");
         submit = new JButton("Submit");
 
+        // Placement
         JPanel bottomMiddle = new JPanel();
         bottomMiddle.setLayout(new GridLayout(3, 1));
         bottomMiddle.add(new JPanel());
@@ -66,5 +74,18 @@ public class TCView extends JPanel {
         JComponent[] topGrid = new JComponent[]{new JPanel(), termsScroll, new JPanel(), new JPanel(), bottomMiddle, bottomRight};
         for (JComponent toAdd : topGrid)
             add(toAdd);
+
+        // Listeners
+        submit.addActionListener(e -> {
+            if (agreed.isSelected())
+                main.update(UIState.PINGEN);
+            else
+                JOptionPane.showMessageDialog(null, "You must agree to the Terms and Conditions before proceeding!");
+        });
+    }
+
+    @Override
+    public JPanel getPanel() {
+        return this;
     }
 }

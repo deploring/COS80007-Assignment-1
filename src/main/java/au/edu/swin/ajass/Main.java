@@ -3,22 +3,28 @@ package au.edu.swin.ajass;
 import au.edu.swin.ajass.views.MainView;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Serves the express purpose of instantiating the Main View.
  *
  * @author Joshua Skinner
  * @version 1
- * @see MainView
  * @since 0.1
+ * @see MainView
  */
 public class Main {
 
     public static void main(String[] args) {
         MainView displayFrame = new MainView();
-        displayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        displayFrame.setSize(800, 600);
+        // Set JFrame attributes
+        displayFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        displayFrame.setSize(600, 450);
         displayFrame.setResizable(false);
         displayFrame.setVisible(true);
+        // Get dimension of user's screen.
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        // Set the frame to display in the center of the screen.
+        displayFrame.setLocation(dim.width/2-displayFrame.getSize().width/2, dim.height/2-displayFrame.getSize().height/2);
     }
 }

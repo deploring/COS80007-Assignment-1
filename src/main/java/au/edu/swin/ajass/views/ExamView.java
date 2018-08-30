@@ -5,5 +5,10 @@ import javax.swing.*;
 /**
  * Created by sky on 21/8/18.
  */
-public class ExamView extends JPanel {
+public class ExamView extends JPanel implements IView {
+
+    @Override
+    public JPanel getPanel() {
+        return null;
+    }
 }

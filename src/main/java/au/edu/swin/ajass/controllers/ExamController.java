@@ -1,10 +1,7 @@
 package au.edu.swin.ajass.controllers;
 
 import au.edu.swin.ajass.enums.QuestionType;
-import au.edu.swin.ajass.models.Exam;
-import au.edu.swin.ajass.models.Question;
-import au.edu.swin.ajass.models.QuestionBank;
-import au.edu.swin.ajass.models.Test;
+import au.edu.swin.ajass.models.*;
 import au.edu.swin.ajass.models.questions.ChoiceQuestion;
 import au.edu.swin.ajass.models.questions.ImageQuestion;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -23,7 +20,7 @@ import java.util.Set;
 public final class ExamController {
 
     private static String QUESTION_CONFIG_NAME = "questions.json";
-    private static int EXAM_TIME = 15 /*minutes*/ * 60 /*seconds*/;
+    public static int EXAM_TIME = 15 /*minutes*/ * 60 /*seconds*/;
 
     private final Exam exam;
     private final QuestionBank questionBank;
@@ -31,6 +28,37 @@ public final class ExamController {
     public ExamController() {
         exam = new Exam(EXAM_TIME);
         questionBank = new QuestionBank(QUESTION_CONFIG_NAME);
+    }
+
+    /**
+     * Creates a new Student instance and retains it.
+     *
+     * @param studentID  The Student's ID.
+     * @param schoolName The Student's school name.
+     * @return Instance of the Student.
+     * @see Exam#student
+     * @see Student
+     */
+    public Student registerStudentInfo(String studentID, String schoolName) {
+        Student result = new Student(studentID, schoolName);
+        exam.registerStudent(result);
+        return result;
+    }
+
+    /**
+     * If the student clears the PIN generation form, even
+     * after generating a PIN, they are no longer able to
+     * log in with it. Stored student data should be cleared.
+     */
+    public void clearStudentInfo(){
+        exam.registerStudent(null);
+    }
+
+    /**
+     * @return Stored student information.
+     */
+    public Student getStudentInfo(){
+        return exam.getStudent();
     }
 
     /**

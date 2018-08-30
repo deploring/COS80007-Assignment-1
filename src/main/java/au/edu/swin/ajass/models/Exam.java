@@ -35,6 +35,7 @@ public class Exam {
      */
     public void start() {
         if (timer.isAlive() || timer.isInterrupted()) throw new IllegalStateException("Exam has already been started");
+        timer.start();
     }
 
     /**
@@ -64,6 +65,22 @@ public class Exam {
         Test result = new Test(category);
         tests.addLast(result);
         return result;
+    }
+
+    /**
+     * Registers and stores student information with the exam.
+     *
+     * @param student Student model.
+     */
+    public void registerStudent(Student student) {
+        this.student = student;
+    }
+
+    /**
+     * @return Stored student information.
+     */
+    public Student getStudent(){
+        return student;
     }
 
     /**

@@ -54,7 +54,7 @@ public class QuestionCache {
         JSONParser parser = new JSONParser();
         JSONObject root;
         try {
-            root = (JSONObject) parser.parse(new InputStreamReader(QuestionCache.class.getResourceAsStream(String.format("%s%s", File.separator, config)), "UTF-8"));
+            root = (JSONObject) parser.parse(new InputStreamReader(QuestionCache.class.getResourceAsStream(String.format("/%s", config)), "UTF-8"));
         } catch (IOException | ParseException e) {
             throw new IOException(String.format("Unable to load properties from %s", config));
         }
