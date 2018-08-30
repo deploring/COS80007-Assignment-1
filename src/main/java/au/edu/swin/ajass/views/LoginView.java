@@ -75,7 +75,7 @@ public class LoginView extends JPanel implements IView {
                     JOptionPane.showMessageDialog(null, "Unfortunately, your temporary PIN has expired.\nPlease go back and re-generate your PIN.", "PIN Expired", JOptionPane.ERROR_MESSAGE);
                 else {
                     // Give them one final warning before they go in.
-                    int result = JOptionPane.showConfirmDialog(null, String.format("You are about to enter and start the exam.\nYou have %d minutes to complete all the tests.", timeRemaining), "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    int result = JOptionPane.showConfirmDialog(null, String.format("You are about to enter and start the exam.\nYou have %d minutes to complete all the tests.\nIf not, your PIN expires in %d minute(s).", timeRemaining, 20 - minuteDifference), "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if (result == JOptionPane.YES_OPTION)
                         main.update(UIState.EXAM);
                 }

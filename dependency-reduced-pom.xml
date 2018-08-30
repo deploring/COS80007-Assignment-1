@@ -13,7 +13,7 @@
         <filtering>true</filtering>
         <directory>${basedir}/src/main/resources/</directory>
         <includes>
-          <include>questions.json</include>
+          <include>*</include>
         </includes>
       </resource>
     </resources>

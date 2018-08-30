@@ -4,9 +4,12 @@ package au.edu.swin.ajass.views;
 import au.edu.swin.ajass.controllers.ExamController;
 import au.edu.swin.ajass.enums.UIState;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * This view is an extension of JFrame and serves the
@@ -31,10 +34,7 @@ public class MainView extends JFrame {
 
     // Hold individual view instances.
     private final MainView main;
-    private final TCView terms;
-    private final PINCreationView pinCreation;
-    private final LoginView login;
-    private final ExamView exam;
+    private final IView terms, pinCreation, login, exam;
 
     // Controller instances.
     private final ExamController examController;
@@ -43,9 +43,18 @@ public class MainView extends JFrame {
     private final String aboutText;
     private final String authorsText;
 
-    public MainView() {
+    /**
+     * @throws IOException Image may not exist or may not load properly.
+     */
+    public MainView() throws IOException {
         super("Advanced Java Assignment One - Adaptive Test");
         setLayout(new BorderLayout());
+
+        // Load image icons.
+        Icon authorHeart = new ImageIcon(ImageIO.read(MainView.class.getResourceAsStream("/heart.png")));
+        Image programIcon =ImageIO.read(MainView.class.getResourceAsStream("/icon.png"));
+
+        setIconImage(programIcon);
 
         // Hard-coded dialog texts.
         authorsText = "COS80007 Advanced Java: Assignment 1\n\"The Adaptive Test\"\n\nAuthors:\nJoshua Skinner (101601828)\nEmail: josh@rpg.solar\nWebsite: https://rpg.solar/\n\nBradley Chick (101626151)\nEmail: 101626151@student.swin.edu.au\nWebsite: None";
@@ -78,8 +87,8 @@ public class MainView extends JFrame {
         menu.add(sep1);
 
         // Create menu action listeners and display.
-        about.addActionListener(e -> JOptionPane.showMessageDialog(null, aboutText));
-        authors.addActionListener(e -> JOptionPane.showMessageDialog(null, authorsText));
+        about.addActionListener(e -> JOptionPane.showMessageDialog(null, aboutText, "About This Program", JOptionPane.INFORMATION_MESSAGE, authorHeart));
+        authors.addActionListener(e -> JOptionPane.showMessageDialog(null, authorsText, "About the Authors", JOptionPane.INFORMATION_MESSAGE, authorHeart));
         setJMenuBar(menuBar);
 
         // Land user on Terms & Conditions View
@@ -91,7 +100,7 @@ public class MainView extends JFrame {
      * on user actions to it for the purpose of manipulating the models
      * in a desired way.
      */
-    ExamController exam(){
+    ExamController exam() {
         return examController;
     }
 
