@@ -1,8 +1,6 @@
 package au.edu.swin.ajass.views;
 
 
-import au.edu.swin.ajass.controllers.ExamController;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -29,6 +27,9 @@ public class MainView extends JFrame {
         setLayout(new BorderLayout());
 
         terms = new TCView();
+        pinCreation = new PINCreationView();
+        login = new LoginView();
+        exam = new ExamView();
 
         add(terms, BorderLayout.CENTER);
     }
