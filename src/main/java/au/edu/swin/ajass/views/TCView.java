@@ -10,7 +10,10 @@ import java.awt.*;
  * open the program. It is a list of terms and conditions
  * that the user must agree to before using the software.
  *
- * @author Joshua Skinner, Bradley Chick
+ * @author Joshua Skinner
+ * @author Bradley Chick
+ * @version 1
+ * @since 0.1
  */
 public class TCView extends JPanel implements IView {
 
@@ -27,7 +30,7 @@ public class TCView extends JPanel implements IView {
     private final JLabel display;
     private final JButton submit;
 
-    public TCView(MainView main) {
+    TCView(MainView main) {
         // Reference back to MainView (JFrame)
         this.main = main;
 

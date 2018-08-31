@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
@@ -65,7 +64,7 @@ public class MainView extends JFrame {
         terms = new TCView(this);
         pinCreation = new PINCreationView(this);
         login = new LoginView(this);
-        exam = new ExamView();
+        exam = new ExamView(this);
 
         // Create controller instances.
         examController = new ExamController();
