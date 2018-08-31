@@ -25,9 +25,20 @@ public final class ExamController {
     private final Exam exam;
     private final QuestionBank questionBank;
 
+    private Thread globalTimer;
+
     public ExamController() {
         exam = new Exam(EXAM_TIME);
         questionBank = new QuestionBank(QUESTION_CONFIG_NAME);
+    }
+
+    public void beginExam(Runnable globalTimer) {
+        this.globalTimer = new Thread(globalTimer);
+        this.globalTimer.start();
+    }
+
+    public void tick(){
+
     }
 
     /**
@@ -50,14 +61,14 @@ public final class ExamController {
      * after generating a PIN, they are no longer able to
      * log in with it. Stored student data should be cleared.
      */
-    public void clearStudentInfo(){
+    public void clearStudentInfo() {
         exam.registerStudent(null);
     }
 
     /**
      * @return Stored student information.
      */
-    public Student getStudentInfo(){
+    public Student getStudentInfo() {
         return exam.getStudent();
     }
 

@@ -17,7 +17,6 @@ import java.util.LinkedList;
 public class Exam {
 
     private final LinkedList<Test> tests;
-    private final Thread timer;
     private volatile int timeRemaining;
     private Student student;
     private double possibleMarks;
@@ -26,16 +25,6 @@ public class Exam {
     public Exam(int totalTime) {
         this.tests = new LinkedList<>();
         this.timeRemaining = totalTime;
-
-        timer = new Thread(new ExamTimer());
-    }
-
-    /**
-     * Call this when the user enters their login and starts the exam.
-     */
-    public void start() {
-        if (timer.isAlive() || timer.isInterrupted()) throw new IllegalStateException("Exam has already been started");
-        timer.start();
     }
 
     /**
@@ -106,30 +95,5 @@ public class Exam {
      */
     public double getTotalMarks() {
         return totalMarks;
-    }
-
-    /**
-     * This timer decrements the amount of
-     * time remaining for the whole exam.
-     *
-     * @author Joshua Skinner
-     * @version 1
-     * @since 0.1
-     */
-    private class ExamTimer implements Runnable {
-
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(1000);
-                synchronized ((Integer) timeRemaining) {
-                    timeRemaining--;
-                }
-                // Continue running this thread until instructed to stop.
-                run();
-            } catch (InterruptedException e) {
-                // The thread should stop once it is interrupted.
-            }
-        }
     }
 }

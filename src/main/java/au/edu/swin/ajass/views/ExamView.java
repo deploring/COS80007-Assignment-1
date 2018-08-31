@@ -23,20 +23,16 @@ public class ExamView extends JPanel implements IView {
         examNavbar = new ExamNavbarView();
         test = new TestView();
 
-        JButton test1 = new JButton("lel");
-        JButton test2 = new JButton("lel");
-
-        c.gridx = 0;
-        c.gridy = 0;
-        c.weightx = 1;
-        c.weighty = 1;
-        c.gridheight = 1;
-        c.gridwidth = 1;
-        add(test1, c);
+        // Fill the panels to the very edges.
+        c.fill = GridBagConstraints.BOTH;
+        // Take up to 10% of vertical screen height
+        c.weighty = 0.1f;
+        add(examNavbar, c);
 
         c.gridy = 1;
-        c.gridheight = 9;
-        add(test2, c);
+        // Take rest of available screen height
+        c.weighty = 1;
+        add(test, c);
 
     }
 
