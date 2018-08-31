@@ -21,36 +21,72 @@ public final class Test {
 
     private final LinkedList<Question> questions;
     private final QuestionType category;
-    private final Thread timer;
     private Difficulty currentDifficulty;
-    private volatile int elapsed;
+    private volatile int timeRemaining;
     private boolean finishedEarly;
 
     public Test(QuestionType category) {
         this.category = category;
+        timeRemaining = category.getMaxTime();
         questions = new LinkedList<>();
         currentDifficulty = Difficulty.MEDIUM;
-        timer = new Thread(new TestTimer());
         finishedEarly = false;
     }
 
     /**
-     * A test is active if there are questions remaining
-     * or if the final question has not been answered.
-     * It is always inactive if the user exited the test early.
+     * A test is active if it has not been finished
+     * early and it has not been completed.
      *
      * @return Whether test is active.
      */
     public boolean isActive() {
-        return finishedEarly || (questions.size() < getMaxQuestions() || !questions.getLast().isAnswered());
+        return finishedEarly || !isComplete();
     }
 
     /**
-     * @return How much time, in seconds, this thread has been active for.
-     * Synchronized guarantees thread-safety.
+     * @return Whether the test has been fully completed.
      */
-    public synchronized int getTimeElapsed() {
-            return elapsed;
+    public boolean isComplete() {
+        return questions.size() == getMaxQuestions() && questions.getLast().isAnswered();
+    }
+
+    /**
+     * Marks this test as having finished it, but not completing all the questions.
+     * @param finishedEarly Whether this test is incomplete.
+     */
+    public void setFinishedEarly(boolean finishedEarly){
+        this.finishedEarly = finishedEarly;
+    }
+
+    /**
+     * This method is called upon by TestView's TestTimer every
+     * second to keep track of how much time the user has before
+     * the test will prematurely exit.
+     *
+     * @return Time remaining for this test.
+     */
+    public int decrementTime(){
+        synchronized ((Integer) timeRemaining) {
+            return timeRemaining--;
+        }
+    }
+
+    /**
+     * @return How much time, in seconds, this test has been active for.
+     */
+    public int getTimeRemaining() {
+        synchronized ((Integer) timeRemaining) {
+            return timeRemaining;
+        }
+    }
+
+    /**
+     * @return How much time, in seconds, this test has been active for.
+     */
+    public int getTimeElapsed() {
+        synchronized ((Integer) timeRemaining) {
+            return category.getMaxTime() - timeRemaining;
+        }
     }
 
     /**
@@ -68,6 +104,15 @@ public final class Test {
     }
 
     /**
+     * Changes the Test's difficulty. (adaptive!)
+     *
+     * @param newDifficulty New difficulty level.
+     */
+    public void adjustDifficulty(Difficulty newDifficulty) {
+        currentDifficulty = newDifficulty;
+    }
+
+    /**
      * @return The most recently issued/unanswered (current) question.
      */
     public Question getCurrentQuestion() {
@@ -82,38 +127,21 @@ public final class Test {
     }
 
     /**
+     * @return Number of issued questions in the test so far.
+     */
+    public int getQuestionsIssued() {
+        return questions.size();
+    }
+
+    /**
      * Registers a new question with this test, given it is of the correct category.
      *
      * @param question Question from the QuestionBank.
      * @see QuestionBank
      */
     public void newQuestion(Question question) {
-        if (question.getType() == category) throw new IllegalArgumentException("Question category does not match test");
+        if (question.getType() != category)
+            throw new IllegalArgumentException(String.format("Question category does not match test: %s vs %s", category, question.getType()));
         questions.addLast(question);
-    }
-
-    /**
-     * This timer keeps track of how long this test
-     * has been active for.
-     *
-     * @author Joshua Skinner
-     * @version 1
-     * @since 0.1
-     */
-    private class TestTimer implements Runnable {
-
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(1000);
-                synchronized ((Integer) elapsed) {
-                    elapsed++;
-                }
-                // Continue running this thread until interrupted.
-                run();
-            } catch (InterruptedException e) {
-                // The thread should be interrupted once the test is no longer active.
-            }
-        }
     }
 }

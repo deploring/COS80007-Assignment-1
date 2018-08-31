@@ -30,4 +30,28 @@ public enum Difficulty {
     public double getMarks() {
         return marks;
     }
+
+    /**
+     * @return Difficulty level above this difficulty.
+     */
+    public Difficulty increase() {
+        switch(this){
+            case EASY:
+                return MEDIUM;
+            default:
+                return HARD;
+        }
+    }
+
+    /**
+     * @return Difficulty level below this difficulty.
+     */
+    public Difficulty decrease() {
+        switch(this){
+            case HARD:
+                return MEDIUM;
+            default:
+                return EASY;
+        }
+    }
 }

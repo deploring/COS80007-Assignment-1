@@ -3,6 +3,7 @@ package au.edu.swin.ajass.views;
 
 import au.edu.swin.ajass.controllers.ExamController;
 import au.edu.swin.ajass.enums.UIState;
+import au.edu.swin.ajass.util.Utilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -32,26 +33,26 @@ public class MainView extends JFrame {
     private UIState state;
 
     // Hold individual view instances.
-    private final MainView main;
-    private final IView terms, pinCreation, login, exam;
+    private final IView terms, pinCreation, login, exam, results;
 
     // Controller instances.
     private final ExamController examController;
+
+    // Global timer menu item.
+    final JMenuItem globalTimer;
+    final JMenuItem testTimer;
 
     // Dialog strings.
     private final String aboutText;
     private final String authorsText;
 
-    /**
-     * @throws IOException Image may not exist or may not load properly.
-     */
-    public MainView() throws IOException {
+    public MainView() {
         super("Advanced Java Assignment One - Adaptive Test");
         setLayout(new BorderLayout());
 
         // Load image icons.
-        Icon authorHeart = new ImageIcon(ImageIO.read(MainView.class.getResourceAsStream("/heart.png")));
-        Image programIcon =ImageIO.read(MainView.class.getResourceAsStream("/icon.png"));
+        Icon authorHeart = new ImageIcon(Utilities.image("heart.png"));
+        Image programIcon = Utilities.image("icon.png");
 
         setIconImage(programIcon);
 
@@ -60,11 +61,11 @@ public class MainView extends JFrame {
         aboutText = "";
 
         // Create view instances.
-        main = this;
         terms = new TCView(this);
         pinCreation = new PINCreationView(this);
         login = new LoginView(this);
         exam = new ExamView(this);
+        results = new ResultsView(this);
 
         // Create controller instances.
         examController = new ExamController();
@@ -76,6 +77,12 @@ public class MainView extends JFrame {
         menu.setMnemonic(KeyEvent.VK_H);
         menu.getAccessibleContext().setAccessibleDescription("A list of helpful items.");
         menuBar.add(menu);
+
+        globalTimer = new JMenuItem(String.format("Exam Time Remaining: %s", Utilities.digitalTime(ExamController.EXAM_TIME)));
+        menuBar.add(globalTimer);
+        testTimer = new JMenuItem(String.format("Test Time Remaining: %s", "0:00"));
+        testTimer.setVisible(false);
+        menuBar.add(testTimer);
 
         // Menu items.
         JMenuItem about = new JMenuItem("About");
@@ -91,7 +98,8 @@ public class MainView extends JFrame {
         setJMenuBar(menuBar);
 
         // Land user on Terms & Conditions View
-        update(UIState.TERMS);
+        exam().registerStudentInfo("lol", "lol");
+        update(UIState.EXAM);
     }
 
     /**
@@ -131,7 +139,7 @@ public class MainView extends JFrame {
                 show(exam);
                 break;
             case RESULTS:
-                show(null); //TODO Add this
+                show(results);
                 break;
             default:
                 throw new IllegalArgumentException("New UI state not supported or null");

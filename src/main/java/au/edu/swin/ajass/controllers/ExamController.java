@@ -1,5 +1,6 @@
 package au.edu.swin.ajass.controllers;
 
+import au.edu.swin.ajass.enums.Difficulty;
 import au.edu.swin.ajass.enums.QuestionType;
 import au.edu.swin.ajass.models.*;
 import au.edu.swin.ajass.models.questions.ChoiceQuestion;
@@ -19,26 +20,71 @@ import java.util.Set;
  */
 public final class ExamController {
 
+    // Hard-coded static values.
     private static String QUESTION_CONFIG_NAME = "questions.json";
     public static int EXAM_TIME = 15 /*minutes*/ * 60 /*seconds*/;
 
+    // Important exam components.
     private final Exam exam;
     private final QuestionBank questionBank;
 
+    // Global timer thread.
     private Thread globalTimer;
+    private Thread testTimer;
 
     public ExamController() {
         exam = new Exam(EXAM_TIME);
         questionBank = new QuestionBank(QUESTION_CONFIG_NAME);
     }
 
+    /**
+     * @return Exam model on its own. Used by the views for data display.
+     */
+    public Exam getExamModel() {
+        return exam;
+    }
+
+    /**
+     * Marks the beginning of the overall exam.
+     *
+     * @param globalTimer Global timer task.
+     */
     public void beginExam(Runnable globalTimer) {
         this.globalTimer = new Thread(globalTimer);
         this.globalTimer.start();
     }
 
-    public void tick(){
+    /**
+     * This method is called every second by the global
+     * timer thread. It allows the global timer to decrement
+     * as well as force the exam to cease once time is up.
+     */
+    public int tickExam() {
+        int result = exam.decrementTime();
+        if (result == 0)
+            endExam();
+        return result;
+    }
 
+    /**
+     * This method is called every second by the test
+     * timer thread. It allows the test timer to decrement
+     * as well as force the test to cease once time is up.
+     */
+    public int tickTest() {
+        int result = getExamModel().getCurrentTest().decrementTime();
+        if (result == 0)
+            testTimer.interrupt();
+        return result;
+    }
+
+    /**
+     * Called upon when the student has completed all
+     * tests, or when the global timer has depleted.
+     */
+    public void endExam() {
+        // Stop the global timer.
+        globalTimer.interrupt();
     }
 
     /**
@@ -73,14 +119,36 @@ public final class ExamController {
     }
 
     /**
+     * @return Whether a new test can be started or not.
+     */
+    public boolean canBeginTest() {
+        return !exam.getTests().hasNext() || !exam.getCurrentTest().isActive();
+    }
+
+    /**
      * Begins a new test.
      *
      * @param category Category of the test.
      */
-    public void beginTest(QuestionType category) {
+    public void beginTest(QuestionType category, Runnable testTimer) {
         exam.newTest(category);
         // Give it a question!
         nextQuestion();
+
+        // Start timer
+        this.testTimer = new Thread(testTimer);
+        this.testTimer.start();
+    }
+
+    /**
+     * Stops the test timer and marks the test as incomplete, if applicable.
+     *
+     * @param incomplete Whether the test was not fully completed.
+     */
+    public void finishTest(boolean incomplete) {
+        // Stop the test timer.
+        testTimer.interrupt();
+        getExamModel().getCurrentTest().setFinishedEarly(incomplete);
     }
 
     /**
@@ -153,8 +221,9 @@ public final class ExamController {
         // accrue marks
         exam.accrueMarks(current.getDifficulty().getMarks(), current.getMarksEarnt());
 
-        // do next question
-        nextQuestion();
+        // adjust difficulty
+        Difficulty currentDiff = current.getDifficulty();
+        test.adjustDifficulty(current.isCorrectlyAnswered() ? currentDiff.increase() : currentDiff.decrease());
     }
 
     /**

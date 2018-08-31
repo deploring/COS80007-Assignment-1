@@ -28,6 +28,18 @@ public class Exam {
     }
 
     /**
+     * This method is called upon by the controller every
+     * second to keep track of how much time is remaining.
+     *
+     * @return Time remaining, in seconds.
+     */
+    public int decrementTime() {
+        synchronized ((Integer) timeRemaining) {
+            return timeRemaining--;
+        }
+    }
+
+    /**
      * @return Most recently added test to the Linked List of tests.
      * This is always the current test, as order is guaranteed.
      */
@@ -40,6 +52,13 @@ public class Exam {
      */
     public Iterator<Test> getTests() {
         return tests.iterator();
+    }
+
+    /**
+     * @return Number of tests taken.
+     */
+    public int getNumberOfTestsTaken() {
+        return tests.size();
     }
 
     /**
@@ -68,7 +87,7 @@ public class Exam {
     /**
      * @return Stored student information.
      */
-    public Student getStudent(){
+    public Student getStudent() {
         return student;
     }
 

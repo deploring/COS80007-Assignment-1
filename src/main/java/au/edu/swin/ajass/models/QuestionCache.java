@@ -87,7 +87,7 @@ public class QuestionCache {
                 Difficulty difficulty = Difficulty.valueOf((String) question.get("difficulty"));
                 String[] options = convertJSONArrayToStringArray((JSONArray) question.get("options"));
                 String[] answers = convertJSONArrayToStringArray((JSONArray) question.get("answer"));
-                result = new ChoiceQuestion(category, difficulty, prompt, options, answers);
+                result = new ChoiceQuestion(category, difficulty, prompt, answers, options);
                 break;
             default:
                 throw new IllegalArgumentException("invalid/unsupported category of question");
@@ -133,6 +133,6 @@ public class QuestionCache {
     }
 
     public Question retrieveQuestion(QuestionType category, Difficulty diff) {
-        return null;
+        return questionMap.get(category).get(diff).remove(0);
     }
 }

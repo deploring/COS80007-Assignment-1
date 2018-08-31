@@ -3,27 +3,101 @@
     {
       "prompt": "Find the sum of the digits of 10^11 - 1.",
       "difficulty": "EASY",
-      "options": [
-        "81",
-        "108",
-        "99",
-        "90"
-      ],
+      "options": [],
       "answer": [
         "99"
       ]
     },
     {
-      "prompt": "F = (x-a)(x-b)(x-c)(x-d)...(x-y)(x-z). Find F.",
+      "prompt": "What calculation gives the largest answer?",
       "difficulty": "EASY",
       "options": [
-        "Infinitely Big",
-        "Infinitely Small",
-        "Zero",
-        "Insufficient Information"
+        "365 times 10 divided by 100",
+        "10% of 365",
+        "0.1 x 365",
+        "All of the above"
       ],
       "answer": [
-        "Zero"
+        "All of the above"
+      ]
+    },
+    {
+      "prompt": "Evaluate 3^1 x 2^2 x 1^3.",
+      "difficulty": "EASY",
+      "options": [
+      ],
+      "answer": [
+        "12"
+      ]
+    },
+    {
+      "prompt": "A captain sees an iceberg with a height of 80 metres above the water line. Only one-eighth (1/8) of the iceberg is visible above the water line. What is the total height of the iceberg?",
+      "difficulty": "EASY",
+      "options": [
+        "1 kilometer",
+        "720 meters",
+        "560 meters",
+        "640 meters"
+      ],
+      "answer": [
+        "640 meters"
+      ]
+    },
+    {
+      "prompt": "What number, multiplied by 5, is four-fifths of 250?",
+      "difficulty": "EASY",
+      "options": [
+      ],
+      "answer": [
+        "40"
+      ]
+    },
+    {
+      "prompt": "The sum of three differnt positive integers is 10. What is their sum?",
+      "difficulty": "EASY",
+      "options": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "answer": [
+        "8"
+      ]
+    },
+    {
+      "prompt": "Eighteen students are going on a picnic. Four students can ride in each car. How many cars are needed?",
+      "difficulty": "EASY",
+      "options": [
+      ],
+      "answer": [
+        "5"
+      ]
+    },
+    {
+      "prompt": "Which gives the smallest answer?",
+      "difficulty": "EASY",
+      "options": [
+        "3^21",
+        "123",
+        "12^3",
+        "1^23"
+      ],
+      "answer": [
+        "1^23"
+      ]
+    },
+    {
+      "prompt": "999 divided by 3 is the same as 9 times x. Find x.",
+      "difficulty": "EASY",
+      "options": [
+        "99",
+        "27",
+        "33",
+        "37"
+      ],
+      "answer": [
+        "37"
       ]
     },
     {
@@ -50,6 +124,142 @@
       ],
       "answer": [
         "100x"
+      ]
+    },
+    {
+      "prompt": "F = (x-a)(x-b)(x-c)(x-d)...(x-y)(x-z). Find F.",
+      "difficulty": "MEDIUM",
+      "options": [
+        "Infinitely big",
+        "Infinitely small",
+        "Zero",
+        "Insufficient information"
+      ],
+      "answer": [
+        "Zero"
+      ]
+    },
+    {
+      "prompt": "What is the least positive integer n such that: 1 x 2 x ... x n > 999?",
+      "difficulty": "MEDIUM",
+      "options": [
+        "n = 6",
+        "n = 7",
+        "n = 8",
+        "n = 9"
+      ],
+      "answer": [
+        "n = 7"
+      ]
+    },
+    {
+      "prompt": "Solve 1^3 x 2^3 x 3^3 = g for g.",
+      "difficulty": "MEDIUM",
+      "options": [
+        "g = 156",
+        "g = 236",
+        "g = 186",
+        "g = 216"
+      ],
+      "answer": [
+        "g = 216"
+      ]
+    },
+    {
+      "prompt": "Twelve years ago, Bill was twice as old as Anna. Twelve years on from now, she will be 7/10 of his age. How old is Anna now?",
+      "difficulty": "HARD",
+      "options": [
+        "36 years old",
+        "30 years old",
+        "24 years old",
+        "40 years old"
+      ],
+      "answer": [
+        "30 years old"
+      ]
+    },
+    {
+      "prompt": "Given A % 15 = 3, solve A % 3 = x for x.",
+      "difficulty": "HARD",
+      "options": [
+      ],
+      "answer": [
+        "0"
+      ]
+    },
+    {
+      "prompt": "Which gives the largest answer?",
+      "difficulty": "HARD",
+      "options": [
+        "4.9 divided by 0.07",
+        "7.2 divided by 0.08",
+        "70 x 1.3",
+        "All of the above"
+      ],
+      "answer": [
+        "70 x 1.3"
+      ]
+    },
+    {
+      "prompt": "Palindromes are phrases that are read the same forward and backward. How many palindromes can you make with 4 English letters?",
+      "difficulty": "HARD",
+      "options": [
+      ],
+      "answer": [
+        "676"
+      ]
+    },
+    {
+      "prompt": "If you apply a 20% discount on top of a 25% discount, what is the total discount?",
+      "difficulty": "HARD",
+      "options": [
+        "35%",
+        "40%",
+        "45%",
+        "50%"
+      ],
+      "answer": [
+        "40%"
+      ]
+    },
+    {
+      "prompt": "Simplify the following fractions: 5/6 + 7/6.",
+      "difficulty": "HARD",
+      "options": [
+        "1, 17/24",
+        "41/24",
+        "57/68",
+        "2"
+      ],
+      "answer": [
+        "1, 17/24"
+      ]
+    },
+    {
+      "prompt": "Half of this number if a quarter of this number. How much is it?",
+      "difficulty": "HARD",
+      "options": [
+      ],
+      "answer": [
+        "2"
+      ]
+    },
+    {
+      "prompt": "The total fare for 4 adults and 5 children in a shuttle bus is $39.00. If a child's fare is half of an adult's fare, what is the adult fare? Answer with a $ sign.",
+      "difficulty": "HARD",
+      "options": [
+      ],
+      "answer": [
+        "$6"
+      ]
+    },
+    {
+      "prompt": "If a line covers 8 kilometers long but is only 0.25 millimeters thick, what is the area covered by the line? Answer in square meters.",
+      "difficulty": "HARD",
+      "options": [
+      ],
+      "answer": [
+        "2"
       ]
     }
   ],

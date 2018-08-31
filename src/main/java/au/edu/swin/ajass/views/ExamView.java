@@ -1,5 +1,9 @@
 package au.edu.swin.ajass.views;
 
+import au.edu.swin.ajass.enums.QuestionType;
+import au.edu.swin.ajass.models.Test;
+import au.edu.swin.ajass.util.Utilities;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,8 +15,8 @@ public class ExamView extends JPanel implements IView {
     // Reference back to JFrame, other Views
     private final MainView main;
 
-    private final ExamNavbarView examNavbar;
-    private final TestView test;
+    // Sub-views contained in this view.
+    private final IView examNavbar, test;
 
     public ExamView(MainView main) {
         this.main = main;
@@ -20,24 +24,123 @@ public class ExamView extends JPanel implements IView {
         GridBagConstraints c = new GridBagConstraints();
 
         // Sub-views
-        examNavbar = new ExamNavbarView();
-        test = new TestView();
+        examNavbar = new ExamNavbarView(main, this);
+        test = new TestView(main, this);
 
         // Fill the panels to the very edges.
         c.fill = GridBagConstraints.BOTH;
-        // Take up to 10% of vertical screen height
-        c.weighty = 0.1f;
-        add(examNavbar, c);
+        // Take up as little screen height as possible.
+        c.weighty = 0;
+        add(examNavbar.getPanel(), c);
 
         c.gridy = 1;
         // Take rest of available screen height
         c.weighty = 1;
-        add(test, c);
+        add(test.getPanel(), c);
+    }
 
+    /**
+     * Used by the Exam Navbar View to make Exam View
+     * notify everything else that a new test is about
+     * to be undertaken.
+     *
+     * @param category Category of the test.
+     */
+    public void startNewTest(QuestionType category) {
+        main.exam().beginTest(category, new TestTimer());
+        test.onDisplay();
+    }
+
+    /**
+     * Called by TestView when a user submits their
+     * answer to a question. It must be recorded and
+     * then a new Question must be shown if possible.
+     */
+    public void finaliseQuestionResponse() {
+        main.exam().finaliseAnswer();
+        Test current = main.exam().getExamModel().getCurrentTest();
+        if (current.isComplete())
+            testCompleted(false);
+        else {
+            main.exam().nextQuestion();
+            test.onDisplay();
+        }
+    }
+
+    /**
+     * Called by MainView when a user has answered
+     * all of the questions in a test. Also called
+     * by TestView when the "Done" button is pressed
+     * to finish the test early. Stops the test and
+     * makes a new one available to undertake.
+     *
+     * @param incomplete Was the test incomplete?
+     */
+    public void testCompleted(boolean incomplete) {
+        ((ExamNavbarView) examNavbar).onFinishTest();
+        ((TestView)test).displayFillerPanel();
+        main.exam().finishTest(incomplete);
+        // Make test timer invisible
+        main.testTimer.setVisible(false);
+    }
+
+    @Override
+    public void onDisplay() {
+        examNavbar.onDisplay();
     }
 
     @Override
     public JPanel getPanel() {
         return this;
+    }
+
+    /**
+     * Updates the test time remaining display.
+     *
+     * @param newTime New amount of test seconds remaining.
+     */
+    private void updateTimeDisplay(int newTime) {
+        // Turn global timer into red font if there is less than 30 seconds remaining.
+        SwingUtilities.invokeLater(() -> main.testTimer.setText(String.format("Test Time Remaining: %s", Utilities.digitalTime(newTime))));
+        // Play a warning message if 30 seconds remain.
+        if (newTime == 30)
+            Utilities.playSound("warningtesttime.mp3");
+        if (newTime == 3)
+            Utilities.playSound("metronome.mp3");
+    }
+
+    /**
+     * This timer keeps track of how long this test
+     * has been active for.
+     *
+     * @author Joshua Skinner
+     * @version 1
+     * @since 0.1
+     */
+    private class TestTimer implements Runnable {
+
+        // Force the recursive loop to stop once interrupted.
+        boolean interrupted = false;
+        Test current;
+
+        TestTimer() {
+            SwingUtilities.invokeLater(() -> current = main.exam().getExamModel().getCurrentTest());
+        }
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1000);
+                updateTimeDisplay(main.exam().tickTest());
+                // Continue running this thread until interrupted.
+                if (!interrupted)
+                    run();
+            } catch (InterruptedException e) {
+                // The thread should be interrupted once the test is no longer active.
+                interrupted = true;
+                // We can assume the test was incomplete.
+                testCompleted(true);
+            }
+        }
     }
 }
