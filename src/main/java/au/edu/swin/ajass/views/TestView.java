@@ -2,12 +2,14 @@ package au.edu.swin.ajass.views;
 
 import au.edu.swin.ajass.models.Question;
 import au.edu.swin.ajass.models.questions.ChoiceQuestion;
+import au.edu.swin.ajass.models.questions.ListeningQuestion;
 import au.edu.swin.ajass.util.Utilities;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,6 +40,7 @@ public class TestView extends JPanel implements IView {
         JPanel result = new JPanel();
         result.setPreferredSize(getPreferredSize());
         result.setLayout(new GridBagLayout());
+        result.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));
 
         // Basic gridbag constraints to fix components top to bottom.
         GridBagConstraints c = new GridBagConstraints();
@@ -169,13 +172,24 @@ public class TestView extends JPanel implements IView {
                         });
                     }
                 }
+
+                // Show button to play sound.
+                if (question instanceof ListeningQuestion) {
+                    JButton listen = new JButton();
+                    listen.setIcon(new ImageIcon(Utilities.image("speaker.png")));
+                    listen.addActionListener(e -> Utilities.playSound(((ListeningQuestion) question).getSoundFileLoc()));
+
+                    c.gridy++;
+                    result.add(listen,c);
+                }
+
                 c.gridy++;
                 result.add(selectPrompt, c);
                 for (JComponent add : toAdd)
                     optionsPanel.add(add);
                 c.gridy++;
-                c.weighty = 0.01;
-                c.weightx = 1;
+                c.weighty = 0.05;
+                c.weightx = 0.05;
                 // Stop text box from collapsing in on itself
                 result.add(optionsPanel, c);
                 c.fill = GridBagConstraints.NONE;

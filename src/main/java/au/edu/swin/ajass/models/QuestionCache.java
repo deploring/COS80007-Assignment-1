@@ -3,12 +3,12 @@ package au.edu.swin.ajass.models;
 import au.edu.swin.ajass.enums.Difficulty;
 import au.edu.swin.ajass.enums.QuestionType;
 import au.edu.swin.ajass.models.questions.ChoiceQuestion;
+import au.edu.swin.ajass.models.questions.ListeningQuestion;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -88,6 +88,13 @@ public class QuestionCache {
                 String[] options = convertJSONArrayToStringArray((JSONArray) question.get("options"));
                 String[] answers = convertJSONArrayToStringArray((JSONArray) question.get("answer"));
                 result = new ChoiceQuestion(category, difficulty, prompt, answers, options);
+                break;
+            case LISTENING:
+                difficulty = Difficulty.valueOf((String) question.get("difficulty"));
+                options = convertJSONArrayToStringArray((JSONArray) question.get("options"));
+                answers = convertJSONArrayToStringArray((JSONArray) question.get("answer"));
+                String soundFileLoc = question.get("file").toString();
+                result = new ListeningQuestion(category, difficulty, answers, options, soundFileLoc);
                 break;
             default:
                 throw new IllegalArgumentException("invalid/unsupported category of question");

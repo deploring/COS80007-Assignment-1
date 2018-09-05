@@ -27,8 +27,8 @@ public final class ListeningQuestion extends ChoiceQuestion {
      * @see ChoiceQuestion
      * @see ListeningQuestion
      */
-    public ListeningQuestion(QuestionType type, Difficulty difficulty, String prompt, String[] answers, String[] choices, String soundFileLoc) {
-        super(type, difficulty, prompt, answers, choices);
+    public ListeningQuestion(QuestionType type, Difficulty difficulty, String[] answers, String[] choices, String soundFileLoc) {
+        super(type, difficulty, "Click the button to listen to the sentence(s). Note the accent. Select the correct key words that are spoken.", answers, choices);
         this.soundFileLoc = soundFileLoc;
     }
 

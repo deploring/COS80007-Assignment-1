@@ -21,6 +21,9 @@ import java.net.URISyntaxException;
  */
 public class Utilities {
 
+    // Keep an instance of the latest MediaPlayer so GC does not remove it mid-playback.
+    private static MediaPlayer mediaPlayer;
+
     /**
      * @return Seconds formatted into MM:SS.
      */
@@ -38,9 +41,13 @@ public class Utilities {
      */
     public static void playSound(String loc) {
         try {
+            // Stop previous playback if playing.
+            if (mediaPlayer != null)
+                mediaPlayer.stop();
+
             // Translate the loc path into a URI for the Media to load.
             Media toPlay = new Media(Utilities.class.getResource(String.format("/%s", loc)).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(toPlay);
+            mediaPlayer = new MediaPlayer(toPlay);
             mediaPlayer.play();
         } catch (URISyntaxException e) {
             // This shouldn't happen, so let's print the stack trace for debugging.
@@ -54,7 +61,7 @@ public class Utilities {
      * @param loc Path to image resource file.
      * @return Image resource!
      */
-    public static Image image(String loc){
+    public static Image image(String loc) {
         try {
             return ImageIO.read(MainView.class.getResourceAsStream(String.format("/%s", loc)));
         } catch (IOException e) {

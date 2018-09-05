@@ -14,7 +14,7 @@ public enum QuestionType {
     SPELLING(15, 3 * 60),
     IMAGE(10, 3 * 60),
     WRITING(5, 3 * 60),
-    LISTENING(10, 3 * 60);
+    LISTENING(8, 3 * 60);
 
     private int maxQuestions;
     private int maxTime;

@@ -264,6 +264,318 @@
     }
   ],
   "LISTENING": [
+    {
+      "difficulty": "EASY",
+      "file": "easy1.mp3",
+      "options": [
+        "Chef",
+        "Hankerchief",
+        "Holded",
+        "Folded"
+      ],
+      "answer": [
+        "Folded",
+        "Hankerchief"
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "file": "easy2.mp3",
+      "options": [
+        "Blue",
+        "Lease",
+        "Tink",
+        "Way"
+      ],
+      "answer": [
+        "Blue",
+        "Lease"
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "file": "easy3.mp3",
+      "options": [
+        "Alone",
+        "He",
+        "I",
+        "Along"
+      ],
+      "answer": [
+        "I",
+        "Alone"
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "file": "easy4.mp3",
+      "options": [
+        "Way",
+        "Late",
+        "Party",
+        "Petty",
+        "Need",
+        "Rent"
+      ],
+      "answer": [
+        "Need",
+        "Rent",
+        "Party"
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "file": "easy5.mp3",
+      "options": [
+        "Sets",
+        "Seats",
+        "Good",
+        "Early"
+      ],
+      "answer": [
+        "Seats",
+        "Early"
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "file": "easy6.mp3",
+      "options": [
+        "Share",
+        "Memory",
+        "Coherent",
+        "Shave",
+        "Relevant"
+      ],
+      "answer": [
+        "Share",
+        "Memory",
+        "Coherent"
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "file": "easy7.mp3",
+      "options": [
+        "Deserve",
+        "He",
+        "Counting",
+        "Dessert"
+      ],
+      "answer": [
+        "Deserve",
+        "Counting"
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "file": "medium1.mp3",
+      "options": [
+        "Letter",
+        "Later",
+        "Wrong",
+        "Read",
+        "Long",
+        "Dogs"
+      ],
+      "answer": [
+        "Letter",
+        "Long",
+        "Read"
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "file": "medium2.mp3",
+      "options": [
+        "Freezer",
+        "Freezing",
+        "Store",
+        "Day",
+        "They",
+        "Story",
+        "Gadget",
+        "Baggage"
+      ],
+      "answer": [
+        "Freezer",
+        "They",
+        "Store",
+        "Baggage"
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "file": "medium3.mp3",
+      "options": [
+        "Unique",
+        "Pee",
+        "Design",
+        "Same",
+        "Pie"
+      ],
+      "answer": [
+        "Pie",
+        "Same",
+        "Unique"
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "file": "medium4.mp3",
+      "options": [
+        "River",
+        "Bothers",
+        "Knowing",
+        "Enough"
+      ],
+      "answer": [
+        "River",
+        "Enough"
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "file": "medium5.mp3",
+      "options": [
+        "Rain",
+        "Mysterious",
+        "June",
+        "Voice",
+        "Money",
+        "Mystery",
+        "Due"
+      ],
+      "answer": [
+        "Rain",
+        "Mysterious",
+        "June",
+        "Voice"
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "file": "medium6.mp3",
+      "options": [
+        "House",
+        "Offer",
+        "Getting",
+        "Mystery",
+        "Jetting",
+        "Dark"
+      ],
+      "answer": [
+        "House",
+        "Getting",
+        "Dark"
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "file": "medium7.mp3",
+      "options": [
+        "Cool",
+        "Likes",
+        "Leaves",
+        "Test",
+        "Coal",
+        "Things"
+      ],
+      "answer": [
+        "Cool",
+        "Likes",
+        "Things",
+        "Test"
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "file": "medium8.mp3",
+      "options": [
+        "Shooter",
+        "Sundays",
+        "Love",
+        "Sighter",
+        "God",
+        "Slowly",
+        "Dice"
+      ],
+      "answer": [
+        "Shooter",
+        "Love",
+        "Sundays"
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": ".mp3",
+      "options": [
+        ""
+      ],
+      "answer": [
+        ""
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": ".mp3",
+      "options": [
+        ""
+      ],
+      "answer": [
+        ""
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": ".mp3",
+      "options": [
+        ""
+      ],
+      "answer": [
+        ""
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": ".mp3",
+      "options": [
+        ""
+      ],
+      "answer": [
+        ""
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": ".mp3",
+      "options": [
+        ""
+      ],
+      "answer": [
+        ""
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": ".mp3",
+      "options": [
+        ""
+      ],
+      "answer": [
+        ""
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": ".mp3",
+      "options": [
+        ""
+      ],
+      "answer": [
+        ""
+      ]
+    }
   ],
   "IMAGE": [
   ]
