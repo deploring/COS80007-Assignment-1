@@ -16,7 +16,7 @@ import au.edu.swin.ajass.enums.QuestionType;
  * @see QuestionFactory
  * @since 0.1
  */
-public class QuestionBank {
+public final class QuestionBank {
 
     private QuestionCache cache;
     private QuestionFactory factory;
@@ -35,11 +35,11 @@ public class QuestionBank {
      * it asks QuestionFactory, else, other questions (Maths,
      * Listening, Image) are retrieved from QuestionCache
      */
-    public Question retrieveQuestion(QuestionType category, Difficulty difficulty) {
+    public Question retrieveQuestion(QuestionType category, Difficulty difficulty, Test currentTest) {
         switch (category) {
             case WRITING:
             case SPELLING:
-                return factory.retrieveQuestion(category, difficulty);
+                return factory.retrieveQuestion(category, difficulty, currentTest);
             case MATHS:
             case LISTENING:
             case IMAGE:

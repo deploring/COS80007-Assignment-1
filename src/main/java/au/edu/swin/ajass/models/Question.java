@@ -73,7 +73,7 @@ public abstract class Question {
      * SpellingQuestion offers a hint to the user.
      *
      * @return Amount of marks this question is worth.
-     * @see SpellingQuestion
+     * @see au.edu.swin.ajass.models.questions.SpellingQuestion
      */
     public double getMarksEarnt() {
         return difficulty.getMarks();
@@ -92,5 +92,12 @@ public abstract class Question {
      */
     public boolean isAnswered() {
         return answered;
+    }
+
+    /**
+     * Empty method that can be overridden for any purpose.
+     * Called when the Question is prompted on screen.
+     */
+    public void onPrompted(){
     }
 }

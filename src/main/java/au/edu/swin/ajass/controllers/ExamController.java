@@ -5,6 +5,8 @@ import au.edu.swin.ajass.enums.QuestionType;
 import au.edu.swin.ajass.models.*;
 import au.edu.swin.ajass.models.questions.ChoiceQuestion;
 import au.edu.swin.ajass.models.questions.ImageQuestion;
+import au.edu.swin.ajass.models.questions.SpellingQuestion;
+import au.edu.swin.ajass.models.questions.WritingQuestion;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.geom.Point2D;
@@ -122,6 +124,7 @@ public final class ExamController {
      * @return Whether a new test can be started or not.
      */
     public boolean canBeginTest() {
+        // Test can be begun if there are no previous tests or if the latest test is not active.
         return !exam.getTests().hasNext() || !exam.getCurrentTest().isActive();
     }
 
@@ -168,7 +171,7 @@ public final class ExamController {
                 ImageQuestion image = (ImageQuestion) current;
                 // Answer expects Point2D and nothing more
                 if (answer.length != 1 || !(answer[0] instanceof Point2D))
-                    throw new IllegalArgumentException("ImageQuestion expects Point2D[]");
+                    throw new IllegalArgumentException("ImageQuestion expects Point2D");
                 else image.answer((Point2D) answer[0]);
                 break;
             case MATHS:
@@ -190,11 +193,19 @@ public final class ExamController {
                 }
                 break;
             case WRITING:
-                //TODO: this
-                throw new NotImplementedException();
+                WritingQuestion writing = (WritingQuestion) current;
+                // Answer expects String and nothing more
+                if (answer.length != 1 || !(answer[0] instanceof String))
+                    throw new IllegalArgumentException("WritingQuestion expects String");
+                else writing.answer((String) answer[0]);
+                break;
             case SPELLING:
-                //TODO: this
-                throw new NotImplementedException();
+                SpellingQuestion spelling = (SpellingQuestion) current;
+                // Answer expects String and nothing more
+                if (answer.length != 1 || !(answer[0] instanceof String))
+                    throw new IllegalArgumentException("SpellingQuestion expects String");
+                else spelling.answer((String) answer[0]);
+                break;
             default:
                 throw new IllegalArgumentException("Invalid test category");
         }
@@ -235,7 +246,7 @@ public final class ExamController {
         Test test = exam.getCurrentTest();
         if (!test.isActive()) return;
 
-        Question nextQuestion = questionBank.retrieveQuestion(test.getCategory(), test.getCurrentDifficulty());
+        Question nextQuestion = questionBank.retrieveQuestion(test.getCategory(), test.getCurrentDifficulty(), getExamModel().getCurrentTest());
         test.newQuestion(nextQuestion);
     }
 }

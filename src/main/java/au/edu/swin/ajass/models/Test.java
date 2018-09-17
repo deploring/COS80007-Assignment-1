@@ -3,6 +3,7 @@ package au.edu.swin.ajass.models;
 import au.edu.swin.ajass.enums.Difficulty;
 import au.edu.swin.ajass.enums.QuestionType;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -40,7 +41,7 @@ public final class Test {
      * @return Whether test is active.
      */
     public boolean isActive() {
-        return finishedEarly || !isComplete();
+        return !finishedEarly && !isComplete();
     }
 
     /**
@@ -110,6 +111,13 @@ public final class Test {
      */
     public void adjustDifficulty(Difficulty newDifficulty) {
         currentDifficulty = newDifficulty;
+    }
+
+    /**
+     * @return An iterator object over the LinkedList of issued questions.
+     */
+    public Iterator<Question> getQuestions() {
+        return questions.iterator();
     }
 
     /**

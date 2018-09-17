@@ -9,7 +9,6 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +20,9 @@ public class TestView extends JPanel implements IView {
     // Reference back to JFrame, upper View.
     private final MainView main;
     private final ExamView exam;
+
+    // Makes finishing screen fade after 10 seconds. Interruptible.
+    private Thread fadeThread;
 
     public TestView(MainView main, ExamView exam) {
         this.main = main;
@@ -180,8 +182,77 @@ public class TestView extends JPanel implements IView {
                     listen.addActionListener(e -> Utilities.playSound(((ListeningQuestion) question).getSoundFileLoc()));
 
                     c.gridy++;
-                    result.add(listen,c);
+                    result.add(listen, c);
                 }
+
+                c.gridy++;
+                result.add(selectPrompt, c);
+                for (JComponent add : toAdd)
+                    optionsPanel.add(add);
+                c.gridy++;
+                c.weighty = 0.05;
+                c.weightx = 0.05;
+                // Stop text box from collapsing in on itself
+                result.add(optionsPanel, c);
+                c.fill = GridBagConstraints.NONE;
+                c.weightx = 0;
+                c.weighty = 0;
+                break;
+            case SPELLING:
+                // Stuff to add later.
+                optionsPanel = new JPanel();
+
+                // JTextField response.
+                selectPrompt = new JLabel("Please enter your answer.");
+
+                JTextField response = new JTextField(5);
+                // Enable submit after text has been inputted
+                response.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        SwingUtilities.invokeLater(() -> submit.setEnabled(response.getText().length() > 0));
+                    }
+                });
+                submit.addActionListener(e -> {
+                    main.exam().attemptAnswer(response.getText());
+                    exam.finaliseQuestionResponse();
+                });
+                toAdd = new JComponent[]{response};
+
+                c.gridy++;
+                result.add(selectPrompt, c);
+                for (JComponent add : toAdd)
+                    optionsPanel.add(add);
+                c.gridy++;
+                c.weighty = 0.05;
+                c.weightx = 0.05;
+                // Stop text box from collapsing in on itself
+                result.add(optionsPanel, c);
+                c.fill = GridBagConstraints.NONE;
+                c.weightx = 0;
+                c.weighty = 0;
+                break;
+            case WRITING:
+                // Stuff to add later.
+                optionsPanel = new JPanel();
+
+                // JTextField response.
+                selectPrompt = new JLabel("Please enter your answer.");
+
+                JTextArea writing = new JTextArea(10, 10);
+                // Enable submit after text has been inputted
+                writing.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        SwingUtilities.invokeLater(() -> submit.setEnabled(writing.getText().length() > 0));
+                    }
+                });
+                submit.addActionListener(e -> {
+                    // TODO: hint/feedback
+                    main.exam().attemptAnswer(writing.getText());
+                    exam.finaliseQuestionResponse();
+                });
+                toAdd = new JComponent[]{writing};
 
                 c.gridy++;
                 result.add(selectPrompt, c);
@@ -246,12 +317,9 @@ public class TestView extends JPanel implements IView {
         repaint();
         revalidate();
 
-        new Thread(() -> {
+        fadeThread = new Thread(() -> {
             try {
                 Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                // Doesn't matter if interrupted
-            } finally {
                 for (Component comp : getComponents()) {
                     if (comp.equals(toDisplay)) {
                         removeAll();
@@ -259,12 +327,19 @@ public class TestView extends JPanel implements IView {
                         revalidate();
                     }
                 }
+            } catch (InterruptedException e) {
+                // Doesn't matter if interrupted
             }
-        }).start();
+        });
+        fadeThread.start();
     }
 
     @Override
     public void onDisplay() {
+        // Interrupt fadeThread if needed.
+        if (fadeThread != null && !fadeThread.isInterrupted())
+            fadeThread.interrupt();
+
         // Calling onDisplay in TestView prompts it to display a generated JPanel with a question prompt.
         Question current = main.exam().getExamModel().getCurrentTest().getCurrentQuestion();
         int questionNumber = main.exam().getExamModel().getCurrentTest().getQuestionsIssued();
@@ -276,6 +351,8 @@ public class TestView extends JPanel implements IView {
         validate();
         // Make test timer visible.
         main.testTimer.setVisible(true);
+        // Question has been prompted. Make it do stuff if needed.
+        current.onPrompted();
     }
 
     @Override

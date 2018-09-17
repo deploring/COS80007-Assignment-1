@@ -1,5 +1,6 @@
 package au.edu.swin.ajass.util;
 
+import au.edu.swin.ajass.Main;
 import au.edu.swin.ajass.views.MainView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -46,7 +47,7 @@ public class Utilities {
                 mediaPlayer.stop();
 
             // Translate the loc path into a URI for the Media to load.
-            Media toPlay = new Media(Utilities.class.getResource(String.format("/%s", loc)).toURI().toString());
+            Media toPlay = new Media(Main.class.getResource(String.format("/%s", loc)).toURI().toString());
             mediaPlayer = new MediaPlayer(toPlay);
             mediaPlayer.play();
         } catch (URISyntaxException e) {

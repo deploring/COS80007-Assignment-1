@@ -18,10 +18,20 @@
         <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
         <testSourceDirectory>${basedir}/src/test/</testSourceDirectory>
         <resources>
+            <!-- Include misc resource files -->
             <resource>
                 <targetPath>.</targetPath>
                 <filtering>false</filtering>
                 <directory>${basedir}/src/main/resources/</directory>
+                <includes>
+                    <include>*</include>
+                </includes>
+            </resource>
+            <!-- Include listening resource files -->
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>false</filtering>
+                <directory>${basedir}/src/main/resources/listening/</directory>
                 <includes>
                     <include>*</include>
                 </includes>

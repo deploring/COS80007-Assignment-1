@@ -11,10 +11,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Question Cache gives access to questions through a JAR resource file.
@@ -28,7 +25,7 @@ import java.util.Map;
  * @version 1
  * @since 0.1
  */
-public class QuestionCache {
+public final class QuestionCache {
 
     // Map which maps QuestionType(s) and Difficulty(s) to a specific List.
     private final Map<QuestionType, Map<Difficulty, List<Question>>> questionMap;
@@ -67,8 +64,9 @@ public class QuestionCache {
             // Parse each individual question, then place it into the correct mapped List.
             for (Object question : (JSONArray) root.get(element))
                 placeQuestion(parseQuestion(category, (JSONObject) question));
-
         }
+
+        randomize();
     }
 
     /**
@@ -139,6 +137,23 @@ public class QuestionCache {
         return result;
     }
 
+    /**
+     * Randomizes all the mapped question lists.
+     * This should be done after everything is loaded.
+     */
+    private void randomize() {
+        for (Map<Difficulty, List<Question>> map : questionMap.values())
+            for (List<Question> list : map.values())
+                Collections.shuffle(list);
+    }
+
+    /**
+     * Takes the next available question from a mapped list of a specific category and difficulty.
+     *
+     * @param category Question category.
+     * @param diff     Question difficulty.
+     * @return Next question from the desired category and difficulty.
+     */
     public Question retrieveQuestion(QuestionType category, Difficulty diff) {
         return questionMap.get(category).get(diff).remove(0);
     }
