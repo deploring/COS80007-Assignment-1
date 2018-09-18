@@ -3,17 +3,28 @@ package au.edu.swin.ajass.views;
 import au.edu.swin.ajass.models.Question;
 import au.edu.swin.ajass.models.questions.ChoiceQuestion;
 import au.edu.swin.ajass.models.questions.ListeningQuestion;
+import au.edu.swin.ajass.models.questions.WritingQuestion;
 import au.edu.swin.ajass.util.Utilities;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by sky on 21/8/18.
+ * This is the lower half of the exam view. While a test is active,
+ * it will receive questions of a supported type and create the
+ * appropriate JPanel prompt for it. This allows the user to answer
+ * the question, for which the answer is passed to ExamController.
+ *
+ * @author Joshua Skinner
+ * @author Bradley Chick
+ * @version 1
+ * @since 0.1
  */
 public class TestView extends JPanel implements IView {
 
@@ -233,13 +244,17 @@ public class TestView extends JPanel implements IView {
                 c.weighty = 0;
                 break;
             case WRITING:
+                WritingQuestion writingQ = (WritingQuestion) question;
                 // Stuff to add later.
                 optionsPanel = new JPanel();
 
-                // JTextField response.
+                // JTextArea response.
                 selectPrompt = new JLabel("Please enter your answer.");
+                JTextArea writing = new JTextArea();
+                writing.setWrapStyleWord(true);
+                writing.setLineWrap(true);
+                writing.setPreferredSize(new Dimension(400, 200));
 
-                JTextArea writing = new JTextArea(10, 10);
                 // Enable submit after text has been inputted
                 writing.addKeyListener(new KeyAdapter() {
                     @Override
@@ -248,7 +263,18 @@ public class TestView extends JPanel implements IView {
                     }
                 });
                 submit.addActionListener(e -> {
-                    // TODO: hint/feedback
+                    if (!writingQ.isHinted()) {
+                        HashMap<String, Integer> incorrect = writingQ.hint(writing.getText());
+                        if (incorrect.size() > 0) {
+                            // Their answer is incorrect, provide a hint at the cost of half marks.
+                            writingQ.deductHalfMarks();
+                            String warningMessage = "Your answer was incorrect. \nYou will now be given an opportunity to receive half marks\nafter reviewing and correcting the errors below:\n";
+                            for (Map.Entry<String, Integer> entry : incorrect.entrySet())
+                                warningMessage += entry.getKey() + " (" + entry.getValue() + " errors)\n";
+                            JOptionPane.showMessageDialog(null, warningMessage, "Hint", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
                     main.exam().attemptAnswer(writing.getText());
                     exam.finaliseQuestionResponse();
                 });
@@ -286,7 +312,7 @@ public class TestView extends JPanel implements IView {
      * The user, however, may start another test before the 10 seconds
      * has elapsed.
      */
-    public void displayFillerPanel() {
+    void displayFillerPanel() {
         JPanel toDisplay = new JPanel();
 
         // Figure out what to display.

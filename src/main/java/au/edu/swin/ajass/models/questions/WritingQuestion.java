@@ -26,10 +26,19 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
         commonRelativePronouns = Arrays.asList(commonRelPronounList);
     }
 
+    // Errors made in the user's answer.
     private HashMap<String, Integer> errors;
+
+    // Stores whether a hint has been used yet or not.
+    private boolean hinted;
+
+    // Whether marks should be deducted. (changed after receiving hint)
+    private boolean deductHalfMarks;
 
     public WritingQuestion(QuestionType type, Difficulty difficulty, String prompt, Test test) {
         super(type, difficulty, prompt, test);
+        hinted = false;
+        deductHalfMarks = false;
     }
 
     /**
@@ -49,6 +58,7 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
      * @return Map of incorrect words and how many errors they attracted.
      */
     public HashMap<String, Integer> hint(String answer) {
+        hinted = true;
         switch (getDifficulty()) {
             case EASY:
                 return checkSimple(answer);
@@ -62,6 +72,20 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
     }
 
     /**
+     * @return True if the user has received feedback from hint(), false otherwise
+     */
+    public boolean isHinted() {
+        return hinted;
+    }
+
+    /**
+     * When called, only half of the allotted marks will be awarded for this question.
+     */
+    public void deductHalfMarks() {
+        deductHalfMarks = true;
+    }
+
+    /**
      * Checks if a sentence is classed as "simple".
      * A sentence is simple, in this context, if:
      * <ul>
@@ -69,6 +93,7 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
      * <li>No words contain out-of-place capitalisation (except for first character in each word).</li>
      * <li>There is a full stop at the end of the sentence, and only one full stop.</li>
      * <li>There are no numeric characters used.</li>
+     * <li>At least five words are used.</li>
      * </ul>
      *
      * @param answer Answer given.
@@ -81,6 +106,9 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
 
         for (int i = 0; i < words.length; i++) {
             String word = words[i];
+            // Skip if word is empty.
+            if(word.length() == 0) continue;
+
             // Check if first word is capitalised.
             if (i == 0 && !Character.isUpperCase(word.charAt(0))) {
                 addIncorrect(incorrect, String.format("%s[%d]", word, i));
@@ -105,6 +133,9 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
                 addIncorrect(incorrect, "Structure");
         }
 
+        if (words.length < 5)
+            addIncorrect(incorrect, "Word count");
+
         return incorrect;
     }
 
@@ -115,6 +146,7 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
      * <li>The existing sentence has been classed as "simple".</li>
      * <li>A conjunction is used.</li>
      * <li>A comma is used.</li>
+     * <li>At least ten words are used.</li>
      * </ul>
      *
      * @param answer Answer given.
@@ -130,6 +162,9 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
         String[] words = answer.split(" ");
 
         for (String word : words) {
+            // Skip if word is empty.
+            if(word.length() == 0) continue;
+
             // Check if word is conjunction.
             if (!usedConjunction && commonConjunctions.contains(word))
                 usedConjunction = true;
@@ -153,6 +188,9 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
             // Sentence structure is incorrect, as a comma was not used correctly.
             addIncorrect(incorrect, "Structure");
 
+        if (words.length < 10)
+            addIncorrect(incorrect, "Word count");
+
         return incorrect;
     }
 
@@ -162,7 +200,8 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
      * <ul>
      * <li>The existing sentence has been classed as "compound".</li>
      * <li>A relative pronoun is used.</li>
-     * <li>A word is capitalised that isn't at the beginning of the sentence.</li>
+     * <li>A word is capitalised that isn't at the beginning of the sentence.</li>\
+     * <li>At least fifteen words are used.</li>
      * </ul>
      *
      * @param answer Answer given.
@@ -179,6 +218,9 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
 
         for (int i = 0; i < words.length; i++) {
             String word = words[i];
+            // Skip if word is empty.
+            if(word.length() == 0) continue;
+
             // Check if word is conjunction.
             if (!usedRelPronoun && commonRelativePronouns.contains(word))
                 usedRelPronoun = true;
@@ -194,6 +236,9 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
         if (!usedCapWord)
             // Sentence structure is incorrect, as a capitalised word was not used correctly.
             addIncorrect(incorrect, "Structure");
+
+        if (words.length < 15)
+            addIncorrect(incorrect, "Word count");
 
         return incorrect;
     }
@@ -211,7 +256,7 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
     }
 
     /**
-     * @return Errors made on specific words.
+     * @return Errors made on specific words, after checking marks.
      */
     public HashMap<String, Integer> getErrors() {
         return errors;
@@ -234,4 +279,11 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
             System.out.println(entry.getKey() + "," + entry.getValue());
         correct = errors.size() == 0;
     }
+
+    @Override
+    public double getMarksEarnt() {
+        // Divide by two if deductHalfMarks = true.
+        return getDifficulty().getMarks() / (deductHalfMarks ? 2d : 1d);
+    }
+
 }

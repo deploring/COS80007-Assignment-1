@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Heartist on 17/09/2018.
+ * Spelling Questions are a type of Immutable Question
  */
 public final class SpellingQuestion extends ImmutableQuestion<String> {
 
@@ -21,10 +21,7 @@ public final class SpellingQuestion extends ImmutableQuestion<String> {
     private String answer;
 
     // Whether marks should be deducted. (changed after 10 seconds)
-    private boolean deductHalfMarks = false;
-
-    // Spelling Question instances are created on-the-spot, so we can hold an instance of the test it belongs to.
-    private Test test;
+    private boolean deductHalfMarks;
 
     // Words sourced from: http://positivewordsresearch.com/list-of-positive-words/
     static {
@@ -41,6 +38,7 @@ public final class SpellingQuestion extends ImmutableQuestion<String> {
 
     public SpellingQuestion(QuestionType type, Difficulty difficulty, String prompt, Test test) {
         super(type, difficulty, prompt, test);
+        deductHalfMarks = false;
     }
 
     /**

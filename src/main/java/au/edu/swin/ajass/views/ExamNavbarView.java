@@ -54,6 +54,7 @@ public class ExamNavbarView extends JPanel implements IView {
             toAdd.setToolTipText("Not Completed");
             add(toAdd);
         }
+        System.out.println(getSize());
     }
 
     /**

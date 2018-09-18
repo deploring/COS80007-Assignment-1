@@ -14,7 +14,8 @@ import java.util.Set;
  * by comparing a user's answers to the answers that were defined
  * when this question was initialised.
  *
- * @author Bradley Chick, Joshua Skinner
+ * @author Bradley Chick
+ * @author Joshua Skinner
  * @version 1
  * @since 0.1
  */

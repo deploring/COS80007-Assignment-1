@@ -8,7 +8,15 @@ import au.edu.swin.ajass.models.Test;
 import java.util.Iterator;
 
 /**
- * Created by Heartist on 17/09/2018.
+ * Immutable Questions are a generic kind of question where
+ * the answer should be checked against previous questions
+ * to ensure that the same correct answer has not been given
+ * twice.
+ *
+ * @author Bradley Chick
+ * @author Joshua Skinner
+ * @version 1
+ * @since 0.1
  */
 public abstract class ImmutableQuestion<T> extends Question implements Comparable<ImmutableQuestion> {
 
@@ -29,7 +37,7 @@ public abstract class ImmutableQuestion<T> extends Question implements Comparabl
      *
      * @return True if one or more questions share the same answer with this question, false otherwise.
      */
-    public boolean isUniqueAnswer(){
+    boolean isUniqueAnswer(){
         Iterator<Question> previous = test.getQuestions();
         while (previous.hasNext()) {
             // We can safely assume all questions in this test are spelling questions.

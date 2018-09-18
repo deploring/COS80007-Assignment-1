@@ -19,11 +19,12 @@ import java.util.Set;
  * margin for error around the point that will still be
  * considered as correct if clicked in.
  *
- * @author Joshua Skinner, Bradley Chick
+ * @author Joshua Skinner
+ * @author Bradley Chick
  * @version 1
  * @since 0.1
  */
-public class ImageQuestion extends Question {
+public final class ImageQuestion extends Question {
 
     private static int CORRECT_RANGE = 20; // Range, in pixels, around the required region that will be considered correct.
     private final Point2D[] answers; // Required clickable regions
