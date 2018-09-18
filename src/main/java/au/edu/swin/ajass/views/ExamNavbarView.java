@@ -54,7 +54,6 @@ public class ExamNavbarView extends JPanel implements IView {
             toAdd.setToolTipText("Not Completed");
             add(toAdd);
         }
-        System.out.println(getSize());
     }
 
     /**
@@ -100,7 +99,7 @@ public class ExamNavbarView extends JPanel implements IView {
         if (main.exam().getExamModel().getNumberOfTestsTaken() == QuestionType.values().length) return;
 
         Test oldTest = main.exam().getExamModel().getCurrentTest();
-        categories.get(oldTest.getCategory()).setToolTipText(String.format("Completed\nTime Taken: %s", Utilities.digitalTime(oldTest.getTimeElapsed())));
+        categories.get(oldTest.getCategory()).setToolTipText(String.format("Completed! Time Taken: %s", Utilities.digitalTime(oldTest.getTimeElapsed())));
 
         reEnableTestSelection();
     }

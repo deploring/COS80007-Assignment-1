@@ -1,6 +1,7 @@
 package au.edu.swin.ajass.views;
 
 import au.edu.swin.ajass.models.Question;
+import au.edu.swin.ajass.models.Test;
 import au.edu.swin.ajass.models.questions.ChoiceQuestion;
 import au.edu.swin.ajass.models.questions.ListeningQuestion;
 import au.edu.swin.ajass.models.questions.WritingQuestion;
@@ -50,6 +51,9 @@ public class TestView extends JPanel implements IView {
      * @return Resulting JPanel.
      */
     private JPanel createQuestionPanel(Question question, int questNo) {
+        // Return instance of current test for utility purposes.
+        Test currentTest = main.exam().getExamModel().getCurrentTest();
+
         JPanel result = new JPanel();
         result.setPreferredSize(getPreferredSize());
         result.setLayout(new GridBagLayout());
@@ -85,6 +89,17 @@ public class TestView extends JPanel implements IView {
         // Submit button. Each question gives it a different action listener.
         JButton submit = new JButton("Answer");
         submit.setEnabled(false);
+
+        // Done button. Enables after answering at least one question. Allows user to finish test early.
+        JButton done = new JButton("Finish");
+        done.setEnabled(main.exam().getExamModel().getCurrentTest().getQuestionsIssued() > 1);
+
+        done.addActionListener((e) -> {
+            int confirm = JOptionPane.showConfirmDialog(null, "You are about to finish this test early. Is this what you want?", "Finish Test Early", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (confirm == JOptionPane.YES_OPTION)
+                if (currentTest.isActive())
+                    exam.testCompleted(true);
+        });
 
         c.fill = GridBagConstraints.NONE;
         switch (question.getType()) {
@@ -268,10 +283,10 @@ public class TestView extends JPanel implements IView {
                         if (incorrect.size() > 0) {
                             // Their answer is incorrect, provide a hint at the cost of half marks.
                             writingQ.deductHalfMarks();
-                            String warningMessage = "Your answer was incorrect. \nYou will now be given an opportunity to receive half marks\nafter reviewing and correcting the errors below:\n";
+                            StringBuilder warningMessage = new StringBuilder("Your answer was incorrect. \nYou will now be given an opportunity to\nreview and correct the errors below.\nHalf-marks will be awarded if you can fix\nthe issue within ten seconds:\n");
                             for (Map.Entry<String, Integer> entry : incorrect.entrySet())
-                                warningMessage += entry.getKey() + " (" + entry.getValue() + " errors)\n";
-                            JOptionPane.showMessageDialog(null, warningMessage, "Hint", JOptionPane.ERROR_MESSAGE);
+                                warningMessage.append(entry.getKey()).append(" (").append(entry.getValue()).append(" errors)\n");
+                            JOptionPane.showMessageDialog(null, warningMessage.toString(), "Hint", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
                     }
@@ -297,10 +312,14 @@ public class TestView extends JPanel implements IView {
                 throw new NotImplementedException();
         }
 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        buttonPanel.add(submit);
+        buttonPanel.add(done);
         c.gridy++;
         c.anchor = GridBagConstraints.PAGE_END;
         c.weighty = 0.25;
-        result.add(submit, c);
+        result.add(buttonPanel, c);
         c.gridy++;
         c.weighty = 0.5;
         result.add(new JPanel(), c);

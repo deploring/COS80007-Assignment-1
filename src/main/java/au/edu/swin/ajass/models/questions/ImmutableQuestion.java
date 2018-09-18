@@ -23,7 +23,7 @@ public abstract class ImmutableQuestion<T> extends Question implements Comparabl
     protected T answer;
 
     // Immutable questions need to compare their answers against previous questions in the current test.
-    private Test test;
+    protected Test test;
 
     ImmutableQuestion(QuestionType type, Difficulty difficulty, String prompt, Test test) {
         super(type, difficulty, prompt);

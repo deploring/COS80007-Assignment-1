@@ -84,7 +84,7 @@ public final class SpellingQuestion extends ImmutableQuestion<String> {
         new Thread(() -> {
             try {
                 Thread.sleep(10000);
-                if (!isAnswered()) {
+                if (!isAnswered() && test.isActive()) {
                     // They have taken too long to answer.
                     deductHalfMarks = true;
                     List<String> toPick = answers.get(getDifficulty());

@@ -508,72 +508,179 @@
     },
     {
       "difficulty": "HARD",
-      "file": ".mp3",
+      "file": "hard1.mp3",
       "options": [
-        ""
+        "sick",
+        "work",
+        "eerie",
+        "drive",
+        "bag",
+        "made",
+        "dried",
+        "decorated",
+        "tuna",
+        "mud",
+        "which"
       ],
       "answer": [
-        ""
+        "sick",
+        "work",
+        "drive",
+        "made",
+        "decorated",
+        "tuna"
       ]
     },
     {
       "difficulty": "HARD",
-      "file": ".mp3",
+      "file": "hard2.mp3",
       "options": [
-        ""
+        "Christmas",
+        "like",
+        "combining",
+        "sounds",
+        "authority",
+        "must",
+        "lick",
+        "convening",
+        "soon",
+        "nearly"
       ],
       "answer": [
-        ""
+        "Christmas",
+        "like",
+        "combining",
+        "sounds",
+        "authority"
       ]
     },
     {
       "difficulty": "HARD",
-      "file": ".mp3",
+      "file": "hard3.mp3",
       "options": [
-        ""
+        "pup",
+        "gnawed",
+        "canoe",
+        "planks",
+        "rice",
+        "served",
+        "pop",
+        "knowed",
+        "knew",
+        "breeze",
+        "severed"
       ],
       "answer": [
-        ""
+        "pup",
+        "gnawed",
+        "canoe",
+        "planks",
+        "rice",
+        "served"
       ]
     },
     {
       "difficulty": "HARD",
-      "file": ".mp3",
+      "file": "hard4.mp3",
       "options": [
-        ""
+        "purse",
+        "trash",
+        "hailed",
+        "morning",
+        "fish",
+        "tank",
+        "pussy",
+        "child",
+        "important",
+        "thank"
       ],
       "answer": [
-        ""
+        "purse",
+        "trash",
+        "hailed",
+        "morning",
+        "fish",
+        "tank"
       ]
     },
     {
       "difficulty": "HARD",
-      "file": ".mp3",
+      "file": "hard5.mp3",
       "options": [
-        ""
+        "load",
+        "shoulder",
+        "note",
+        "tank",
+        "joy",
+        "size",
+        "loud",
+        "below",
+        "nod",
+        "thank",
+        "high",
+        "safety"
       ],
       "answer": [
-        ""
+        "load",
+        "shoulder",
+        "note",
+        "tank",
+        "joy",
+        "size"
       ]
     },
     {
       "difficulty": "HARD",
-      "file": ".mp3",
+      "file": "hard6.mp3",
       "options": [
-        ""
+        "gang",
+        "drug",
+        "wire",
+        "inside",
+        "chicks",
+        "cool",
+        "laid",
+        "grass",
+        "really",
+        "insane",
+        "kicks",
+        "tall",
+        "cold",
+        "lied"
       ],
       "answer": [
-        ""
+        "gang",
+        "drug",
+        "wire",
+        "inside",
+        "chicks",
+        "cool",
+        "laid",
+        "grass"
       ]
     },
     {
       "difficulty": "HARD",
-      "file": ".mp3",
+      "file": "hard7.mp3",
       "options": [
-        ""
+        "march",
+        "soldiers",
+        "sugar",
+        "lives",
+        "both",
+        "lost",
+        "month",
+        "shoulder",
+        "post",
+        "tell"
       ],
       "answer": [
-        ""
+        "march",
+        "soldiers",
+        "sugar",
+        "lives",
+        "both",
+        "lost"
       ]
     }
   ],

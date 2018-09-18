@@ -7,7 +7,6 @@ import au.edu.swin.ajass.models.Test;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Heartist on 17/09/2018.
@@ -32,13 +31,13 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
     // Stores whether a hint has been used yet or not.
     private boolean hinted;
 
-    // Whether marks should be deducted. (changed after receiving hint)
-    private boolean deductHalfMarks;
+    // Mark reduction coefficient. 0.5 means half marks awarded. 0 means no marks awarded. 1 means full marks.
+    private double markDeductionCoeff;
 
     public WritingQuestion(QuestionType type, Difficulty difficulty, String prompt, Test test) {
         super(type, difficulty, prompt, test);
         hinted = false;
-        deductHalfMarks = false;
+        markDeductionCoeff = 1d;
     }
 
     /**
@@ -82,7 +81,25 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
      * When called, only half of the allotted marks will be awarded for this question.
      */
     public void deductHalfMarks() {
-        deductHalfMarks = true;
+        markDeductionCoeff = 0.5d;
+        new Thread(() -> {
+            try {
+                // Deduct full marks if question was not answered in time.
+                // Only deduct if the test is still active, too.
+                Thread.sleep(10000);
+                if (!isAnswered() && test.isActive())
+                    deductFullMarks();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    /**
+     * When called, none of the allotted marks will be awarded for this question.
+     */
+    private void deductFullMarks() {
+        markDeductionCoeff = 0d;
     }
 
     /**
@@ -107,7 +124,7 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
         for (int i = 0; i < words.length; i++) {
             String word = words[i];
             // Skip if word is empty.
-            if(word.length() == 0) continue;
+            if (word.length() == 0) continue;
 
             // Check if first word is capitalised.
             if (i == 0 && !Character.isUpperCase(word.charAt(0))) {
@@ -163,7 +180,7 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
 
         for (String word : words) {
             // Skip if word is empty.
-            if(word.length() == 0) continue;
+            if (word.length() == 0) continue;
 
             // Check if word is conjunction.
             if (!usedConjunction && commonConjunctions.contains(word))
@@ -219,7 +236,7 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
         for (int i = 0; i < words.length; i++) {
             String word = words[i];
             // Skip if word is empty.
-            if(word.length() == 0) continue;
+            if (word.length() == 0) continue;
 
             // Check if word is conjunction.
             if (!usedRelPronoun && commonRelativePronouns.contains(word))
@@ -275,15 +292,12 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
         if (!isUniqueAnswer()) return;
         // If the answer doesn't match any previous questions, then the answer is correct, if it has no errors.
         errors = hint(getAnswer());
-        for (Map.Entry<String, Integer> entry : errors.entrySet())
-            System.out.println(entry.getKey() + "," + entry.getValue());
         correct = errors.size() == 0;
     }
 
     @Override
     public double getMarksEarnt() {
-        // Divide by two if deductHalfMarks = true.
-        return getDifficulty().getMarks() / (deductHalfMarks ? 2d : 1d);
+        return getDifficulty().getMarks() * markDeductionCoeff;
     }
 
 }
