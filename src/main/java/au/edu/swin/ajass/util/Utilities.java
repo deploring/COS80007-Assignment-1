@@ -1,7 +1,6 @@
 package au.edu.swin.ajass.util;
 
 import au.edu.swin.ajass.Main;
-import au.edu.swin.ajass.views.MainView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -64,7 +63,7 @@ public class Utilities {
      */
     public static Image image(String loc) {
         try {
-            return ImageIO.read(MainView.class.getResourceAsStream(String.format("/%s", loc)));
+            return ImageIO.read(Main.class.getResourceAsStream(String.format("/%s", loc)));
         } catch (IOException e) {
             // This shouldn't happen, so expect more bad things to happen!
             e.printStackTrace();

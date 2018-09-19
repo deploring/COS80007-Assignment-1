@@ -3,6 +3,7 @@ package au.edu.swin.ajass.views;
 import au.edu.swin.ajass.models.Question;
 import au.edu.swin.ajass.models.Test;
 import au.edu.swin.ajass.models.questions.ChoiceQuestion;
+import au.edu.swin.ajass.models.questions.ImageQuestion;
 import au.edu.swin.ajass.models.questions.ListeningQuestion;
 import au.edu.swin.ajass.models.questions.WritingQuestion;
 import au.edu.swin.ajass.util.Utilities;
@@ -36,6 +37,9 @@ public class TestView extends JPanel implements IView {
     // Makes finishing screen fade after 10 seconds. Interruptible.
     private Thread fadeThread;
 
+    // Hold an instance of the active question so paint() can use it.
+    private Question activeQuestion;
+
     public TestView(MainView main, ExamView exam) {
         this.main = main;
         this.exam = exam;
@@ -51,6 +55,9 @@ public class TestView extends JPanel implements IView {
      * @return Resulting JPanel.
      */
     private JPanel createQuestionPanel(Question question, int questNo) {
+        // Keep an instance of active question for paint().
+        activeQuestion = question;
+
         // Return instance of current test for utility purposes.
         Test currentTest = main.exam().getExamModel().getCurrentTest();
 
@@ -85,6 +92,10 @@ public class TestView extends JPanel implements IView {
         c.weighty = 0;
         c.fill = GridBagConstraints.BOTH;
         result.add(promptPanel, c);
+
+        // Panel for submit buttons.
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
 
         // Submit button. Each question gives it a different action listener.
         JButton submit = new JButton("Answer");
@@ -309,12 +320,51 @@ public class TestView extends JPanel implements IView {
                 c.weightx = 0;
                 c.weighty = 0;
                 break;
+            case IMAGE:
+                // Retrieve image to show.
+                ImageQuestion imageQ = (ImageQuestion) question;
+                Image image = Utilities.image(imageQ.getImageFileLoc());
+                JLabel imageLabel = new JLabel();
+                imageLabel.setIcon(new ImageIcon(image));
+
+                // Implement clear button.
+                JButton reset = new JButton("Reset");
+
+                reset.addActionListener((e) -> {
+                    imageQ.resetAnswers();
+                    repaint();
+                });
+
+                imageLabel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        Point clicked = e.getPoint();
+                        Point point = imageLabel.getLocation();
+
+                        double absoluteX = clicked.getX() - point.getX();
+                        double absoluteY = clicked.getY() - point.getY();
+                        // Calculate absolute point clicked on the image.
+                        Point absolutePoint = new Point((int) absoluteX + 5, (int) absoluteY + 5);
+
+                        imageQ.answer(absolutePoint);
+                        repaint();
+                    }
+                });
+
+                // Add image to frame.
+                optionsPanel = new JPanel();
+                optionsPanel.add(imageLabel);
+                c.gridy++;
+                c.weighty = 0.05;
+                c.weightx = 0.05;
+                result.add(optionsPanel, c);
+                c.weightx = 0;
+                c.weighty = 0;
+                break;
             default:
                 throw new NotImplementedException();
         }
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
         buttonPanel.add(submit);
         buttonPanel.add(done);
         c.gridy++;
@@ -340,6 +390,7 @@ public class TestView extends JPanel implements IView {
             case LISTENING:
             case SPELLING:
             case WRITING:
+            case MATHS:
                 JLabel label = new JLabel("Nice work!");
                 label.setFont(new Font("Arial", Font.BOLD, 30));
                 JLabel label2 = new JLabel("You've completed this test.");
@@ -349,7 +400,6 @@ public class TestView extends JPanel implements IView {
                 toDisplay.add(label3, BorderLayout.SOUTH);
                 break;
             case IMAGE:
-            case MATHS:
                 toDisplay.setLayout(new FlowLayout());
                 ImageIcon toShow = new ImageIcon(Utilities.image("goodluck.png"));
                 JLabel imageLabel = new JLabel();
@@ -378,6 +428,18 @@ public class TestView extends JPanel implements IView {
             }
         });
         fadeThread.start();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        if (activeQuestion != null) {
+            switch (activeQuestion.getType()) {
+                case IMAGE:
+                    //TODO: Display clicks
+                    break;
+            }
+        }
     }
 
     @Override

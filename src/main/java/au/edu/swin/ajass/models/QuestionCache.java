@@ -3,15 +3,18 @@ package au.edu.swin.ajass.models;
 import au.edu.swin.ajass.enums.Difficulty;
 import au.edu.swin.ajass.enums.QuestionType;
 import au.edu.swin.ajass.models.questions.ChoiceQuestion;
+import au.edu.swin.ajass.models.questions.ImageQuestion;
 import au.edu.swin.ajass.models.questions.ListeningQuestion;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.List;
 
 /**
  * Question Cache gives access to questions through a JAR resource file.
@@ -94,6 +97,14 @@ public final class QuestionCache {
                 String soundFileLoc = question.get("file").toString();
                 result = new ListeningQuestion(category, difficulty, answers, options, soundFileLoc);
                 break;
+            case IMAGE:
+                prompt = (String) question.get("prompt");
+                difficulty = Difficulty.valueOf((String) question.get("difficulty"));
+                Point[] points = convertJSONArrayToPoint2DArray((JSONArray) question.get("correct"));
+                String imageFileLoc = question.get("file").toString();
+                System.out.println(imageFileLoc);
+                result = new ImageQuestion(category, difficulty, prompt, points, imageFileLoc);
+                break;
             default:
                 throw new IllegalArgumentException("invalid/unsupported category of question");
         }
@@ -133,6 +144,28 @@ public final class QuestionCache {
             if (!(element instanceof String))
                 throw new IllegalArgumentException("expected JSONArray of String");
             result[i] = (String) element;
+        }
+        return result;
+    }
+
+    /**
+     * Converts a JSONArray into a Point2D array.
+     *
+     * @param input JSONArray object.
+     * @return Point2D array object.
+     * @throws IllegalArgumentException JSONArray may not contain serialized Point2D objects.
+     */
+    private Point[] convertJSONArrayToPoint2DArray(JSONArray input) {
+        Point[] result = new Point[input.size()];
+        for (int i = 0; i < input.size(); i++) {
+            try {
+                JSONArray jsonInts = (JSONArray) input.get(i);
+                long x = (Long) jsonInts.get(0);
+                long y = (Long) jsonInts.get(1);
+                result[i] = new Point((int) x, (int) y);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Point2D array expects [number, number...]");
+            }
         }
         return result;
     }

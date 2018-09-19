@@ -744,7 +744,7 @@
     {
       "difficulty": "MEDIUM",
       "prompt": "Select the two similar shapes.",
-      "file": "medium_1.png",
+      "file": "med_1.png",
       "correct": [
         [118, 55],
         [120, 103]
@@ -753,82 +753,90 @@
     {
       "difficulty": "MEDIUM",
       "prompt": "Select the left-most circle.",
-      "file": "medium_2.png",
+      "file": "med_2.png",
       "correct": [
         [223, 100]
       ]
     },
     {
       "difficulty": "MEDIUM",
-      "file": "medium_3.png",
+      "prompt": "Select the right-angled triangle.",
+      "file": "med_3.png",
       "correct": [
-        [],
-        []
+        [48, 50]
       ]
     },
     {
       "difficulty": "MEDIUM",
-      "file": "medium_4.png",
+      "prompt": "Select the lowest positioned triangle.",
+      "file": "med_4.png",
       "correct": [
-        [],
-        []
+        [315, 153]
       ]
     },
     {
       "difficulty": "HARD",
+      "prompt": "Select the green star with five points.",
       "file": "hard_1.png",
       "correct": [
-        [],
-        []
+        [100, 70]
       ]
     },
     {
       "difficulty": "HARD",
+      "prompt": "Select the star with the most vertices.",
       "file": "hard_2.png",
       "correct": [
-        [],
-        []
+        [154, 65]
       ]
     },
     {
       "difficulty": "HARD",
+      "prompt": "Select the 5 similar shapes.",
       "file": "hard_3.png",
       "correct": [
-        [],
-        []
+        [78,45],
+        [68,165],
+        [190, 120],
+        [280, 40],
+        [335, 130]
       ]
     },
     {
       "difficulty": "HARD",
+      "prompt": "Select the smallest square.",
       "file": "hard_4.png",
       "correct": [
-        [],
-        []
+        [130, 35]
       ]
     },
     {
       "difficulty": "HARD",
+      "prompt": "Select the three squares that are a primary colour.",
       "file": "hard_5.png",
       "correct": [
-        [],
-        []
+        [90, 53],
+        [170, 53],
+        [323, 113]
       ]
     },
     {
       "difficulty": "HARD",
+      "prompt": "Select the shapes with 4 vertices.",
       "file": "hard_6.png",
       "correct": [
-        [],
-        []
+        [265, 20],
+        [238, 155],
+        [268, 210]
       ]
     },
     {
       "difficulty": "HARD",
+      "prompt": "Select the shape with the most edges.",
       "file": "hard_7.png",
       "correct": [
-        [],
-        []
+        [169, 80]
       ]
-    },
+    }
   ]
 }

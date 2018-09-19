@@ -38,8 +38,6 @@ public class ExamNavbarView extends JPanel implements IView {
         this.main = main;
         this.exam = exam;
         setLayout(new FlowLayout());
-        System.out.println(getSize());
-        System.out.println(getPreferredSize());
 
         categories = new HashMap<>();
 
@@ -67,6 +65,9 @@ public class ExamNavbarView extends JPanel implements IView {
 
         add(extraListeningTime);
         add(finishExam);
+
+        System.out.println(getSize());
+        System.out.println(getPreferredSize());
     }
 
     /**

@@ -36,6 +36,15 @@
                     <include>*</include>
                 </includes>
             </resource>
+            <!-- Include image resource files -->
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>false</filtering>
+                <directory>${basedir}/src/main/resources/images/</directory>
+                <includes>
+                    <include>*</include>
+                </includes>
+            </resource>
         </resources>
         <plugins>
             <plugin>

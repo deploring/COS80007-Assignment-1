@@ -31,6 +31,7 @@ public class ExamView extends JPanel implements IView {
         c.fill = GridBagConstraints.BOTH;
         // Take up as little screen height as possible.
         c.weighty = 0.15;
+        c.weightx = 1;
         add(examNavbar.getPanel(), c);
 
         c.gridy = 1;

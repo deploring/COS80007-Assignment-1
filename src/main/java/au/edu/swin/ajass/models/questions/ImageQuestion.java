@@ -4,7 +4,7 @@ import au.edu.swin.ajass.enums.Difficulty;
 import au.edu.swin.ajass.enums.QuestionType;
 import au.edu.swin.ajass.models.Question;
 
-import java.awt.geom.Point2D;
+import java.awt.*;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -26,10 +26,12 @@ import java.util.Set;
  */
 public final class ImageQuestion extends Question {
 
-    private static int CORRECT_RANGE = 20; // Range, in pixels, around the required region that will be considered correct.
-    private final Point2D[] answers; // Required clickable regions
-    private final Set<Point2D> answer; // User clicked regions
+    private static int CORRECT_RANGE = 10; // Range, in pixels, around the required region that will be considered correct.
+    private final Point[] answers; // Required clickable regions
+    private final Set<Point> answer; // User clicked regions
     private final String imageFileLoc;
+
+    private Point absoluteImagePoint;
 
     /**
      * Image-Question specific parameters.
@@ -39,7 +41,7 @@ public final class ImageQuestion extends Question {
      * @param imageFileLoc Path to image file (as JAR resource)
      * @see Question
      */
-    public ImageQuestion(QuestionType type, Difficulty difficulty, String prompt, Point2D[] answers, String imageFileLoc) {
+    public ImageQuestion(QuestionType type, Difficulty difficulty, String prompt, Point[] answers, String imageFileLoc) {
         super(type, difficulty, prompt);
         this.answers = answers;
         this.imageFileLoc = imageFileLoc;
@@ -67,11 +69,11 @@ public final class ImageQuestion extends Question {
 
         // go through each user selected point individually
         // if the selected point is close to a required answer point, it will mark its position in the temp array as true
-        for (Point2D answer : answer)
+        for (Point answer : answer)
             for (int i = 0; i < answers.length; i++) {
                 // This point has been correctly selected already, continue
                 if (temp[i]) continue;
-                Point2D correct = answers[i];
+                Point correct = answers[i];
                 double minX = correct.getX() - CORRECT_RANGE, maxX = correct.getX() + CORRECT_RANGE;
                 double minY = correct.getY() - CORRECT_RANGE, maxY = correct.getY() + CORRECT_RANGE;
                 if (answer.getX() >= minX && answer.getX() <= maxX && answer.getY() >= minY && answer.getY() <= maxY)
@@ -91,23 +93,56 @@ public final class ImageQuestion extends Question {
      * @param answer The point where the user clicked on screen.
      * @throws IllegalStateException Doesn't allow more answers than the answer requires.
      */
-    public void answer(Point2D answer) throws IllegalStateException {
-        if (this.answer.size() >= answers.length)
-            throw new IllegalStateException(String.format("Only %d points can be selected", answers.length));
+    public void answer(Point answer) throws IllegalStateException {
+        // Ignore additional answers after set size has been capped.
+        if (this.answer.size() >= answers.length) return;
+        this.answer.add(answer);
     }
 
     /**
      * @return An iterator over the user's answers
      */
-    public Iterator<Point2D> getAnswer() {
+    public Iterator<Point> getAnswer() {
         return answer.iterator();
     }
 
     /**
      * @return Array of required answer points
      */
-    public Point2D[] getAnswers() {
+    public Point[] getAnswers() {
         return answers;
+    }
+
+    /**
+     * Resets the user's given answers so they can try again.
+     */
+    public void resetAnswers() {
+        answer.clear();
+    }
+
+    /**
+     * @return Path to the image file (as a JAR resource).
+     */
+    public String getImageFileLoc() {
+        return imageFileLoc;
+    }
+
+    /**
+     * Once a question is presented, the absolute point of the image
+     * on the screen should be recorded so clicks can be accurately
+     * calculated.
+     *
+     * @param point Absolute image point.
+     */
+    public void setAbsoluteImagePoint(Point point){
+        absoluteImagePoint = point;
+    }
+
+    /**
+     * @return Absolute position of the image on screen.
+     */
+    public Point getAbsoluteImagePoint(){
+        return absoluteImagePoint;
     }
 
 }

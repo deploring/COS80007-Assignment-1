@@ -5,11 +5,9 @@ import au.edu.swin.ajass.controllers.ExamController;
 import au.edu.swin.ajass.enums.UIState;
 import au.edu.swin.ajass.util.Utilities;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 
 /**
  * This view is an extension of JFrame and serves the

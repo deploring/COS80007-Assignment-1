@@ -7,9 +7,8 @@ import au.edu.swin.ajass.models.questions.ChoiceQuestion;
 import au.edu.swin.ajass.models.questions.ImageQuestion;
 import au.edu.swin.ajass.models.questions.SpellingQuestion;
 import au.edu.swin.ajass.models.questions.WritingQuestion;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.awt.geom.Point2D;
+import java.awt.*;
 import java.util.Set;
 
 /**
@@ -170,9 +169,9 @@ public final class ExamController {
             case IMAGE:
                 ImageQuestion image = (ImageQuestion) current;
                 // Answer expects Point2D and nothing more
-                if (answer.length != 1 || !(answer[0] instanceof Point2D))
-                    throw new IllegalArgumentException("ImageQuestion expects Point2D");
-                else image.answer((Point2D) answer[0]);
+                if (answer.length != 1 || !(answer[0] instanceof Point))
+                    throw new IllegalArgumentException("ImageQuestion expects Point");
+                else image.answer((Point) answer[0]);
                 break;
             case MATHS:
             case LISTENING:
