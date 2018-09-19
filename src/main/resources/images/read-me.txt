@@ -14,65 +14,64 @@ Difficulty_question number - Question asked
 Questions:
 
 easy_1 - Select the side with more shapes
-	180, 410
+	90, 205
 
 easy_2 - Select the downwards facing arrow
-	235, 315
+	168, 158
 
 easy_3 - Select the lowest number
-	610, 95
+	305, 48
 
 easy_4 - Select the right-most square
-	615, 210
+	308, 105
 
 easy_5 - Select the circle Sun
-	645, 82
+	323, 41
 
 easy_6 - Select the shape with 10 vertices
-	525, 172
+	263, 86
 
 easy_ 7 - Select the square
-	204, 297
+	102, 149
 
 med_1 - Select two of the same shape
-	235, 110
-	240, 205
+	118, 55
+	120, 103	
 
 med_2 - Select the left-most circle
-	445, 200
+	223, 100
 
 med_3 - Select the right angle triangle
-	95, 100
+	48, 50
 
 med_4 - Select the bottom-most triangle
-	630, 306
+	315, 153
 
 hard_1 - Select the green five-pointed star.
-	200, 140
+	100, 70
 
 hard_2 - Which star has the most vertices
-	308, 130
+	154, 65
 
 hard_3 - Select 5 of the same shape
-	155, 90
-	175, 330
-	380, 240
-	560, 80
-	669, 260
+	78, 45
+	68, 165
+	190, 120
+	280, 40
+	335, 130
 
 hard_4 - Select the smallest square
-	360, 70
+	130, 35
 
 hard_5 - Select the three squares that are a primary colour
-	180, 105
-	340, 105
-	645, 225
+	90, 53
+	170, 53
+	323, 113
 
 hard_6 - Select all shapes with 4 vertices
-	530, 40
-	275, 310
-	535, 420
+	265, 20
+	238, 155
+	268, 210
 
 hard_7 - Select the shape with the most edges
-	337, 360
-
+	169, 180
