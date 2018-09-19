@@ -38,6 +38,8 @@ public class ExamNavbarView extends JPanel implements IView {
         this.main = main;
         this.exam = exam;
         setLayout(new FlowLayout());
+        System.out.println(getSize());
+        System.out.println(getPreferredSize());
 
         categories = new HashMap<>();
 
@@ -54,6 +56,17 @@ public class ExamNavbarView extends JPanel implements IView {
             toAdd.setToolTipText("Not Completed");
             add(toAdd);
         }
+
+        // Misc buttons
+        JButton extraListeningTime = new JButton("Listening Test Resit");
+        JButton finishExam = new JButton("Finish Exam");
+
+        extraListeningTime.setEnabled(false);
+        extraListeningTime.setVisible(false);
+        finishExam.setEnabled(false);
+
+        add(extraListeningTime);
+        add(finishExam);
     }
 
     /**
