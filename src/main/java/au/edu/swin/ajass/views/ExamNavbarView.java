@@ -22,9 +22,9 @@ import java.util.Map;
  * @author Joshua Skinner
  * @author Bradley Chick
  * @version 1
- * @since 0.1
  * @see ExamView
  * @see TestView
+ * @since 0.1
  */
 public class ExamNavbarView extends JPanel implements IView {
 
@@ -33,6 +33,10 @@ public class ExamNavbarView extends JPanel implements IView {
     private final ExamView exam;
 
     private final HashMap<QuestionType, JButton> categories;
+
+    // Other buttons.
+    private final JButton extraListeningTime;
+    private final JButton finishExam;
 
     public ExamNavbarView(MainView main, ExamView exam) {
         this.main = main;
@@ -56,18 +60,47 @@ public class ExamNavbarView extends JPanel implements IView {
         }
 
         // Misc buttons
-        JButton extraListeningTime = new JButton("Listening Test Resit");
-        JButton finishExam = new JButton("Finish Exam");
+        extraListeningTime = new JButton("Listening Test Resit");
+        finishExam = new JButton("Finish Exam");
 
         extraListeningTime.setEnabled(false);
         extraListeningTime.setVisible(false);
         finishExam.setEnabled(false);
 
+        extraListeningTime.addActionListener((e) -> {
+            // Even though buttons are disabled, check if previous test has finished.
+            if (!main.exam().canBeginTest()) return;
+
+            int result = JOptionPane.showConfirmDialog(null, "Warning: Repeating the Listening test will give you an additional\n120 seconds to answer any questions you did not answer.\n5 marks from your total will be deducted if you choose to re-sit.", "Repeat Listening Test", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (result == JOptionPane.YES_OPTION) {
+                // Disable all test buttons.
+                for (JButton toDisable : categories.values())
+                    toDisable.setEnabled(false);
+                finishExam.setEnabled(false);
+                extraListeningTime.setEnabled(false);
+                extraListeningTime.setVisible(false);
+
+                exam.repeatTest();
+                categories.get(QuestionType.LISTENING).setToolTipText("In Progress");
+            }
+        });
+
+        finishExam.addActionListener((e) -> {
+            finishExam();
+        });
+
         add(extraListeningTime);
         add(finishExam);
+    }
 
-        System.out.println(getSize());
-        System.out.println(getPreferredSize());
+    private void finishExam() {
+        exam.onExamFinish();
+        removeAll();
+        JLabel title = new JLabel("You have finished the exam. Congratulations!");
+        title.setFont(new Font("Arial", Font.BOLD, 20));
+        add(title);
+        repaint();
+        revalidate();
     }
 
     /**
@@ -83,6 +116,10 @@ public class ExamNavbarView extends JPanel implements IView {
         // Disable all test buttons.
         for (JButton toDisable : categories.values())
             toDisable.setEnabled(false);
+        finishExam.setEnabled(false);
+        extraListeningTime.setEnabled(false);
+        extraListeningTime.setVisible(false);
+
         categories.get(category).setToolTipText("In Progress");
 
         exam.startNewTest(category);
@@ -109,6 +146,13 @@ public class ExamNavbarView extends JPanel implements IView {
      * Do routines that need to be done when a test has finished.
      */
     public void onFinishTest() {
+        // User can finish exam at any time, or when time runs out.
+        finishExam.setEnabled(true);
+        // Repeat should be available even if all tests have been completed.
+        boolean canRepeat = main.exam().canRepeatTest();
+        extraListeningTime.setEnabled(canRepeat);
+        extraListeningTime.setVisible(canRepeat);
+
         // Don't do anything if the user has finished all the tests.
         if (main.exam().getExamModel().getNumberOfTestsTaken() == QuestionType.values().length) return;
 
@@ -169,15 +213,16 @@ public class ExamNavbarView extends JPanel implements IView {
         @Override
         public void run() {
             try {
-                Thread.sleep(1000);
                 // Do a tick. Update display.
                 updateTimeDisplay(main.exam().tickExam());
                 // Continue running this thread until instructed to stop.
+                Thread.sleep(1000);
                 if (!interrupted)
                     run();
             } catch (InterruptedException e) {
                 // Perform actions that need to be performed once the exam flow stops.
                 interrupted = true;
+                finishExam();
             }
         }
     }

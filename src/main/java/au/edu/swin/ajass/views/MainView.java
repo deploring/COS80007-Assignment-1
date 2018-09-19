@@ -136,9 +136,6 @@ public class MainView extends JFrame {
             case EXAM:
                 show(exam);
                 break;
-            case RESULTS:
-                show(results);
-                break;
             default:
                 throw new IllegalArgumentException("New UI state not supported or null");
         }

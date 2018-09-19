@@ -12,10 +12,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This is the lower half of the exam view. While a test is active,
@@ -329,24 +326,42 @@ public class TestView extends JPanel implements IView {
 
                 // Implement clear button.
                 JButton reset = new JButton("Reset");
+                reset.setEnabled(false);
 
+                // Event listener for reset button. Active always.
                 reset.addActionListener((e) -> {
                     imageQ.resetAnswers();
+                    reset.setEnabled(false);
+                    submit.setEnabled(false);
                     repaint();
+                });
+
+                // Add the reset button early.
+                buttonPanel.add(reset);
+
+                // Calculate absolute position of the image, do it later though.
+                SwingUtilities.invokeLater(() -> {
+                    // Calculate absolute position of the image on screen so we can paint the circles.
+                    Point relativeImagePoint = imageLabel.getLocationOnScreen();
+                    Point relativePanelPoint = getLocationOnScreen();
+
+                    // Figure out actual image point. Subtract 5 due to border.
+                    Point actualImagePoint = new Point(relativeImagePoint.x - relativePanelPoint.x - 5, relativeImagePoint.y - relativePanelPoint.y - 5);
+                    imageQ.setAbsoluteImagePoint(actualImagePoint);
+                });
+
+                submit.addActionListener(e -> {
+                    exam.finaliseQuestionResponse();
                 });
 
                 imageLabel.addMouseListener(new MouseAdapter() {
                     @Override
-                    public void mouseClicked(MouseEvent e) {
+                    public void mousePressed(MouseEvent e) {
+                        // Answer is where they clicked on the image.
                         Point clicked = e.getPoint();
-                        Point point = imageLabel.getLocation();
-
-                        double absoluteX = clicked.getX() - point.getX();
-                        double absoluteY = clicked.getY() - point.getY();
-                        // Calculate absolute point clicked on the image.
-                        Point absolutePoint = new Point((int) absoluteX + 5, (int) absoluteY + 5);
-
-                        imageQ.answer(absolutePoint);
+                        main.exam().attemptAnswer(clicked);
+                        reset.setEnabled(true);
+                        submit.setEnabled(true);
                         repaint();
                     }
                 });
@@ -430,16 +445,28 @@ public class TestView extends JPanel implements IView {
         fadeThread.start();
     }
 
+    /**
+     * This method is only used to display the user's clicks
+     * on screen for Image Questions.
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        if (activeQuestion != null) {
-            switch (activeQuestion.getType()) {
-                case IMAGE:
-                    //TODO: Display clicks
-                    break;
+        if (activeQuestion != null)
+            if (main.exam().getExamModel().getCurrentTest().isActive()) {
+                switch (activeQuestion.getType()) {
+                    case IMAGE:
+                        Iterator<Point> answerIterator = ((ImageQuestion) activeQuestion).getAnswer();
+                        while (answerIterator.hasNext()) {
+                            Point clickPoint = answerIterator.next();
+                            Point imagePoint = ((ImageQuestion) activeQuestion).getAbsoluteImagePoint();
+                            Point absolutePoint = new Point(clickPoint.x + imagePoint.x + 5, clickPoint.y + imagePoint.y + 5);
+                            g.setColor(Color.WHITE);
+                            g.drawOval(absolutePoint.x - (ImageQuestion.CORRECT_RANGE / 2), absolutePoint.y - (ImageQuestion.CORRECT_RANGE / 2), ImageQuestion.CORRECT_RANGE, ImageQuestion.CORRECT_RANGE);
+                        }
+                        break;
+                }
             }
-        }
     }
 
     @Override

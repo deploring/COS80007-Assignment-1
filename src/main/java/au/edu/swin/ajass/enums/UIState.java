@@ -16,6 +16,5 @@ public enum UIState {
     TERMS, // User is looking at the T&C
     PINGEN, // User is generating a login PIN
     LOGIN, // User is logging in
-    EXAM, // User is logged in and performing exam.
-    RESULTS // User is viewing results.
+    EXAM // User is logged in and performing exam.
 }
