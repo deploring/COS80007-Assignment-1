@@ -117,6 +117,7 @@ public class TestView extends JPanel implements IView {
                 JLabel selectPrompt;
                 JComponent[] toAdd;
                 JPanel optionsPanel = new JPanel();
+                optionsPanel.setLayout(new FlowLayout());
                 if (noOfChoices == 0) {
                     // JTextField response.
                     selectPrompt = new JLabel("Please enter your answer.");

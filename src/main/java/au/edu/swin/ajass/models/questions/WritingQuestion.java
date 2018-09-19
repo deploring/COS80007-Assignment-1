@@ -19,7 +19,7 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
     // Conjunctions sourced from: https://www.englishclub.com/vocabulary/common-conjunctions-25.htm
     // Relative pronouns sourced from: http://grammar.yourdictionary.com/parts-of-speech/pronouns/relative-pronoun.html
     static {
-        String[] commonConjList = {"and", "that", "but", "or", "as", "if", "when", "than", "because", "while", "where", "after", "so", "though", "since", "until", "whether", "before", "although", "nor", "like", "once", "unless", "now", "except"};
+        String[] commonConjList = {"and", "that", "but", "or", "as", "if", "when", "than", "because", "while", "where", "after", "so", "though", "since", "until", "whether", "before", "although", "nor", "like", "once", "unless", "now", "except", "however"};
         commonConjunctions = Arrays.asList(commonConjList);
         String[] commonRelPronounList = {"that", "when", "which", "whichever", "whichsoever", "who", "whoever", "whosoever", "whom", "whomever", "whomsoever", "whose", "whosesoever", "whatever", "whatsoever"};
         commonRelativePronouns = Arrays.asList(commonRelPronounList);

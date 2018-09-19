@@ -236,7 +236,7 @@
       ]
     },
     {
-      "prompt": "Half of this number if a quarter of this number. How much is it?",
+      "prompt": "Half of this number is a quarter of this number. How much is it?",
       "difficulty": "HARD",
       "options": [
       ],
@@ -685,5 +685,10 @@
     }
   ],
   "IMAGE": [
+    {
+      "difficulty": "EASY",
+      "file": "easy_1.png",
+      ""
+    }
   ]
 }

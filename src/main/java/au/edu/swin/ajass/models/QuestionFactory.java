@@ -10,16 +10,17 @@ import au.edu.swin.ajass.models.questions.WritingQuestion;
  * or nearly infinitely many answers. Answers to these questions must be
  * checked individually and thus must be created and returned individually.
  *
- * @author Bradley Chick, Joshua Skinner
+ * @author Bradley Chick
+ * @author Joshua Skinner
  * @version 1
  * @since 0.1
  */
-public final class QuestionFactory {
+final class QuestionFactory {
 
-    public QuestionFactory() {
+    QuestionFactory() {
     }
 
-    public Question retrieveQuestion(QuestionType category, Difficulty diff, Test currentTest) {
+    Question retrieveQuestion(QuestionType category, Difficulty diff, Test currentTest) {
         String prompt;
         switch (category) {
             case SPELLING:
