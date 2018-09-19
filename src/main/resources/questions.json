@@ -687,8 +687,148 @@
   "IMAGE": [
     {
       "difficulty": "EASY",
+      "prompt": "Select the side with more shapes. Click in the center of the correct box.",
       "file": "easy_1.png",
-      ""
-    }
+      "correct": [
+        [90, 205]
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "prompt": "Select the downwards facing arrow.",
+      "file": "easy_2.png",
+      "correct": [
+        [168, 58]
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "prompt": "Select the lowest number.",
+      "file": "easy_3.png",
+      "correct": [
+        [305, 48]
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "prompt": "Select the right-most square.",
+      "file": "easy_4.png",
+      "correct": [
+        [308, 105]
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "prompt": "Select the Sun shaped like a circle.",
+      "file": "easy_5.png",
+      "correct": [
+        [323, 41]
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "prompt": "Select the shape with 10 vertices.",
+      "file": "easy_6.png",
+      "correct": [
+        [283, 86]
+      ]
+    },
+    {
+      "difficulty": "EASY",
+      "prompt": "Select the square.",
+      "file": "easy_7.png",
+      "correct": [
+        [102, 149]
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "prompt": "Select the two similar shapes.",
+      "file": "medium_1.png",
+      "correct": [
+        [118, 55],
+        [120, 103]
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "prompt": "Select the left-most circle.",
+      "file": "medium_2.png",
+      "correct": [
+        [223, 100]
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "file": "medium_3.png",
+      "correct": [
+        [],
+        []
+      ]
+    },
+    {
+      "difficulty": "MEDIUM",
+      "file": "medium_4.png",
+      "correct": [
+        [],
+        []
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": "hard_1.png",
+      "correct": [
+        [],
+        []
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": "hard_2.png",
+      "correct": [
+        [],
+        []
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": "hard_3.png",
+      "correct": [
+        [],
+        []
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": "hard_4.png",
+      "correct": [
+        [],
+        []
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": "hard_5.png",
+      "correct": [
+        [],
+        []
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": "hard_6.png",
+      "correct": [
+        [],
+        []
+      ]
+    },
+    {
+      "difficulty": "HARD",
+      "file": "hard_7.png",
+      "correct": [
+        [],
+        []
+      ]
+    },
   ]
 }
