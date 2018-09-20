@@ -170,11 +170,18 @@ button to end the test, or wait for the time to expire.
 
 +++++++++++++++++++++++++++++++
 
-Math:
-
-+++++++++++++++++++++++++++++++
-
 Recognising critical information from a given image:
+
+In this category, student must recognise critical information in an image
+from a prompt
+
+The images will be:
+Hazy:	2 Marks - 15% blur
+Hazier:	5 Marks - 20% blur
+Haziest:10 Marks - 25% blur
+
+After the completion of the test "Good Luck!" image will display
+on screen for 10 seconds
 
 +++++++++++++++++++++++++++++++
 
