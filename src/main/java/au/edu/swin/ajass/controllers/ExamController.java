@@ -9,6 +9,7 @@ import au.edu.swin.ajass.models.questions.SpellingQuestion;
 import au.edu.swin.ajass.models.questions.WritingQuestion;
 
 import java.awt.*;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -143,6 +144,38 @@ public final class ExamController {
     }
 
     /**
+     * This is called when a test needs to be repeated.
+     * It is hard-coded to only repeat the Listening test when
+     * called as that is the only requirement of the software.
+     *
+     * @param testTimer A new instance of a test timer runnable.
+     */
+    public void repeatTest(Runnable testTimer) {
+        Iterator<Test> tests = exam.getTests();
+        Test test = null;
+        while (tests.hasNext()) {
+            Test next = tests.next();
+            if (next.getCategory() == QuestionType.LISTENING) {
+                test = next;
+                break;
+            }
+        }
+        if (test == null)
+            throw new IllegalStateException("Could not repeat Listening test: null");
+
+        // Accrue negative marks to subtract 5 from the total.
+        exam.accrueMarks(-5);
+
+        // Repeat the test!~
+        exam.bringOldTestForward(test);
+        test.repeat();
+
+        // Start another timer
+        this.testTimer = new Thread(testTimer);
+        this.testTimer.start();
+    }
+
+    /**
      * Stops the test timer and marks the test as incomplete, if applicable.
      *
      * @param incomplete Whether the test was not fully completed.
@@ -228,8 +261,9 @@ public final class ExamController {
         current.checkAnswer();
         current.setAnswered();
 
-        // accrue marks
-        exam.accrueMarks(current.getDifficulty().getMarks(), current.getMarksEarnt());
+        // accrue marks if correct
+        if (current.isCorrectlyAnswered())
+            exam.accrueMarks(current.getMarksEarnt());
 
         // adjust difficulty
         Difficulty currentDiff = current.getDifficulty();
@@ -247,5 +281,30 @@ public final class ExamController {
 
         Question nextQuestion = questionBank.retrieveQuestion(test.getCategory(), test.getCurrentDifficulty(), getExamModel().getCurrentTest());
         test.newQuestion(nextQuestion);
+    }
+
+    /**
+     * Checks if the Listening Test is eligible to be repeated.
+     * Specification only mentioned that listening test is needed to be repeatable.
+     *
+     * @return True if the listening test can be repeated.
+     */
+    public boolean canRepeatTest() {
+        // Repeating the test costs five marks.
+        if (exam.getTotalMarks() < 5) return false;
+
+        Iterator<Test> tests = exam.getTests();
+        Test test = null;
+        while (tests.hasNext()) {
+            Test next = tests.next();
+            if (next.getCategory() == QuestionType.LISTENING) {
+                test = next;
+                break;
+            }
+        }
+        // There is no test to repeat.
+        if (test == null) return false;
+        // Test has already been fully completed, or is still active.
+        return test.isRepeatable() && !test.isComplete() && !test.isActive();
     }
 }

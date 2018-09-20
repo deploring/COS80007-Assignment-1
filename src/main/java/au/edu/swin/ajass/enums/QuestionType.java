@@ -12,7 +12,7 @@ package au.edu.swin.ajass.enums;
 public enum QuestionType {
     MATHS(10, 3 * 60),
     SPELLING(15, 3 * 60),
-    IMAGE(10, 3 * 60),
+    IMAGE(8, 90),
     WRITING(5, 3 * 60),
     LISTENING(8, 3 * 60);
 

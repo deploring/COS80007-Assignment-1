@@ -1,5 +1,6 @@
 package au.edu.swin.ajass.models;
 
+import au.edu.swin.ajass.enums.Difficulty;
 import au.edu.swin.ajass.enums.QuestionType;
 
 import java.util.Iterator;
@@ -14,17 +15,27 @@ import java.util.LinkedList;
  * @version 1
  * @since 0.1
  */
-public class Exam {
+public final class Exam {
 
     private final LinkedList<Test> tests;
     private volatile int timeRemaining;
     private Student student;
-    private double possibleMarks;
-    private double totalMarks;
+    private double totalMarksEarnt;
+
+    // The maximum amount of marks that can be obtained in the exam.
+    public static int MAXIMUM_POSSIBLE_MARKS = 0;
 
     public Exam(int totalTime) {
         this.tests = new LinkedList<>();
         this.timeRemaining = totalTime;
+
+        // Calculate maximum possible marks in an exam.
+        for (QuestionType category : QuestionType.values())
+            // Subtract 1, because tests start on medium, not hard.
+            MAXIMUM_POSSIBLE_MARKS += category.getMaxQuestions() - 1;
+        MAXIMUM_POSSIBLE_MARKS *= Difficulty.HARD.getMarks();
+        // Factor in at least one medium question before all-hard all-correct questions.
+        MAXIMUM_POSSIBLE_MARKS += (Difficulty.MEDIUM.getMarks() * QuestionType.values().length);
     }
 
     /**
@@ -76,6 +87,18 @@ public class Exam {
     }
 
     /**
+     * Makes an old test the current test, if it is being repeated.
+     *
+     * @param oldTest An old, unfinished test.
+     */
+    public void bringOldTestForward(Test oldTest) {
+        if(!tests.contains(oldTest))
+            throw new IllegalArgumentException("Old test was not found in set of tests?");
+        tests.remove(oldTest);
+        tests.add(oldTest);
+    }
+
+    /**
      * Registers and stores student information with the exam.
      *
      * @param student Student model.
@@ -94,25 +117,17 @@ public class Exam {
     /**
      * Adds accrued marks onto the exam total.
      *
-     * @param total Total possible marks earnt.
-     * @param earnt Actual marks earnt.
+     * @param total Marks earnt.
      */
-    public void accrueMarks(double total, double earnt) {
-        this.totalMarks += total;
-        this.possibleMarks += earnt;
-    }
-
-    /**
-     * @return The total amount of marks that are possible to get so far.
-     */
-    public double getPossibleMarks() {
-        return possibleMarks;
+    public void accrueMarks(double total) {
+        this.totalMarksEarnt += total;
+        getCurrentTest().accrueMarks(total);
     }
 
     /**
      * @return The total amount of marks that have been earnt so far.
      */
     public double getTotalMarks() {
-        return totalMarks;
+        return totalMarksEarnt;
     }
 }

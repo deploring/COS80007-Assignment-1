@@ -25,6 +25,10 @@ public final class Test {
     private Difficulty currentDifficulty;
     private volatile int timeRemaining;
     private boolean finishedEarly;
+    private boolean repeatable;
+    private double marksEarnt;
+
+    public int MAXIMUM_POSSIBLE_MARKS = 0;
 
     public Test(QuestionType category) {
         this.category = category;
@@ -32,6 +36,11 @@ public final class Test {
         questions = new LinkedList<>();
         currentDifficulty = Difficulty.MEDIUM;
         finishedEarly = false;
+        repeatable = category == QuestionType.LISTENING;
+
+        // Calculate maximum possible marks for this test's category.
+        MAXIMUM_POSSIBLE_MARKS += (category.getMaxQuestions() - 1) * Difficulty.HARD.getMarks();
+        MAXIMUM_POSSIBLE_MARKS += Difficulty.MEDIUM.getMarks();
     }
 
     /**
@@ -49,6 +58,22 @@ public final class Test {
      */
     public boolean isComplete() {
         return questions.size() == getMaxQuestions() && questions.getLast().isAnswered();
+    }
+
+    /**
+     * Called when the test is repeated. Adds an additional 120 seconds.
+     */
+    public void repeat(){
+        finishedEarly = false;
+        repeatable = false;
+        timeRemaining += 120;
+    }
+
+    /**
+     * @return True if this test is repeatable.
+     */
+    public boolean isRepeatable(){
+        return repeatable;
     }
 
     /**
@@ -75,20 +100,28 @@ public final class Test {
     /**
      * @return How much time, in seconds, this test has been active for.
      */
-    public int getTimeRemaining() {
-        synchronized ((Integer) timeRemaining) {
-            return timeRemaining;
-        }
-    }
-
-    /**
-     * @return How much time, in seconds, this test has been active for.
-     */
     public int getTimeElapsed() {
         synchronized ((Integer) timeRemaining) {
             return category.getMaxTime() - timeRemaining;
         }
     }
+
+    /**
+     * @return How many marks have been earnt from this individual test.
+     */
+    public double getMarksEarnt(){
+        return marksEarnt;
+    }
+
+    /**
+     * Adds marks from a correct question onto this test's total.
+     *
+     * @param marks Marks earnt from a correct question.
+     */
+    public void accrueMarks(double marks) {
+        this.marksEarnt += marks;
+    }
+
 
     /**
      * @return The type of questions this test will accept.
