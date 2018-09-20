@@ -104,6 +104,8 @@ of the application:
 /-----------/
 /  Content: /
 /-----------/
+++++++++++++++++++++++++++++++++++++++++
+Login:
 - User must conform to Terms and Conditions before gaining access to the 
   application
 
@@ -114,6 +116,8 @@ PIN:
 - A PIN is generated for the user, before they can enter the exam
 - PIN is unique and randomly generated
 - PIN has a time limit of 20 minutes
+
+++++++++++++++++++++++++++++++++++++++
 
 Exam:
 - The exam has 5 categories 
@@ -144,7 +148,7 @@ Exam:
   easier difficulty
 - If the user is already at the Hard difficulty and get a question incorrect,
   they will receive another Hard question.
-- If the user is already at the Hardest difficulty and get a question incorrect,
+- If the user is already at the Hardest difficulty and get a question correct,
   they will receive another Hardest question.
 
 - Questions are randomly selected from a question bank, based on the test category
@@ -155,21 +159,86 @@ Exam:
 - Harder questions are worth 5 marks
 - Hardest questions are worth 10 marks
 
+The time remaining for the exam can be seen at all times.
 
+All test categories have a timer to see time remaining. If the
+time is soon to run out, it will flash red and an alert sound 
+will play.
 
+After a test has been completed, the user can click the 'finish'
+button to end the test, or wait for the time to expire.
 
++++++++++++++++++++++++++++++++
 
 Math:
+
++++++++++++++++++++++++++++++++
+
 Recognising critical information from a given image:
-Spelling:
-Listening:
+
++++++++++++++++++++++++++++++++
+
 Writing:
 
+There are three types of writing questions:
+
+Simple: 2 Marks
+Simple questions must be: 
+     * The first letter of the first word is capitalised.
+     * No words contain out-of-place capitalisation (except for first character in each word).
+     * There is a full stop at the end of the sentence, and only one full stop.
+     * There are no numeric characters used.
+     * At least five words are used.
+
+Compound: 5 Marks
+Compund questions must be:
+     * The existing sentence has been classed as "simple".
+     * A conjunction is used.
+     * A comma is used.
+     * At least ten words are used.
+
+Complex: 10 Marks
+Complex questons must be:
+     * The existing sentence has been classed as "compound".
+     * A relative pronoun is used.
+     * A word is capitalised that isn't at the beginning of the sentence.
+     * At least fifteen words are used.
+
+If there is any mistake detected by the software, the software
+ will give the student clues by underlining for 4 seconds the
+ areas affected by mistakes or errors; if the correction is 
+done in less than 10 sec, half of the allotted marks will be 
+awarded.
+
++++++++++++++++++++++++++++++++
+Listening:
+Student msut select keyword(s) fomr one-sentence, two-sentence, and
+three-sentence voices of diverse accents.
+One sentence:	2 marks
+Two sentence:	5 marks
+Three sentence:	10 marks
+
+If the student has had accumulated overall 10 marks, an Opt for Extra
+Time button will be visible, allowing the student to repeat the 
+listening test for 120 seconds at the cost of 5 marks deducted 
+from the accumulated mark.
+
+++++++++++++++++++++++++++++++
+
+Spelling:
+In spelling students are prompted to spell positive words staring with
+"G" = 2 marks
+"J" = 5 marks
+"Z" = 10 marks
+If the user does not respond within 10 seconds there will be a popup
+window that prompts the first 3 chracters of a desired word for 5 seconds.
+If the user answers correct they will be awarded with half the alloted
+marks.
+++++++++++++++++++++++++++++++
 
 
-
-
-
+At the end of the test, the panel containing all the buttons will be
+ replaced with a text message, showing the end of all the tests.
 
 
 /-----------------------------------------------/
@@ -193,6 +262,10 @@ Writing:
 /----------/
 /  Video:  /
 /----------/
+
+
+
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		Estimated marks
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
