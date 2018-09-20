@@ -96,7 +96,7 @@ public class MainView extends JFrame {
         setJMenuBar(menuBar);
 
         // Land user on Terms & Conditions View
-        exam().registerStudentInfo("lol", "lol");
+        exam().registerStudentInfo("Placeholder", "Placeholder");
         update(UIState.EXAM);
     }
 
@@ -119,7 +119,7 @@ public class MainView extends JFrame {
      * @throws IllegalArgumentException State cannot change to the state MainView is already in
      * @see UIState
      */
-    public void update(UIState state) {
+    void update(UIState state) {
         if (this.state == state) throw new IllegalArgumentException("Cannot to swap to view that is already displayed");
         else this.state = state;
 

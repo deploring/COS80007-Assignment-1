@@ -1,9 +1,15 @@
 package au.edu.swin.ajass.views;
 
+import au.edu.swin.ajass.enums.Difficulty;
 import au.edu.swin.ajass.enums.QuestionType;
+import au.edu.swin.ajass.models.Exam;
 import au.edu.swin.ajass.models.Question;
+import au.edu.swin.ajass.models.Student;
 import au.edu.swin.ajass.models.Test;
 import au.edu.swin.ajass.models.questions.ChoiceQuestion;
+import au.edu.swin.ajass.models.questions.ImageQuestion;
+import au.edu.swin.ajass.models.questions.ImmutableQuestion;
+import au.edu.swin.ajass.models.questions.WritingQuestion;
 import au.edu.swin.ajass.util.Utilities;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -23,7 +29,7 @@ public class ResultsView extends JPanel implements IView {
     private final HashMap<QuestionType, JButton> buttons;
 
     private final JButton overallButton;
-    private JPanel overallPanel;
+    private JComponent overall;
 
     public ResultsView(MainView main) {
         this.main = main;
@@ -34,11 +40,11 @@ public class ResultsView extends JPanel implements IView {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
 
-        buttons.put(QuestionType.MATHS, new JButton("Maths Results"));
-        buttons.put(QuestionType.LISTENING, new JButton("Listening Results"));
-        buttons.put(QuestionType.IMAGE, new JButton("Image Results"));
-        buttons.put(QuestionType.SPELLING, new JButton("Spelling Results"));
-        buttons.put(QuestionType.WRITING, new JButton("Writing Results"));
+        buttons.put(QuestionType.MATHS, new JButton("Maths"));
+        buttons.put(QuestionType.LISTENING, new JButton("Listening"));
+        buttons.put(QuestionType.IMAGE, new JButton("Image"));
+        buttons.put(QuestionType.SPELLING, new JButton("Spelling"));
+        buttons.put(QuestionType.WRITING, new JButton("Writing"));
 
         // Enable nav buttons.
         for (Map.Entry<QuestionType, JButton> entry : buttons.entrySet()) {
@@ -46,7 +52,9 @@ public class ResultsView extends JPanel implements IView {
             entry.getValue().addActionListener((e) -> swapResultsView(entry.getKey()));
         }
 
+        // Enable overall results nav button.
         overallButton = new JButton("Overall Results");
+        overallButton.addActionListener((e) -> swapResultsView(null));
         buttonPanel.add(overallButton);
 
         add(buttonPanel, BorderLayout.PAGE_START);
@@ -84,7 +92,6 @@ public class ResultsView extends JPanel implements IView {
                     test.getCategory().toString(), totalQuestions, questionsIssued, questionsAnswered, (int) questionsAnsweredP, questionsCorrect, (int) correctP, marksAccrued, maximumMarks, (int) overallMark, (int) totalContribution, timeTaken);
             informationText.setText(information);
             informationText.setEditable(false);
-            informationText.setOpaque(false);
 
             JPanel result = new JPanel();
             result.setLayout(new BorderLayout());
@@ -108,12 +115,95 @@ public class ResultsView extends JPanel implements IView {
                 i++;
 
                 switch (question.getType()) {
+                    case IMAGE:
+                        // Hide second row label for Image questions.
+                        individuals.getComponent(1).setVisible(false);
+
+                        ImageQuestion imageQ = (ImageQuestion) question;
+                        Image image = Utilities.image(imageQ.getImageFileLoc());
+
+                        JPanel left = new JPanel();
+                        left.setLayout(new BorderLayout());
+                        JLabel userAnswerLabel = new JLabel() {
+                            @Override
+                            public void paintComponent(Graphics g) {
+                                super.paintComponent(g);
+                                Iterator<Point> answers = imageQ.getAnswer();
+                                // Draw user's answers.
+                                // Draw as green if correct, red if incorrect.
+                                while (answers.hasNext()) {
+                                    Point answer = answers.next();
+                                    if (imageQ.isCorrectlyAnswered())
+                                        g.setColor(Color.GREEN);
+                                    else g.setColor(Color.RED);
+                                    g.drawOval(answer.x - (ImageQuestion.CORRECT_RANGE / 2) + 5, answer.y - (ImageQuestion.CORRECT_RANGE / 2) + 5, ImageQuestion.CORRECT_RANGE, ImageQuestion.CORRECT_RANGE);
+                                }
+                                g.setColor(Color.YELLOW);
+                                for (Point actual : imageQ.getAnswers())
+                                    g.drawOval(actual.x - (ImageQuestion.CORRECT_RANGE / 2), actual.y - (ImageQuestion.CORRECT_RANGE / 2), ImageQuestion.CORRECT_RANGE, ImageQuestion.CORRECT_RANGE);
+                            }
+                        };
+                        userAnswerLabel.setIcon(new ImageIcon(image));
+
+                        left.add(userAnswerLabel, BorderLayout.CENTER);
+                        individuals.add(left);
+                        // Fill right size. We don't need it.
+                        individuals.add(new JPanel());
+                        break;
+                    case WRITING:
+                    case SPELLING:
+                        ImmutableQuestion immuteQ = (ImmutableQuestion) question;
+
+                        // Left-side panel should have a size restriction because JTextArea doesn't know when to stop.
+                        JPanel first = new JPanel();
+                        first.setLayout(new BorderLayout());
+
+                        // Display the user's given answer. Boom.
+                        JTextArea userFullAnswer = new JTextArea();
+                        if (immuteQ.isAnswered())
+                            userFullAnswer.setText(immuteQ.getAnswer().toString());
+                        else userFullAnswer.setText("((unanswered))");
+                        userFullAnswer.setEditable(false);
+                        userFullAnswer.setLineWrap(true);
+                        userFullAnswer.setWrapStyleWord(true);
+                        first.add(userFullAnswer, BorderLayout.CENTER);
+
+                        // Right-side panel should share the same restriction.
+                        JPanel second = new JPanel();
+                        second.setLayout(new BorderLayout());
+
+                        JTextArea answerFeedback = new JTextArea();
+
+                        if (immuteQ.isCorrectlyAnswered())
+                            answerFeedback.setText(String.format("You answered this question correctly. Good job! (%.2f marks earnt)", immuteQ.getMarksEarnt()));
+                        else if (immuteQ.isAnswered()) {
+                            if (immuteQ instanceof WritingQuestion) {
+                                StringBuilder feedback = new StringBuilder("You answered this question incorrectly. Mistakes: ");
+                                for (Map.Entry<String, Integer> entry : ((WritingQuestion) immuteQ).getErrors().entrySet())
+                                    feedback.append(entry.getKey()).append(" (").append(entry.getValue()).append(" mistakes), ");
+                                String toPut = feedback.toString();
+                                toPut = toPut.substring(0, toPut.length() - 2);
+                                answerFeedback.setText(toPut);
+                            } else
+                                answerFeedback.setText("You answered this question incorrectly.");
+                        } else
+                            answerFeedback.setText("No attempt was made to answer this question.");
+
+                        second.add(answerFeedback, BorderLayout.CENTER);
+                        answerFeedback.setEditable(false);
+                        answerFeedback.setLineWrap(true);
+                        answerFeedback.setWrapStyleWord(true);
+
+                        // Add both JPanels.
+                        individuals.add(first);
+                        individuals.add(second);
+                        break;
                     case LISTENING:
                     case MATHS:
                         ChoiceQuestion choiceQ = (ChoiceQuestion) question;
 
                         // Left-hand column.
-                        JPanel first = new JPanel();
+                        first = new JPanel();
                         first.setLayout(new FlowLayout(FlowLayout.LEFT));
 
                         JLabel qNum = new JLabel(String.format("Q%d", i));
@@ -139,7 +229,7 @@ public class ResultsView extends JPanel implements IView {
                         first.add(marks);
 
                         // Add correct answer in right hand column.
-                        JPanel second = new JPanel();
+                        second = new JPanel();
                         second.setLayout(new FlowLayout(FlowLayout.LEFT));
                         JLabel correctAnswer = new JLabel(prettyStringArray(choiceQ.getAnswers()));
 
@@ -159,8 +249,7 @@ public class ResultsView extends JPanel implements IView {
             JScrollPane scrollPanel = new JScrollPane(result, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
             results.put(test.getCategory(), scrollPanel);
 
-            //TODO: Overall results
-            overallPanel = new JPanel();
+            overall = generateOverallStatistics();
         }
 
         // Make Panels for tests that weren't taken.
@@ -180,6 +269,34 @@ public class ResultsView extends JPanel implements IView {
         }
     }
 
+    private JComponent generateOverallStatistics() {
+        JTextArea informationText = new JTextArea();
+        Student studentInfo = main.exam().getStudentInfo();
+        double totalMarks = main.exam().getExamModel().getTotalMarks();
+        double marksP = (totalMarks / Exam.MAXIMUM_POSSIBLE_MARKS) * 100;
+        int testsTaken = main.exam().getExamModel().getNumberOfTestsTaken();
+
+        String information = String.format("OVERALL RESULT FOR STUDENT %s:\n\nSchool Name: %s\nMarks Obtained: %.2f/%d (%.2f%%)\nTests Taken: %d",
+                studentInfo.getStudentID(), studentInfo.getSchoolName(), totalMarks, Exam.MAXIMUM_POSSIBLE_MARKS, marksP, testsTaken);
+        informationText.setText(information);
+        informationText.setEditable(false);
+
+        JPanel result = new JPanel();
+        result.setLayout(new BorderLayout());
+        result.add(informationText, BorderLayout.NORTH);
+
+        JPanel graphs = new JPanel();
+        graphs.setLayout(new GridLayout(3, 1));
+
+        // Generate graphs.
+        graphs.add(generateBarChartStatistics());
+        graphs.add(generateLineChartStatistics());
+
+        result.add(graphs, BorderLayout.CENTER);
+
+        return new JScrollPane(result, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    }
+
     private JPanel generateBarChartStatistics() {
         JPanel result = new JPanel() {
             @Override
@@ -187,10 +304,23 @@ public class ResultsView extends JPanel implements IView {
                 super.paintComponent(g);
                 g.setColor(Color.GRAY);
                 // Paint background gray.
-                g.fillRect(0, 0, 300, 300);
+                g.fillRect(0, 0, 480, 300);
                 // Draw a black border around this panel.
                 g.setColor(Color.BLACK);
-                g.drawRect(0, 0, 300, 300);
+                g.drawRect(0, 0, 480, 300);
+
+                // Draw graph cross-sections.
+                g.drawLine(40, 50, 440, 50);
+                g.drawString("100%", 5, 50);
+                g.drawLine(40, 150, 440, 150);
+                g.drawString("50%", 10, 150);
+
+                // Outlines
+                g.drawLine(40, 150, 440, 150);
+                g.drawLine(39, 50, 39, 250);
+                g.drawLine(441, 50, 441, 250);
+                g.drawLine(40, 250, 440, 250);
+
                 Iterator<Test> iter = main.exam().getExamModel().getTests();
                 int x = 40;
                 int y = 50;
@@ -199,18 +329,90 @@ public class ResultsView extends JPanel implements IView {
 
                     // Draw bar.
                     double barLength = (test.getMarksEarnt() / test.MAXIMUM_POSSIBLE_MARKS) * 200;
+
                     g.setColor(testColor(test.getCategory()));
-                    g.fillRect(x, y + (int) (200 - barLength), 40, (int) barLength);
+                    g.fillRect(x, y + (int) (200 - barLength), 40, barLength < 5 ? 5 : (int) barLength);
 
                     // Draw percentage.
-                    g.setColor(Color.BLACK);
-                    g.drawString(String.format("%d%%", (int) (barLength / 2)), x + 5, y + 100);
+                    g.setColor(Color.WHITE);
+                    g.drawString(String.format("%d%%", (int) (barLength / 2)), x + 5, y + 95);
                     x += 80;
+
+                    // Draw label.
+                    g.drawString(test.getCategory().toString(), x - 85, 280);
                 }
+
+                // Draw title.
+                g.setFont(new Font("Arial", Font.BOLD, 20));
+                g.drawString("Performance In Each Test", 100, 25);
             }
         };
-        result.setPreferredSize(new Dimension(300, 300));
-        result.setSize(new Dimension(300, 300));
+        result.setPreferredSize(new Dimension(450, 300));
+        result.setSize(new Dimension(450, 300));
+        return result;
+    }
+
+    private JPanel generateLineChartStatistics() {
+        JPanel result = new JPanel() {
+            @Override
+            public void paint(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(Color.GRAY);
+                // Paint background gray.
+                g.fillRect(0, 0, 480, 300);
+                // Draw a black border around this panel.
+                g.setColor(Color.BLACK);
+                g.drawRect(0, 0, 480, 300);
+
+                // Outlines
+                g.drawLine(39, 50, 39, 250);
+                g.drawLine(441, 50, 441, 250);
+                g.drawLine(40, 250, 440, 250);
+
+                Iterator<Test> iter = main.exam().getExamModel().getTests();
+                int x;
+                int labelx = 45;
+                int y = 245;
+                while (iter.hasNext()) {
+                    Test test = iter.next();
+                    y -= 20;
+                    x = 40;
+
+                    g.setColor(testColor(test.getCategory()));
+
+                    Point old = null;
+                    Iterator<Question> questions = test.getQuestions();
+                    while (questions.hasNext()) {
+                        Question question = questions.next();
+                        Difficulty diff = question.getDifficulty();
+                        int dy = diff == Difficulty.HARD ? -100 : diff == Difficulty.MEDIUM ? -50 : 0;
+
+                        // Draw point.
+                        g.fillOval(x - 3, y + dy - 3, 6, 6);
+
+                        // Draw line to previous entry.
+                        if(old != null)
+                            g.drawLine(old.x, old.y, x, y + dy);
+
+                        old = new Point(x, y + dy);
+
+                        x += 34;
+                    }
+
+                    // Draw legend label.
+                    g.drawString(test.getCategory().toString(), labelx, 280);
+                    labelx += 75;
+                }
+
+                // Draw title.
+                g.setColor(Color.WHITE);
+                g.drawString("Key:", 10, 280);
+                g.setFont(new Font("Arial", Font.BOLD, 20));
+                g.drawString("Difficulty Over Time", 150, 25);
+            }
+        };
+        result.setPreferredSize(new Dimension(450, 300));
+        result.setSize(new Dimension(450, 300));
         return result;
     }
 
@@ -263,7 +465,7 @@ public class ResultsView extends JPanel implements IView {
      * i.e. clicking the math results button should display that results panel.
      */
     private void swapResultsView(QuestionType category) {
-        JComponent toSwapTo = results.getOrDefault(category, overallPanel);
+        JComponent toSwapTo = results.getOrDefault(category, overall);
         // Remove old results view. Keep navbar.
         if (getComponents().length >= 2)
             remove(1);
