@@ -97,7 +97,7 @@ public class MainView extends JFrame {
 
         // Land user on Terms & Conditions View
         exam().registerStudentInfo("lol", "lol");
-        update(UIState.EXAM);
+        update(UIState.TERMS);
     }
 
     /**
