@@ -350,9 +350,7 @@ public class TestView extends JPanel implements IView {
                     imageQ.setAbsoluteImagePoint(actualImagePoint);
                 });
 
-                submit.addActionListener(e -> {
-                    exam.finaliseQuestionResponse();
-                });
+                submit.addActionListener(e -> exam.finaliseQuestionResponse());
 
                 imageLabel.addMouseListener(new MouseAdapter() {
                     @Override

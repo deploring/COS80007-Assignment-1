@@ -1,8 +1,6 @@
 package au.edu.swin.ajass.util;
 
 import au.edu.swin.ajass.Main;
-import au.edu.swin.ajass.enums.Difficulty;
-import au.edu.swin.ajass.enums.QuestionType;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 

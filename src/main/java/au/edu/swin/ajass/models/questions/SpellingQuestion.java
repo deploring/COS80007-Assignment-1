@@ -10,12 +10,21 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Spelling Questions are a type of Immutable Question
+ * Spelling Questions are a type of Immutable Question.
+ * In order for a user's answer to be considered correct,
+ * it must not match up against and previous answers of
+ * the same question type and must be in one of the pre-
+ * defined arrays.
+ *
+ * @author Bradley Chick
+ * @author Joshua Skinner
+ * @version 1
+ * @since 0.1
  */
 public final class SpellingQuestion extends ImmutableQuestion<String> {
 
     // Hard-coded Spelling Question answers to check functionality.
-    private static HashMap<Difficulty, List<String>> answers = new HashMap<>();
+    private static final HashMap<Difficulty, List<String>> answers = new HashMap<>();
 
     // User's answer
     private String answer;

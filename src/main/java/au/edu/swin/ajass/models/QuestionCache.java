@@ -28,7 +28,7 @@ import java.util.List;
  * @version 1
  * @since 0.1
  */
-public final class QuestionCache {
+final class QuestionCache {
 
     // Map which maps QuestionType(s) and Difficulty(s) to a specific List.
     private final Map<QuestionType, Map<Difficulty, List<Question>>> questionMap;

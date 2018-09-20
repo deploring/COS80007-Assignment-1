@@ -31,7 +31,7 @@ public class MainView extends JFrame {
     private UIState state;
 
     // Hold individual view instances.
-    private final IView terms, pinCreation, login, exam, results;
+    private final IView terms, pinCreation, login, exam;
 
     // Controller instances.
     private final ExamController examController;
@@ -63,7 +63,6 @@ public class MainView extends JFrame {
         pinCreation = new PINCreationView(this);
         login = new LoginView(this);
         exam = new ExamView(this);
-        results = new ResultsView(this);
 
         // Create controller instances.
         examController = new ExamController();

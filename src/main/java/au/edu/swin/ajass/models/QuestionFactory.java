@@ -20,6 +20,14 @@ final class QuestionFactory {
     QuestionFactory() {
     }
 
+    /**
+     * Creates a new instance of a Question, to be answered.
+     *
+     * @param category Category of the question.
+     * @param diff Difficulty of the question.
+     * @param currentTest Reference to the current test.
+     * @return A new question!
+     */
     Question retrieveQuestion(QuestionType category, Difficulty diff, Test currentTest) {
         String prompt;
         switch (category) {

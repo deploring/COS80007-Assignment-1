@@ -8,7 +8,22 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by sky on 21/8/18.
+ * This view displays the test navigation bar, test view, and
+ * results view. While the exam is still active, the user can
+ * use the navigation bar to start a new test or review old
+ * test times. The Test view is used to answer questions that
+ * are prompted by Test models. The results view generates
+ * information about the user's performance and takes precedence
+ * once the exam is finished.
+ * <p>
+ * This class is the glue that holds the three sub-views together
+ * and allows them to communicate and confer about what should be
+ * displayed and when.
+ *
+ * @author Joshua Skinner
+ * @author Bradley Chick
+ * @version 1
+ * @since 0.1
  */
 public class ExamView extends JPanel implements IView {
 
@@ -42,7 +57,8 @@ public class ExamView extends JPanel implements IView {
     }
 
     /**
-     * Called by MainView when
+     * Called by Exam Navbar View when the timer runs out
+     * or when the user forcibly finishes the exam.
      */
     public void onExamFinish(){
         // Remove old test panel.

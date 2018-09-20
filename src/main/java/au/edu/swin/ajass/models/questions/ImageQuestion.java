@@ -15,7 +15,7 @@ import java.util.Set;
  * user must click each required clickable point at least
  * once to have the question marked as correct.
  * <p>
- * The click does not need to be exact; there is a 20 pixel
+ * The click does not need to be exact; there is a 25 pixel
  * margin for error around the point that will still be
  * considered as correct if clicked in.
  *
@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public final class ImageQuestion extends Question {
 
-    public static int CORRECT_RANGE = 25; // Range, in pixels, around the required region that will be considered correct.
+    public static final int CORRECT_RANGE = 25; // Range, in pixels, around the required region that will be considered correct.
     private final Point[] answers; // Required clickable regions
     private final Set<Point> answer; // User clicked regions
     private final String imageFileLoc;

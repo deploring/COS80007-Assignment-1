@@ -13,9 +13,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * -write purpose here-
+ * This controller grants one-way easy modifications to the
+ * exam, test, and question models. It automatically handles
+ * a lot of the processing through the methods defined below.
  *
  * @author Joshua Skinner
+ * @author Bradley Chick
  * @version 1
  * @see Exam
  * @since 0.1
@@ -23,8 +26,8 @@ import java.util.Set;
 public final class ExamController {
 
     // Hard-coded static values.
-    private static String QUESTION_CONFIG_NAME = "questions.json";
-    public static int EXAM_TIME = 15 /*minutes*/ * 60 /*seconds*/;
+    private static final String QUESTION_CONFIG_NAME = "questions.json";
+    public static final int EXAM_TIME = 15 /*minutes*/ * 60 /*seconds*/;
 
     // Important exam components.
     private final Exam exam;
@@ -84,7 +87,7 @@ public final class ExamController {
      * Called upon when the student has completed all
      * tests, or when the global timer has depleted.
      */
-    public void endExam() {
+    private void endExam() {
         // Stop the global timer.
         globalTimer.interrupt();
     }

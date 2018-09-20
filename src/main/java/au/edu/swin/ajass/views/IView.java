@@ -12,7 +12,7 @@ import javax.swing.*;
  * @see MainView
  * @see au.edu.swin.ajass.enums.UIState
  */
-public interface IView {
+interface IView {
 
     /**
      * This is called when the view has been displayed inside the JFrame.

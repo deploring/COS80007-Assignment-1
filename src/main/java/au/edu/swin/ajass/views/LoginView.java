@@ -12,7 +12,15 @@ import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by sky on 21/8/18.
+ * This view allows a user with a generated ID and
+ * PIN number to log into the exam and begin their
+ * testing. The user can go back if they need to
+ * generate another PIN.
+ *
+ * @author Bradley Chick
+ * @author Joshua Skinner
+ * @version 1.0
+ * @since 0.1
  */
 public class LoginView extends JPanel implements IView {
 
@@ -25,7 +33,7 @@ public class LoginView extends JPanel implements IView {
     private final JButton start;
     private final JButton back;
 
-    public LoginView(MainView main) {
+    LoginView(MainView main) {
         this.main = main;
         setLayout(new FlowLayout());
 

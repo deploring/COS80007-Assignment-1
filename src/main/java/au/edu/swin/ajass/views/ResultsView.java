@@ -20,7 +20,11 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Created by sky on 21/8/18.
+ * This view sits around until the exam is complete,
+ * which it then takes the state of the Exam model
+ * and calculates results reflecting the user's aptitude.
+ * The user can view results for individual tests, as
+ * well as how well they did overall.
  */
 public class ResultsView extends JPanel implements IView {
 
@@ -60,6 +64,9 @@ public class ResultsView extends JPanel implements IView {
         add(buttonPanel, BorderLayout.PAGE_START);
     }
 
+    /**
+     * Generates an individual results panel for each test that was taken.
+     */
     private void generateResultsPanels() {
         Iterator<Test> tests = main.exam().getExamModel().getTests();
         while (tests.hasNext()) {
@@ -269,6 +276,9 @@ public class ResultsView extends JPanel implements IView {
         }
     }
 
+    /**
+     * @return A special panel that displays overall statistics, and a few graphs.
+     */
     private JComponent generateOverallStatistics() {
         JTextArea informationText = new JTextArea();
         Student studentInfo = main.exam().getStudentInfo();
@@ -286,7 +296,7 @@ public class ResultsView extends JPanel implements IView {
         result.add(informationText, BorderLayout.NORTH);
 
         JPanel graphs = new JPanel();
-        graphs.setLayout(new GridLayout(3, 1));
+        graphs.setLayout(new GridLayout(2, 1));
 
         // Generate graphs.
         graphs.add(generateBarChartStatistics());
@@ -297,6 +307,9 @@ public class ResultsView extends JPanel implements IView {
         return new JScrollPane(result, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
+    /**
+     * @return A bar chart reflecting performance on each individual test.
+     */
     private JPanel generateBarChartStatistics() {
         JPanel result = new JPanel() {
             @Override
@@ -352,6 +365,9 @@ public class ResultsView extends JPanel implements IView {
         return result;
     }
 
+    /**
+     * @return A line chart reflecting performance question-to-question over time.
+     */
     private JPanel generateLineChartStatistics() {
         JPanel result = new JPanel() {
             @Override
