@@ -102,7 +102,6 @@ final class QuestionCache {
                 difficulty = Difficulty.valueOf((String) question.get("difficulty"));
                 Point[] points = convertJSONArrayToPoint2DArray((JSONArray) question.get("correct"));
                 String imageFileLoc = question.get("file").toString();
-                System.out.println(imageFileLoc);
                 result = new ImageQuestion(category, difficulty, prompt, points, imageFileLoc);
                 break;
             default:
