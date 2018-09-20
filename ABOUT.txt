@@ -1,0 +1,164 @@
+Programs purpose
+
+This program was developed for a school to test its 
+8-grade students’ aptitude tested on math, recognizing 
+critical information from a given image, spelling, 
+listening, and writing.
+
+
+
+
+How to begin exam
+
+Before one can access the program, you must agree to the Terms and
+Conditions. This will give you access to the Register menu.
+
+A student must enter his/her ID and school details to recieve a temporary pin.
+The ID and School Name must be at least 5 characters long. After entering
+ID and School Name, press the 'Generate Login PIN' to receive a message
+box popup containing the PIN. Remember it. The PIN expires in 20 minutes.
+
+Pressing 'Reset' will clear all fields.
+
+Press 'Login' to proceed towards login.
+
+Pressing 'Go Back' will return the user to the Register Page.
+
+Entering the Student ID and PIN will allow the user to enter the exam.
+The user will receive a warning before entering the exam asking if
+they would like to proceed. Pressing 'Yes' will send the user into the
+exam. 'No' will close the message box.
+
+After the PIN expires the user can no longer enter the exam and must
+register again.
+
+
+
+How to answer each test category
+
+After entering the exam, the student must complete five test categories.
+They can be completed in any order.
+
+The exam lasts for 15 minutes before completion. Each category also has a 
+limited compeltion time.
+
+The exam can be ended early after completing at least one test category.
+
+To begin a test, click on any button. The text on each button will start
+that relevant test category.
+
+If the user answers a question correctly they will receive a harder question.
+If the user answers incorrectly, they will receive an easier question.
+
+Listening Test:
+
+In the listening test, the user must click the button to listen to the
+ sentence(s). Note the accent. Select the correct key words that are 
+spoken to answer the question correctly. There are 8 questions.
+
+Pressing 'Answer' after selecting an answer will send the user to the
+next question. In some questions, more than one option can be chosen.
+
+The listening test can be ended early, after answering one question.
+
+
+Image Recognition Test:
+
+The user receives a prompt and must click on a relevant part of the image
+to answer the prompt.
+
+After clicking the image, the area selected will appear circled. This can
+be reset by clicking the 'Reset' button. Some questions require you to 
+click more than once.
+
+Pressing 'Answer' after selecting an answer will send the user to the
+next question.
+
+The image recognition test can be ended early, after answering one question.
+
+Writing Test:
+
+In the writing test, the user must write either a simple, compund, or
+complex sentence. These require:
+
+Simple: 
+     * The first letter of the first word is capitalised.
+     * No words contain out-of-place capitalisation (except for first character in each word).
+     * There is a full stop at the end of the sentence, and only one full stop.
+     * There are no numeric characters used.
+     * At least five words are used.
+
+Compound:
+     * The existing sentence has been classed as "simple".
+     * A conjunction is used.
+     * A comma is used.
+     * At least ten words are used.
+
+Complex:
+     * The existing sentence has been classed as "compound".
+     * A relative pronoun is used.
+     * A word is capitalised that isn't at the beginning of the sentence.
+     * At least fifteen words are used.
+
+Pressing 'Answer' after selecting an answer will send the user to the
+next question, unless there is an error in their answer. If there is an
+error, they will have 10 seconds to fix their error. If they fix the 
+error, they will recieve half marks for the question, else they receive
+no marks.
+
+The writing test can be ended early, after answering one question.
+
+
+Math Test: 
+
+In the Math test the user must answer the question by either selecting
+a multiple choice answer, or typing in the answer in a text field.
+
+Pressing 'Answer' after selecting an answer will send the user to the
+next question.
+
+The math test can be ended early, after answering one question.
+
+
+Spelling Test:
+
+In the spelling test, the user must spell positive words starting with
+the prompted letter. Words must be more than 3 letters long.
+
+If the user takes too long to respond, a message box will appear with
+a hint. If the user then answers correctly, they will receive half marks,
+else they receive no marks.
+
+Pressing 'Answer' after selecting an answer will send the user to the
+next question.
+
+The spelling test can be ended early, after answering one question.
+
+
+
+
+How to interpret results
+
+After the conclusion of the exam, the user will be brought to a results 
+screen. Here the student can see the questions asked for each test 
+category and their responses. The number of questions, number of 
+questions issued, number of question answered correctly, marks accrued.
+contribution to overall mark and time taken for each test is shown.
+
+You can switch between the results for each test category by pressing
+the relevantly titled buttons.
+
+The 'Overall Results' button displays the user's marks receives, a 
+percentage mark and the number of tests taken.
+
+A bar chart shows the percentage score of the user in each test category.
+
+A line graph shows the difficulty of the question over time for each
+test category.
+
+
+
+
+
+
+
