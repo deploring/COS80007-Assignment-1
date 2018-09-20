@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by sky on 21/8/18.
@@ -20,7 +21,9 @@ public class ResultsView extends JPanel implements IView {
     private final MainView main;
     private final HashMap<QuestionType, JComponent> results;
     private final HashMap<QuestionType, JButton> buttons;
+
     private final JButton overallButton;
+    private JPanel overallPanel;
 
     public ResultsView(MainView main) {
         this.main = main;
@@ -37,8 +40,11 @@ public class ResultsView extends JPanel implements IView {
         buttons.put(QuestionType.SPELLING, new JButton("Spelling Results"));
         buttons.put(QuestionType.WRITING, new JButton("Writing Results"));
 
-        for (JButton toAdd : buttons.values())
-            buttonPanel.add(toAdd);
+        // Enable nav buttons.
+        for (Map.Entry<QuestionType, JButton> entry : buttons.entrySet()) {
+            buttonPanel.add(entry.getValue());
+            entry.getValue().addActionListener((e) -> swapResultsView(entry.getKey()));
+        }
 
         overallButton = new JButton("Overall Results");
         buttonPanel.add(overallButton);
@@ -85,7 +91,14 @@ public class ResultsView extends JPanel implements IView {
             result.add(informationText, BorderLayout.NORTH);
 
             JPanel individuals = new JPanel();
-            individuals.setLayout(new GridLayout(test.getQuestionsIssued(), 2));
+            individuals.setLayout(new GridLayout(test.getQuestionsIssued() + 1, 2));
+
+            JLabel given = new JLabel("Answer(s) Given");
+            given.setFont(new Font("Arial", Font.BOLD, 16));
+            JLabel correct = new JLabel("Correct Answer(s)");
+            correct.setFont(new Font("Arial", Font.BOLD, 16));
+            individuals.add(given);
+            individuals.add(correct);
 
             // Show explanations for marks.
             questions = test.getQuestions();
@@ -99,6 +112,7 @@ public class ResultsView extends JPanel implements IView {
                     case MATHS:
                         ChoiceQuestion choiceQ = (ChoiceQuestion) question;
 
+                        // Left-hand column.
                         JPanel first = new JPanel();
                         first.setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -106,7 +120,6 @@ public class ResultsView extends JPanel implements IView {
                         qNum.setFont(new Font("Arial", Font.BOLD, 15));
 
                         // User's answer.
-                        JLabel given = new JLabel("Answer given: ");
                         JLabel userAnswer;
                         if (choiceQ.isAnswered())
                             userAnswer = new JLabel(prettyStringArray(choiceQ.getAnswer()));
@@ -122,18 +135,14 @@ public class ResultsView extends JPanel implements IView {
                         JLabel marks = new JLabel(String.format(" (%.2f marks)", choiceQ.getMarksEarnt()));
 
                         first.add(qNum);
-                        first.add(given);
                         first.add(userAnswer);
                         first.add(marks);
 
                         // Add correct answer in right hand column.
                         JPanel second = new JPanel();
                         second.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-                        JLabel correct = new JLabel("Correct answer: ");
                         JLabel correctAnswer = new JLabel(prettyStringArray(choiceQ.getAnswers()));
 
-                        second.add(correct);
                         second.add(correctAnswer);
 
                         // Add both JPanels.
@@ -149,6 +158,9 @@ public class ResultsView extends JPanel implements IView {
 
             JScrollPane scrollPanel = new JScrollPane(result, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
             results.put(test.getCategory(), scrollPanel);
+
+            //TODO: Overall results
+            overallPanel = new JPanel();
         }
 
         // Make Panels for tests that weren't taken.
@@ -156,8 +168,15 @@ public class ResultsView extends JPanel implements IView {
             if (results.containsKey(type)) continue;
             JPanel result = new JPanel();
             result.setLayout(new BorderLayout());
-            result.add(new JLabel("There is no results information available for this test, as it was not taken. :("));
-            results.put(type, result);
+
+            // Give information on why there is no results for this test.
+            JTextArea information = new JTextArea();
+            information.setText(String.format("No information is provided for the %s test because it was not attempted.", type.toString().toLowerCase()));
+            result.add(information, BorderLayout.CENTER);
+
+            // Put it in a scroll panel to make it look sexy.
+            JScrollPane scrollPanel = new JScrollPane(result, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            results.put(type, scrollPanel);
         }
     }
 
@@ -234,9 +253,21 @@ public class ResultsView extends JPanel implements IView {
 
     @Override
     public void onDisplay() {
+        // Generate the panels needed and then display the overall one.
         generateResultsPanels();
-        //JPanel bar = generateBarChartStatistics();
-        add(results.get(QuestionType.MATHS), BorderLayout.CENTER);
+        swapResultsView(null);
+    }
+
+    /**
+     * Changes which view for what results should be shown.
+     * i.e. clicking the math results button should display that results panel.
+     */
+    private void swapResultsView(QuestionType category) {
+        JComponent toSwapTo = results.getOrDefault(category, overallPanel);
+        // Remove old results view. Keep navbar.
+        if (getComponents().length >= 2)
+            remove(1);
+        add(toSwapTo, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
