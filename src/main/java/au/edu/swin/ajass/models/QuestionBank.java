@@ -18,8 +18,8 @@ import au.edu.swin.ajass.enums.QuestionType;
  */
 public final class QuestionBank {
 
-    private QuestionCache cache;
-    private QuestionFactory factory;
+    private final QuestionCache cache;
+    private final QuestionFactory factory;
 
     /**
      * Set instances of QuestionCache and QuestionFactory

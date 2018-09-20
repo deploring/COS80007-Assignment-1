@@ -85,14 +85,15 @@ public class ExamNavbarView extends JPanel implements IView {
             }
         });
 
-        finishExam.addActionListener((e) -> {
-            finishExam();
-        });
+        finishExam.addActionListener((e) -> finishExam());
 
         add(extraListeningTime);
         add(finishExam);
     }
 
+    /**
+     * Called when the exam is finished, either forcibly or once the time runs out.
+     */
     private void finishExam() {
         exam.onExamFinish();
         removeAll();

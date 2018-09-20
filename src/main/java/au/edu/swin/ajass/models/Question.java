@@ -9,7 +9,8 @@ import au.edu.swin.ajass.enums.QuestionType;
  * attributes between the different types of
  * questions.
  *
- * @author Bradley Chick, Joshua Skinner
+ * @author Bradley Chick
+ * @author Joshua Skinner
  * @version 1
  * @since 0.1
  */
@@ -19,9 +20,9 @@ public abstract class Question {
     private final Difficulty difficulty;
     protected boolean correct;
     private boolean answered;
-    private String prompt;
+    private final String prompt;
 
-    public Question(QuestionType type, Difficulty difficulty, String prompt) {
+    protected Question(QuestionType type, Difficulty difficulty, String prompt) {
         this.type = type;
         this.difficulty = difficulty;
         this.prompt = prompt;

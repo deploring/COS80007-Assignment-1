@@ -9,12 +9,21 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Heartist on 17/09/2018.
+ * WritingQuestions are a type of immutable question.
+ * In order for a user's answer to be considered correct,
+ * the answer given must not match up against any previous
+ * answers from the same question type, and must satisfy
+ * all writing criteria necessary for the difficulty.
+ *
+ * @author Joshua Skinner
+ * @author Bradley Chick
+ * @version 1
+ * @since 0.1
  */
 public final class WritingQuestion extends ImmutableQuestion<String> {
 
-    static List<String> commonConjunctions;
-    static List<String> commonRelativePronouns;
+    private static final List<String> commonConjunctions;
+    private static final List<String> commonRelativePronouns;
 
     // Conjunctions sourced from: https://www.englishclub.com/vocabulary/common-conjunctions-25.htm
     // Relative pronouns sourced from: http://grammar.yourdictionary.com/parts-of-speech/pronouns/relative-pronoun.html
