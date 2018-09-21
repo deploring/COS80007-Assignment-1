@@ -1,9 +1,6 @@
 Programs purpose
 
-This program was developed for a school to test its 
-8-grade students’ aptitude tested on math, recognizing 
-critical information from a given image, spelling, 
-listening, and writing.
+This program was developed for a school to test its\n8-grade students’ aptitude tested on math, recognizing\ncritical information from a given image, spelling,\nlistening, and writing.
 
 
 

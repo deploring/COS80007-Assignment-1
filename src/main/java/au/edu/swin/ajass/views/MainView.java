@@ -82,15 +82,50 @@ public class MainView extends JFrame {
         menuBar.add(testTimer);
 
         // Menu items.
-        JMenuItem about = new JMenuItem("About");
+        JMenu help = new JMenu("Help");
         JMenuItem authors = new JMenuItem("Software Authors");
         JSeparator sep1 = new JSeparator();
-        menu.add(about);
         menu.add(authors);
         menu.add(sep1);
 
+        JMenuItem about = new JMenuItem("About");
+        about.addActionListener((e) -> JOptionPane.showMessageDialog(null, "This program was developed for a school to test its\n8-grade students's aptitude tested on math, recognizing\ncritical information from a given image, spelling,\nlistening, and writing.", "Summary", JOptionPane.INFORMATION_MESSAGE));
+        JMenuItem starting = new JMenuItem("Starting Exam");
+        starting.addActionListener((e) -> JOptionPane.showMessageDialog(null, "Before one can access the program, you must agree to the Terms and\nConditions. This will give you access to the Register menu.\n\nA student must enter his/her ID and school details to recieve a temporary pin.\nThe ID and School Name must be at least 5 characters long. After entering\nID and School Name, press the 'Generate Login PIN' to receive a message\nbox popup containing the PIN. Remember it. The PIN expires in 20 minutes.\n\nPressing 'Reset' will clear all fields.\n\nPress 'Login' to proceed towards login.\n\nPressing 'Go Back' will return the user to the Register Page.\n\nEntering the Student ID and PIN will allow the user to enter the exam.\nThe user will receive a warning before entering the exam asking if\nthey would like to proceed. Pressing 'Yes' will send the user into the\nexam. 'No' will close the message box.\n\nAfter the PIN expires the user can no longer enter the exam and must\nregister again.", "How to Start Exam", JOptionPane.INFORMATION_MESSAGE));
+
+        JMenu questions = new JMenu("Questions");
+
+        JMenuItem answerQuestions = new JMenuItem("How to Answer");
+        answerQuestions.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "How to Answer Questions", JOptionPane.INFORMATION_MESSAGE));
+        JMenuItem listening = new JMenuItem("Listening?");
+        listening.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "Listening Questions", JOptionPane.INFORMATION_MESSAGE));
+        JMenuItem images = new JMenuItem("Images?");
+        images.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "Image Questions", JOptionPane.INFORMATION_MESSAGE));
+        JMenuItem maths = new JMenuItem("Maths?");
+        maths.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "Maths Questions", JOptionPane.INFORMATION_MESSAGE));
+        JMenuItem spelling = new JMenuItem("Spelling?");
+        spelling.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "Spelling Questions", JOptionPane.INFORMATION_MESSAGE));
+        JMenuItem writing = new JMenuItem("Writing?");
+        writing.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "Writing Questions", JOptionPane.INFORMATION_MESSAGE));
+
+        questions.add(answerQuestions);
+        questions.add(listening);
+        questions.add(images);
+        questions.add(maths);
+        questions.add(spelling);
+        questions.add(writing);
+
+        JMenuItem results = new JMenuItem("Interpreting Results");
+
+        help.add(about);
+        help.add(starting);
+        help.add(questions);
+        help.add(results);
+
+        menu.add(help);
+
+
         // Create menu action listeners and display.
-        about.addActionListener(e -> JOptionPane.showMessageDialog(null, aboutText, "About This Program", JOptionPane.INFORMATION_MESSAGE, authorHeart));
         authors.addActionListener(e -> JOptionPane.showMessageDialog(null, authorsText, "About the Authors", JOptionPane.INFORMATION_MESSAGE, authorHeart));
         setJMenuBar(menuBar);
 
