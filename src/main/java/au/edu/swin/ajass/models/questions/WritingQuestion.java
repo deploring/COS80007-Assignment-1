@@ -226,7 +226,7 @@ public final class WritingQuestion extends ImmutableQuestion<String> {
      * <ul>
      * <li>The existing sentence has been classed as "compound".</li>
      * <li>A relative pronoun is used.</li>
-     * <li>A word is capitalised that isn't at the beginning of the sentence.</li>\
+     * <li>A word is capitalised that isn't at the beginning of the sentence.</li>
      * <li>At least fifteen words are used.</li>
      * </ul>
      *

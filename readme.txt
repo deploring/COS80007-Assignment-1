@@ -496,7 +496,7 @@ Estimated marks: 5 / 10
 
 Reasoning: The recording was done in one take 5 hours before the assignment
 was due. It's not worth losing the 10 marks so 5 is a rough estimate for an
-impromptu presentation.
+impromptu presentation. It's also ungodly long.
 
 -------------------------------------------------------------------------
 

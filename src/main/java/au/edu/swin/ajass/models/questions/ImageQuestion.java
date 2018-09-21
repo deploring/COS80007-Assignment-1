@@ -78,7 +78,7 @@ public final class ImageQuestion extends Question {
                 double minY = correct.getY() - CORRECT_RANGE, maxY = correct.getY() + CORRECT_RANGE;
                 if (answer.getX() >= minX && answer.getX() <= maxX && answer.getY() >= minY && answer.getY() <= maxY)
                     temp[i] = true;
-            }
+    }
 
         // if any of the points were not selected, then the answer was not correct.
         for (boolean aTemp : temp) if (!aTemp) return;
