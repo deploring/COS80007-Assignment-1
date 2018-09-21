@@ -1,30 +1,4 @@
-﻿readme.txt
-
-REMEMBER:
-	- Mention Undergradute or Postgradute
-	- All must be submitted in a single ZIP file
-	- Video and Report must be in ZIP file
-	- Your-ID-FirstNameUG/PG-18S2-AJ-Assign1.Zip naming convention
-
-
-TO-DO:
-	- In sources, add the source for terms and conditions code yeah thanks
-	- Under assessment items, edit 'Content' - i just added all the requirements
-	  even if we havent done them, so remove the ones we havent done
-	- In Assessment Items > Content > Exam, specify amount of time spent on each test
-
-Requirements:
-
-	- Add Team Members information
-	- Instructions on how to run the assignment
-	- A list of known bugs
-	- Identification of help we have recieved for the assignment
-		Including - code from other sources
-	-Itemisation of the assessment items completed
-	- Esimated marks
-	- Any discussion that is need to test the software
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+﻿- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		Index
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -160,11 +134,11 @@ Exam:
 - Exam has 15 minutes to be completed
 
 - Each Test Category are considered completed after:
-	- Math
-	- Recognising critical information from a given image
-	- Spelling
-	- Listening
-	- Writing
+	- Math: 3 minutes
+	- Recognising critical information from a given image: 1.5 minutes
+	- Spelling: 3 minutes
+	- Listening: 3 minutes
+	- Writing: 3 minutes
 
 - When a test category has been selected, the remaining categories can
   be seen but cannot be clicked.
