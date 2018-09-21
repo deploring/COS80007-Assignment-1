@@ -56,11 +56,18 @@ Subject ID:	COS80007
 		Instructions to run the assignment
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+Navigate to  AJASS > target and open the executable Jar file titled
+'AJASS1'
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		List of known bugs
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+-
+-
+-
+-
+-
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		Helped Received from outside sources
@@ -86,7 +93,7 @@ of the application:
 /----------/
 - A UML class diagram depicting the structure and relationships of objects
   within the application
-  See: file
+  See: UML.pdf
 
 - Flowcharts showing the logic behind:
 	- Temporary PIN Generation
@@ -94,12 +101,27 @@ of the application:
 	- Adaptively Prompting Questions
 	- Recording Data
 	- Producing Test Results
-  See: files
+  See: Flowcharts.pdf
 
 
 - Use of MVC (Model/View/Controller)
-	Explained within report
-	See: Report
+
+	Models, Views and Controllers are used to seperate the internal
+	representations of data from how the data is presented and
+	manipulated by the user.
+	
+	The benefit of using MVC is that there is high cohesion (logical
+	grouping of related actions) between controllers, and the same
+	with the models.
+	
+	MVC also reduces the amount of coupling between methods.
+	
+	Modifications can be made much more easily with MVC, because
+	responsibilities of the application are seperated, so changes
+	in one view, model or controller, will not adversively affect
+	other components. This also allows multiple people to work on
+	the same project, at the same time.
+
 
 /-----------/
 /  Content: /
@@ -245,8 +267,17 @@ marks.
 
 
 At the end of the test, the panel containing all the buttons will be
- replaced with a text message, showing the end of all the tests.
+replaced with a text message, showing the end of all the tests.
 
+Results:
+
+At the end of the test, all questions with the users answers are displayed.
+Users can see if they have answered correct and what the correct answer were.
+Other statistics include, number of questions answers, percentage completion,
+marks achieved in each test, overall percentage mark.
+
+There are also bar charts and line graphs to depict how the user achieved on
+the test.
 
 /-----------------------------------------------/
 /  Swing/JavaFX + other advanced Java features: /
@@ -262,7 +293,12 @@ At the end of the test, the panel containing all the buttons will be
 /  Formally written word-version report:  /
 /-----------------------------------------/
 
+A formally written word report has been included within the file system.
+This document outlines and discusses scenarios relating to the completion
+of an exam, while providing screenshots and code snippets with explantions
+on how the programming achieves desired features.
 
+See: 
 
 /-----------------/
 /  New features:  /
@@ -273,8 +309,11 @@ At the end of the test, the panel containing all the buttons will be
 /  Video:  /
 /----------/
 
+The video gives a run through on how an exam can be completed, while giving
+explantions to how the code achieves certain criteria stated within the
+assignment.
 
-
+See: 
 
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -286,9 +325,12 @@ At the end of the test, the panel containing all the buttons will be
 1. Provide UML diagrams, showing and justifying association, composition,
    and aggregation wherever appropriate. 
 
-Estimated marks:   / 10
+Estimated marks:  10 / 10
 
 Reasoning:
+A clear, fully completed UML diagram has been submitted. Proper UML
+formatting standards have been followed.
+See: UML.pdf
 
 -------------------------------------------------------------------------
 
@@ -296,17 +338,31 @@ Reasoning:
    activating the test, adaptively prompting the questions, recording the
    data, and producing the test result. 
 
-Estimated marks:   / 10
+Estimated marks:  10 / 10
 
 Reasoning:
+A clear, fully completed flowchart has been submitted for each prompted
+component. Correct standards have been followed when designing the 
+flowcharts.
+See: Flowchats.pdf
 
 -------------------------------------------------------------------------
 
 3. Relate your work with Model Controller View (MVC). 
 
-Estimated marks:   / 10
+Estimated marks:  10 / 10
 
 Reasoning:
+The concept of using MVC has been followed religiously in this application.
+Justification, with advantages, for using MVC has been stated in both 
+this readme file and the formally written report. Naming conventions of 
+files also include whether it is a model, view or controller.
+
+See: In this document 'Itemization of assessment items > Design'
+	and
+     Report.pdf
+	and
+     UML.pdf
 
 -------------------------------------------------------------------------
 
@@ -330,9 +386,13 @@ Reasoning:
 6. Make sure usability, meaning there must be clear and logically      
    organized user interface and functionality. 
 
-Estimated marks:   / 10
+Estimated marks:  8 / 10
 
 Reasoning:
+We have focused predominantly on getting the functionality of the applciation
+working, over having proper usability, in regards to having an organized
+user interface. We believe it flows correctly, but is not good enough for
+full marks.
 
 -------------------------------------------------------------------------
 
@@ -355,9 +415,13 @@ Reasoning:
 9. Implement Terms and Condition entry screen before receiving the 
    temporary PIN, and  an “About” dialog activated from the menu. 
 
-Estimated marks:   / 10
+Estimated marks:  10 / 10
 
 Reasoning:
+A fully functioning Terms and Conditions page has been implemented.
+An 'About' page can be accessed which discusses the program's purpose,
+instructions on how begin the exam, how to answer each test category
+and how to interpret the results.
 
 -------------------------------------------------------------------------
 
@@ -374,9 +438,13 @@ Reasoning:
 11. A readme.txt file explaining features completed, expected mark and
     locating presence of software from other sources.  
 
-Estimated marks:   / 10
+Estimated marks:  10 / 10
 
 Reasoning:
+The file contains all required aspects. Including features completed
+(with their nuances), estimated marks, discussing usage of external
+software, known bugs and more.
+See: This file, 'readme.txt'
 
 -------------------------------------------------------------------------
 
