@@ -1,0 +1,88 @@
+Video Script
+
+Opening:
+Introduce team members 
+ - Name
+ - Student ID
+ - Tute time
+
+Begin with program on Terms and Conditions screen.
+ - Discuss what the screen does
+ - How user proceeds
+
+ - Say briefly how UIState changes
+
+Proceed to PIN generation page
+
+ - Discuss requirements to get a PIN 
+	(ID and school name of at least 5 characters)
+	(hitting get PIN)
+ - What does the reset button do?
+ - Mention PIN expires, and how
+
+ - How is the user details stored? (code required?)
+ 
+Proceed to the Login Page
+
+ - Discuss requirements to enter exam
+ - what happens if the pin has expired?
+ - show warning when trying to enter exam
+
+Proceed to Exam
+
+ - Discuss when an exam is considered finished
+ - Discuss question difficulty and how it changes based on answers given
+ - Dicuss categories, how they can be completed in any order
+
+
+ - Do each test one by one, demonstrate multiple questions
+	(show their nuances)
+EG:
+For all test categories
+ - How do questions work?
+ - How are they answered?
+ - Mention that they can be finished early
+Listening:
+ - How is audio played?
+Image Recognition:
+ - How are images displayed?
+ - How are user clicks recognised?
+ - What does the reset button do?
+Writing:
+ - What are the rules for simple, compund, complex sentence?
+ - How do we detetct these types of sentences?
+ - How does the hint system work>
+Spelling:
+ - What are positive words?
+ - Minimum of 3 letters
+ - How does the hint system work?
+
+
+Proceed to finish the test
+
+Results:
+ - How are questions marks?
+ - How are marks tabulated?
+ - How are the statistics/data held and used?
+ - What is each graph? How is it created?
+
+
+
+Any other notes... 
+cant think of anything
+
+- Unless, show adaptively prompting questions
+- or just mention further details are held within the report
+  and that you should o there for further information
+
+
+
+
+
+
+
+
+
+
+
+
