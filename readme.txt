@@ -349,7 +349,7 @@ The video gives a run through on how an exam can be completed, while giving
 explanations to how the code achieves certain criteria stated within the
 assignment.
 
-The video will be provided in person.
+LINK: https://www.youtube.com/watch?v=xWB3EjmfMz4
 
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -553,7 +553,4 @@ Total(divide modified total by 10 and round up): 16 / 20
 		Additional Discussion
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-
-
-
-
+VIDEO LINK: https://www.youtube.com/watch?v=xWB3EjmfMz4
