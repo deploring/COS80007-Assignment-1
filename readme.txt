@@ -1,4 +1,4 @@
-readme.txt
+﻿readme.txt
 
 REMEMBER:
 	- Mention Undergradute or Postgradute
@@ -480,11 +480,11 @@ Reasoning: We did not have time to consider additional features.
     demonstration will incur the negative marks calculated as 5% of 
     the marks obtained in each marking criteria from 1 to 12.  
 
-Estimated marks:  4? / 5
+Estimated marks:  4 / 5
 
 Reasoning: Neither of us are good at holding full conversations about
 software we've made, but we will try to explain everything to the best
-of our abilities. This, however, implies that the demonstration even happens.
+of our abilities.
 
 -------------------------------------------------------------------------
 
@@ -494,9 +494,9 @@ of our abilities. This, however, implies that the demonstration even happens.
 
 Estimated marks: 5 / 10
 
-Reasoning: The recording was done in one take 5 hours before the assignment
-was due. It's not worth losing the 10 marks so 5 is a rough estimate for an
-impromptu presentation. It's also ungodly long.
+Due to time constraints, the video is not as comprehensive or as short as we
+would like, but we have covered most of the relevant information regarding
+the assignment.
 
 -------------------------------------------------------------------------
 
