@@ -257,18 +257,22 @@ At the end of the test, the panel containing all the buttons will be
 /  Use of Graphics2D API: /
 /-------------------------/
 
+
 /-----------------------------------------/
 /  Formally written word-version report:  /
 /-----------------------------------------/
+
 
 
 /-----------------/
 /  New features:  /
 /-----------------/
 
+
 /----------/
 /  Video:  /
 /----------/
+
 
 
 
