@@ -41,7 +41,6 @@ public class MainView extends JFrame {
     final JMenuItem testTimer;
 
     // Dialog strings.
-    private final String aboutText;
     private final String authorsText;
 
     public MainView() {
@@ -56,7 +55,6 @@ public class MainView extends JFrame {
 
         // Hard-coded dialog texts.
         authorsText = "COS80007 Advanced Java: Assignment 1\n\"The Adaptive Test\"\n\nAuthors:\nJoshua Skinner (101601828)\nEmail: josh@rpg.solar\nWebsite: https://rpg.solar/\n\nBradley Chick (101626151)\nEmail: 101626151@student.swin.edu.au\nWebsite: None";
-        aboutText = "";
 
         // Create view instances.
         terms = new TCView(this);
@@ -88,6 +86,7 @@ public class MainView extends JFrame {
         menu.add(authors);
         menu.add(sep1);
 
+        // A lot of help dialogs.
         JMenuItem about = new JMenuItem("About");
         about.addActionListener((e) -> JOptionPane.showMessageDialog(null, "This program was developed for a school to test its\n8-grade students's aptitude tested on math, recognizing\ncritical information from a given image, spelling,\nlistening, and writing.", "Summary", JOptionPane.INFORMATION_MESSAGE));
         JMenuItem starting = new JMenuItem("Starting Exam");
@@ -96,17 +95,17 @@ public class MainView extends JFrame {
         JMenu questions = new JMenu("Questions");
 
         JMenuItem answerQuestions = new JMenuItem("How to Answer");
-        answerQuestions.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "How to Answer Questions", JOptionPane.INFORMATION_MESSAGE));
+        answerQuestions.addActionListener((e) -> JOptionPane.showMessageDialog(null, "How to answer each test category\n\nAfter entering the exam, the student must complete five test categories.\nThey can be completed in any order.\n\nThe exam lasts for 15 minutes before completion. Each category also has a \nlimited compeltion time.\n\nThe exam can be ended early after completing at least one test category.\n\nTo begin a test, click on any button. The text on each button will start\nthat relevant test category.\n\nIf the user answers a question correctly they will receive a harder question.\nIf the user answers incorrectly, they will receive an easier question.", "How to Answer Questions", JOptionPane.INFORMATION_MESSAGE));
         JMenuItem listening = new JMenuItem("Listening?");
-        listening.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "Listening Questions", JOptionPane.INFORMATION_MESSAGE));
+        listening.addActionListener((e) -> JOptionPane.showMessageDialog(null, "In the listening test, the user must click the button to listen to the\nsentence(s). Note the accent. Select the correct key words that are \nspoken to answer the question correctly. There are 8 questions.\n\nPressing 'Answer' after selecting an answer will send the user to the\nnext question. In some questions, more than one option can be chosen.\n\nThe listening test can be ended early, after answering one question.\n", "Listening Questions", JOptionPane.INFORMATION_MESSAGE));
         JMenuItem images = new JMenuItem("Images?");
-        images.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "Image Questions", JOptionPane.INFORMATION_MESSAGE));
+        images.addActionListener((e) -> JOptionPane.showMessageDialog(null, "The user receives a prompt and must click on a relevant part of the image\nto answer the prompt.\n\nAfter clicking the image, the area selected will appear circled. This can\nbe reset by clicking the 'Reset' button. Some questions require you to \nclick more than once.\n\nPressing 'Answer' after selecting an answer will send the user to the\nnext question.\n\nThe image recognition test can be ended early, after answering one question.", "Image Questions", JOptionPane.INFORMATION_MESSAGE));
         JMenuItem maths = new JMenuItem("Maths?");
-        maths.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "Maths Questions", JOptionPane.INFORMATION_MESSAGE));
+        maths.addActionListener((e) -> JOptionPane.showMessageDialog(null, "In the Math test the user must answer the question by either selecting\na multiple choice answer, or typing in the answer in a text field.\n\nPressing 'Answer' after selecting an answer will send the user to the\nnext question.\n\nThe math test can be ended early, after answering one question.", "Maths Questions", JOptionPane.INFORMATION_MESSAGE));
         JMenuItem spelling = new JMenuItem("Spelling?");
-        spelling.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "Spelling Questions", JOptionPane.INFORMATION_MESSAGE));
+        spelling.addActionListener((e) -> JOptionPane.showMessageDialog(null, "In the spelling test, the user must spell positive words starting with\nthe prompted letter. Words must be more than 3 letters long.\n\nIf the user takes too long to respond, a message box will appear with\na hint. If the user then answers correctly, they will receive half marks,\nelse they receive no marks.\n\nPressing 'Answer' after selecting an answer will send the user to the\nnext question.\n\nThe spelling test can be ended early, after answering one question.", "Spelling Questions", JOptionPane.INFORMATION_MESSAGE));
         JMenuItem writing = new JMenuItem("Writing?");
-        writing.addActionListener((e) -> JOptionPane.showMessageDialog(null, "", "Writing Questions", JOptionPane.INFORMATION_MESSAGE));
+        writing.addActionListener((e) -> JOptionPane.showMessageDialog(null, "In the writing test, the user must write either a simple, compund, or\ncomplex sentence. These require:\n\nSimple: \n     * The first letter of the first word is capitalised.\n     * No words contain out-of-place capitalisation (except for first character in each word).\n     * There is a full stop at the end of the sentence, and only one full stop.\n     * There are no numeric characters used.\n     * At least five words are used.\n\nCompound:\n     * The existing sentence has been classed as \"simple\".\n     * A conjunction is used.\n     * A comma is used.\n     * At least ten words are used.\n\nComplex:\n     * The existing sentence has been classed as \"compound\".\n     * A relative pronoun is used.\n     * A word is capitalised that isn't at the beginning of the sentence.\n     * At least fifteen words are used.\n\nPressing 'Answer' after selecting an answer will send the user to the\nnext question, unless there is an error in their answer. If there is an\nerror, they will have 10 seconds to fix their error. If they fix the \nerror, they will recieve half marks for the question, else they receive\nno marks.\n\nThe writing test can be ended early, after answering one question.", "Writing Questions", JOptionPane.INFORMATION_MESSAGE));
 
         questions.add(answerQuestions);
         questions.add(listening);
@@ -116,6 +115,7 @@ public class MainView extends JFrame {
         questions.add(writing);
 
         JMenuItem results = new JMenuItem("Interpreting Results");
+        results.addActionListener(e -> JOptionPane.showMessageDialog(null, "After the conclusion of the exam, the user will be brought to a results \nscreen. Here the student can see the questions asked for each test \ncategory and their responses. The number of questions, number of \nquestions issued, number of question answered correctly, marks accrued.\ncontribution to overall mark and time taken for each test is shown.\n\nYou can switch between the results for each test category by pressing\nthe relevantly titled buttons.\n\nThe 'Overall Results' button displays the user's marks receives, a \npercentage mark and the number of tests taken.\n\nA bar chart shows the percentage score of the user in each test category.\n\nA line graph shows the difficulty of the question over time for each\ntest category.\n", "Interpreting Results", JOptionPane.INFORMATION_MESSAGE));
 
         help.add(about);
         help.add(starting);
