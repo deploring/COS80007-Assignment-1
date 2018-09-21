@@ -173,7 +173,7 @@ Exam:
 
 - Questions have three difficulties: Hard, Harder, Hardest
 - If the user gets a question correct, they will receive a question of harder
-  diffculty
+  difficulty
 - If the user gets a question incorrect, they will receive a question of
   easier difficulty
 - If the user is already at the Hard difficulty and get a question incorrect,
@@ -192,8 +192,7 @@ Exam:
 The time remaining for the exam can be seen at all times.
 
 All test categories have a timer to see time remaining. If the
-time is soon to run out, it will flash red and an alert sound 
-will play.
+time is soon to run out, an alert sound will play.
 
 After a test has been completed, the user can click the 'finish'
 button to end the test, or wait for the time to expire.
@@ -228,14 +227,14 @@ Simple questions must be:
      * At least five words are used.
 
 Compound: 5 Marks
-Compund questions must be:
+Compound questions must be:
      * The existing sentence has been classed as "simple".
      * A conjunction is used.
      * A comma is used.
      * At least ten words are used.
 
 Complex: 10 Marks
-Complex questons must be:
+Complex questions must be:
      * The existing sentence has been classed as "compound".
      * A relative pronoun is used.
      * A word is capitalised that isn't at the beginning of the sentence.
@@ -248,7 +247,7 @@ the program has detected; if the correction is done in less than
 
 +++++++++++++++++++++++++++++++
 Listening:
-Student msut select keyword(s) fomr one-sentence, two-sentence, and
+Student must select keyword(s) from one-sentence, two-sentence, and
 three-sentence voices of diverse accents.
 One sentence:	2 marks
 Two sentence:	5 marks
@@ -267,8 +266,8 @@ In spelling students are prompted to spell positive words staring with
 "J" = 5 marks
 "Z" = 10 marks
 If the user does not respond within 10 seconds there will be a popup
-window that prompts the first 3 chracters of a desired word for 5 seconds.
-If the user answers correct they will be awarded with half the alloted
+window that prompts the first 3 characters of a desired word for 5 seconds.
+If the user answers correct they will be awarded with half the allotted
 marks.
 ++++++++++++++++++++++++++++++
 
@@ -290,11 +289,67 @@ the test.
 /  Swing/JavaFX + other advanced Java features: /
 /-----------------------------------------------/
 
+List of all Swing/JavaFX stuff used:
+    JPanels:
+        - Used in all views. Used to space and structure stuff.
+    JFrame:
+        - Used in MainView to display stuff on screen.
+    JMenu, JMenuItem, etc.:
+        - Used to display help dialogs, time remaining, etc.
+    Listeners:
+        - ActionListener
+        - KeyListener
+        - MouseListener
+        - ItemListener
+        - Used generally throughout the GUI of the program for event handling.
+    JComponents:
+        - JButton
+        - JLabel
+        - JTextField
+        - JTextArea
+        - JCheckBox
+        - JRadioButton
+    Layout Managers:
+        - GridBagLayout
+        - GridBagConstraints
+        - BorderLayout
+        - GridLayout
+        - FlowLayout
+        - Used generally throughout program to structure stuff.
+    JOptionPane:
+        - Used to display dialog messages.
+
+List of Advanced Java features used:
+    Threads:
+        - Used for the test and exam timers.
+        - Used to delay things from happening, like the spelling message hint.
+    Data Structures:
+        - Maps (nested HashMap to store lists of questions by category and difficulty)
+        - LinkedList (to store tests and questions in order)
+        - Set (to store question answers)
+        - Iterators (over tests and questions)
+        - Collections methods (shuffle)
+        - Arrays methods (asList)
+    File Handling:
+        - questions.json (QuestionCache question loading)
+        - Loading Image Files
+        - Loading Sound Files
+    Lambdas:
+        - Used to shorten anonymous class declarations.
+    Inner Classes
+    UML Diagram
+
+
 
 /-------------------------/
 /  Use of Graphics2D API: /
 /-------------------------/
 
+Used in:
+    - ImageQuestion click rendering.
+    - ImageQuestion results rendering.
+    - Bar chart results rendering.
+    - Line chart results rendering.
 
 /-----------------------------------------/
 /  Formally written word-version report:  /
@@ -320,7 +375,7 @@ The video gives a run through on how an exam can be completed, while giving
 explanations to how the code achieves certain criteria stated within the
 assignment.
 
-See: 
+The video will be provided in person.
 
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -502,7 +557,7 @@ the assignment.
 
 Late Penalty: No marks lost
 % External Code acknowledged: No marks lost
-% External code no acknowldged: No marks lost
+% External code no acknowledged: No marks lost
 
 Reasoning:
 No external code was used in the making of this application. Therefore, we
