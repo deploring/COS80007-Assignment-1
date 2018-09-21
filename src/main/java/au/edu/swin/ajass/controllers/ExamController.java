@@ -87,7 +87,7 @@ public final class ExamController {
      * Called upon when the student has completed all
      * tests, or when the global timer has depleted.
      */
-    private void endExam() {
+    public void endExam() {
         // Stop the global timer.
         globalTimer.interrupt();
     }

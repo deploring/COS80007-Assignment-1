@@ -80,7 +80,8 @@ public class ExamView extends JPanel implements IView {
         revalidate();
         repaint();
 
-        // Hide global timer.
+        // Stop and hide global timer.
+        main.exam().endExam();
         main.globalTimer.setVisible(false);
         testCompleted(true);
     }

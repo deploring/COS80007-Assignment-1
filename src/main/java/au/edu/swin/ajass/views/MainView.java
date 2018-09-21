@@ -130,8 +130,8 @@ public class MainView extends JFrame {
         setJMenuBar(menuBar);
 
         // Land user on Terms & Conditions View
-        exam().registerStudentInfo("Placeholder", "Placeholder");
-        update(UIState.TERMS);
+        exam().registerStudentInfo("101601828", "Swinburne");
+        update(UIState.EXAM);
     }
 
     /**
