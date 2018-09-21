@@ -34,7 +34,7 @@ public class TCView extends JPanel implements IView {
         // Reference back to MainView (JFrame)
         this.main = main;
 
-        /*  -- SOURCED CODE AND/OR TEXT --
+        /*  -- SOURCED TEXT --
             Source: http://simpleeulas.weebly.com/fair-eulas.html
             We take absolutely no responsibility for the writing of this EULA.
             It has been modified and inserted into our program to fill space on the T&C screen. */

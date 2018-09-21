@@ -56,18 +56,23 @@ Subject ID:	COS80007
 		Instructions to run the assignment
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-Navigate to  AJASS > target and open the executable Jar file titled
-'AJASS1'
+1. Download and Install "Maven". Follow their instructions for installation.
+    - http://maven.apache.org/install.html
+2. Navigate to the project's root directory in a command prompt/terminal, where "src" is located.
+3. Type "mvn clean install".
+4. Wait a while, especially if it is your first time compiling something with Maven.
+5. Compiled JAR file is located in target/.
+6. Click to run the JAR file, or type "java -jar AJASS1.jar" after navigating into "target/".
+
+7x. If you are unable to compile the program, a pre-compiled AJASS1.jar will be included in the project root directory.
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		List of known bugs
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
--
--
--
--
--
+- Exam Timer does not stop sometimes, even when interrupted. (doesn't matter however, as you are already in the results view by then)
+- Calculating Writing Results sometimes does not work. It produces a NullPointerException and we do not know why.
+- Finishing tests in an oddly specific way causes the UI to glitch out (not major)
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		Helped Received from outside sources
@@ -84,6 +89,9 @@ of the application:
 	Text to Speech Voice Generation
 	http://www.fromtexttospeech.com/
 
+And, we have used this website for a EULA template:
+    http://simpleeulas.weebly.com/fair-eulas.html
+
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		Itemization of assessment items
@@ -93,7 +101,7 @@ of the application:
 /----------/
 - A UML class diagram depicting the structure and relationships of objects
   within the application
-  See: UML.pdf
+  See: UML Class Diagram.png
 
 - Flowcharts showing the logic behind:
 	- Temporary PIN Generation
@@ -106,7 +114,7 @@ of the application:
 
 - Use of MVC (Model/View/Controller)
 
-	Models, Views and Controllers are used to seperate the internal
+	Models, Views and Controllers are used to separate the internal
 	representations of data from how the data is presented and
 	manipulated by the user.
 	
@@ -117,8 +125,8 @@ of the application:
 	MVC also reduces the amount of coupling between methods.
 	
 	Modifications can be made much more easily with MVC, because
-	responsibilities of the application are seperated, so changes
-	in one view, model or controller, will not adversively affect
+	responsibilities of the application are separated, so changes
+	in one view, model or controller, will not adversely affect
 	other components. This also allows multiple people to work on
 	the same project, at the same time.
 
@@ -234,10 +242,9 @@ Complex questons must be:
      * At least fifteen words are used.
 
 If there is any mistake detected by the software, the software
- will give the student clues by underlining for 4 seconds the
- areas affected by mistakes or errors; if the correction is 
-done in less than 10 sec, half of the allotted marks will be 
-awarded.
+will give the student clues by prompting them with the errors
+the program has detected; if the correction is done in less than
+10 sec, half of the allotted marks will be awarded.
 
 +++++++++++++++++++++++++++++++
 Listening:
@@ -295,10 +302,10 @@ the test.
 
 A formally written word report has been included within the file system.
 This document outlines and discusses scenarios relating to the completion
-of an exam, while providing screenshots and code snippets with explantions
+of an exam, while providing screenshots and code snippets with explanations
 on how the programming achieves desired features.
 
-See: 
+See: Report.pdf
 
 /-----------------/
 /  New features:  /
@@ -310,7 +317,7 @@ See:
 /----------/
 
 The video gives a run through on how an exam can be completed, while giving
-explantions to how the code achieves certain criteria stated within the
+explanations to how the code achieves certain criteria stated within the
 assignment.
 
 See: 
@@ -344,7 +351,7 @@ Reasoning:
 A clear, fully completed flowchart has been submitted for each prompted
 component. Correct standards have been followed when designing the 
 flowcharts.
-See: Flowchats.pdf
+See: Flowcharts.pdf
 
 -------------------------------------------------------------------------
 
@@ -369,17 +376,22 @@ See: In this document 'Itemization of assessment items > Design'
 4. Use Swing/JavaFx and advanced java features as far as possible to 
    implement each of the 5 categories. 
 
-Estimated marks:   / 50
+Estimated marks:  35 / 50
 
-Reasoning:
+Reasoning: Since we are both undergrads fresh out of OOP, we believe we have
+used Swing/JavaFX to a fair extent, but not enough to warrant maximum or even
+high marks. Based on our current knowledge and utilisation of the features
+presented over the last few weeks, we have agreed that 35 is a good estimate.
 
 -------------------------------------------------------------------------
 
 5. Use event handling. 
 
-Estimated marks:   / 10
+Estimated marks:  10 / 10
 
-Reasoning:
+Reasoning: We have used event handling where it is necessary throughout
+the entire UI to ensure that all the functions required to fulfill the
+purpose of the software do what we have intended them to do.
 
 -------------------------------------------------------------------------
 
@@ -398,22 +410,27 @@ full marks.
 
 7. Use Graphics2D API as far as possible. 
 
-Estimated marks:   / 10
+Estimated marks:  8 / 10
 
-Reasoning:
+Reasoning: Graphics2D is an outdated, primitive API which we believe should be
+reserved for Applets and other low-level learning. We believe we have made as
+much practical use of it as possible, through the means of ImageQuestions,
+as well as drawing the graphs in the overall results.
 
 -------------------------------------------------------------------------
 
 8. Include reasonable documentation according to the Javadoc standards. 
 
-Estimated marks:   / 10
+Estimated marks:  9 / 10
 
-Reasoning:
+Reasoning: Every single class and method are meaningfully documented. We
+have attempted to follow the structure of Javadoc as much as possible but
+still feel it is lacking in some minor areas, such as HTML formatting.
 
 -------------------------------------------------------------------------
 
 9. Implement Terms and Condition entry screen before receiving the 
-   temporary PIN, and  an “About” dialog activated from the menu. 
+   temporary PIN, and  an ï¿½Aboutï¿½ dialog activated from the menu. 
 
 Estimated marks:  10 / 10
 
@@ -429,9 +446,11 @@ and how to interpret the results.
     screenshots related to the scenarios must be within your compressed 
     folder as mentioned at page 1.   
 
-Estimated marks:   / 30
+Estimated marks:  25 / 30
 
-Reasoning:
+Reasoning: The report covers the entire functionality of the program, but
+at the same time hides a bit of the software's internals. Overall, it is a
+well-written, informative,
 
 -------------------------------------------------------------------------
 
@@ -451,9 +470,9 @@ See: This file, 'readme.txt'
 12. At least two new features (5 marks) in regards to voice assistance 
     or whatever.
 
-Estimated marks:   / 5
+Estimated marks:  0 / 5
 
-Reasoning:
+Reasoning: We did not have time to consider additional features.
 
 -------------------------------------------------------------------------
 
@@ -461,9 +480,11 @@ Reasoning:
     demonstration will incur the negative marks calculated as 5% of 
     the marks obtained in each marking criteria from 1 to 12.  
 
-Estimated marks:   / 5
+Estimated marks:  4? / 5
 
-Reasoning:
+Reasoning: Neither of us are good at holding full conversations about
+software we've made, but we will try to explain everything to the best
+of our abilities. This, however, implies that the demonstration even happens.
 
 -------------------------------------------------------------------------
 
@@ -471,9 +492,11 @@ Reasoning:
     and display of code that is testable to compare with what is recorded
     and presented.
 
-Estimated marks: / 10
+Estimated marks: 5 / 10
 
-Reasoning:
+Reasoning: The recording was done in one take 5 hours before the assignment
+was due. It's not worth losing the 10 marks so 5 is a rough estimate for an
+impromptu presentation.
 
 -------------------------------------------------------------------------
 
@@ -488,11 +511,11 @@ code have also been referenced.
 
 -------------------------------------------------------------------------
 
-Total: / 200
+Total: 154 / 200
 
-Modified Total: / 200
+Modified Total: 154 / 200
 
-Total(divide modified total by 10 and round up): / 20
+Total(divide modified total by 10 and round up): 16 / 20
 
 -------------------------------------------------------------------------
 

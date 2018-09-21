@@ -215,7 +215,9 @@ public class ExamNavbarView extends JPanel implements IView {
         public void run() {
             try {
                 // Do a tick. Update display.
-                updateTimeDisplay(main.exam().tickExam());
+                int tick = main.exam().tickExam();
+                updateTimeDisplay(tick);
+                if (tick < 0) return;
                 // Continue running this thread until instructed to stop.
                 Thread.sleep(1000);
                 if (!interrupted)
